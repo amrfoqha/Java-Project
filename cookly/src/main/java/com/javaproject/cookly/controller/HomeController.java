@@ -20,5 +20,10 @@ public class HomeController {
           return "homePage.jsp";
       }
 
+      @GetMapping("/login")
+      public String login() {
+          return "this is the login page";
+      }
+
     
 }
