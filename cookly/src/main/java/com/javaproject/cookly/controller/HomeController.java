@@ -22,6 +22,10 @@ public class HomeController {
       public String login() {
           return "this is the login page";
       }
+      @GetMapping("/ingredientMatcher")
+      public String ingredientMatcher() {
+          return "IngredientMatcher.jsp";
+      }
 
     
 }
