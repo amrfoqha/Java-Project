@@ -1,5 +1,6 @@
 package com.javaproject.cookly.controller;
 
+import com.javaproject.cookly.service.userService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -19,12 +20,10 @@ import com.javaproject.cookly.service.RecipeService;
 
 import jakarta.validation.Valid;
 
-
 @Controller
 public class HomeController {
     @Autowired
     private RecipeService recipeService;
-
     @RequestMapping(value="/**")
     public String redirect() {
         return "redirect:/";
@@ -56,6 +55,7 @@ public class HomeController {
                            BindingResult result,
                            Model model) {
 
+
         if (result.hasErrors()) {
             model.addAttribute("loginUser", new LoginUser());
             return "login.jsp";
@@ -68,6 +68,7 @@ public class HomeController {
     public String login(@Valid @ModelAttribute("loginUser") LoginUser loginUser,
                         BindingResult result,
                         Model model) {
+
 
         if (result.hasErrors()) {
             model.addAttribute("newUser", new User());
@@ -84,6 +85,13 @@ public class HomeController {
       public String marketList() {
           return "MarketList.jsp";
       }
+
+    @GetMapping("/about/us")
+    public String aboutUs() {
+
+        return "aboutus.jsp";
+    }
+
  
 
     
