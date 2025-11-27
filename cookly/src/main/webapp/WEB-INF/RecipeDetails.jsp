@@ -17,18 +17,24 @@
                             * {
                                 font-family: 'Cairo', sans-serif;
                             }
+
+                            body {
+                                font-family: 'Inter', sans-serif;
+                                background-color: #f8fafc;
+                            }
                         </style>
+                        <script src="../js/recipeDetails.js"></script>
                     </head>
 
                     <body>
                         <header class="bg-white shadow-lg sticky top-0 z-50 px-10">
                             <div class="flex justify-between px-6 py-5 items-center">
-                                <!-- Logo + Title -->
-                                <div class="flex items-center space-x-4">
+                                <div class="flex items-center  space-x-4">
+
+
                                     <span
-                                        class="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-orange-200 to-pink-200 text-orange-600 rounded-2xl shadow-sm">
-                                        <!-- Chef Hat Icon -->
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none"
+                                        class="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-orange-200 to-pink-200 text-orange-600 rounded-2xl shadow-sm">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none"
                                             viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
                                                 d="M12 6a4 4 0 00-8 0c0 1.657 1.343 3 3 3h10a3 3 0 100-6 4 4 0 00-8 0" />
@@ -36,41 +42,28 @@
                                                 d="M5 12h14v6a2 2 0 01-2 2H7a2 2 0 01-2-2v-6z" />
                                         </svg>
                                     </span>
-
-                                    <div>
-                                        <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight">
+                                    <div class="flex flex-col justify-center space-y-1 ">
+                                        <h1 class="text-3xl font-bold text-gray-900 tracking-tight">
                                             Smart Recipe Platform
                                         </h1>
-
                                         <span
                                             class="text-sm font-semibold bg-clip-text text-transparent bg-gradient-to-r from-orange-500 to-pink-500">
                                             AI-Powered Recipe Discovery
                                         </span>
                                     </div>
-                                    <c:if test="${loggedInUser != null}">
-                                        <a href="/logout"
-                                            class="bg-orange-600 text-white text-sm font-medium py-2 px-4 rounded-lg shadow-md hover:bg-orange-700">Logout</a>
-                                    </c:if>
-                                    <c:if test="${loggedInUser == null}">
-                                        <a href="/login"
-                                            class="bg-orange-600 text-white text-sm font-medium py-2 px-4 rounded-lg shadow-md hover:bg-orange-700">Login
-                                            / Register</a>
-                                    </c:if>
-                                </div>
 
-                                <!-- Button -->
-                                <button
-                                    class="bg-gradient-to-r from-orange-500 to-pink-500 text-white text-base font-semibold py-2.5 px-5 rounded-xl shadow-md hover:opacity-90 transition flex items-center space-x-2">
-                                    <!-- Login Icon -->
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M15 12H3m12-6l6 6-6 6" />
-                                    </svg>
-                                    <span><a href="/login"
-                                            class="bg-orange-600 text-white text-sm font-medium py-2 px-4 rounded-lg shadow-md hover:bg-orange-700">Login
-                                            / Register</a></span>
-                                </button>
+
+
+                                </div>
+                                <c:if test="${loggedInUser != null}">
+                                    <a href="/logout"
+                                        class="bg-orange-600 text-white text-sm font-medium py-2 px-4 rounded-lg shadow-md hover:bg-orange-700">Logout</a>
+                                </c:if>
+                                <c:if test="${loggedInUser == null}">
+                                    <a href="/login"
+                                        class="bg-orange-600 text-white text-sm font-medium py-2 px-4 rounded-lg shadow-md hover:bg-orange-700">Login
+                                        / Register</a>
+                                </c:if>
                             </div>
 
                             <!-- Nav -->
@@ -109,7 +102,7 @@
                                     <span>Add Recipe</span>
                                 </a>
 
-                                <a href="/profile"
+                                <a href="/profile/${loggedInUser.id}"
                                     class="text-gray-700 hover:text-orange-600 transition flex items-center space-x-2">
                                     <!-- User Icon -->
                                     <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none"
@@ -141,8 +134,19 @@
                                     <path d="M19 12H5"></path>
                                 </svg>Back to recipes</a>
                             <div class="bg-white rounded-lg shadow-sm overflow-hidden">
-                                <div class="relative h-96"><img src="${recipe.image}" alt="${recipe.title}"
-                                        class="w-full h-full object-cover"></div>
+                                <div class="relative h-96">
+                                    <button onclick="addToFavorites(this)" data-recipe-id="${recipe.id}"
+                                        class="p-2 absolute top-3 right-3 z-10 rounded-full backdrop-blur-sm transition-all bg-white/90 text-gray-600  ">
+
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                            viewBox="0 0 24 24" fill="red" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round"
+                                            class="lucide lucide-bookmark" aria-hidden="true">
+                                            <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"></path>
+                                        </svg>
+                                    </button>
+                                    <img src="${recipe.image}" alt="${recipe.title}" class="w-full h-full object-cover">
+                                </div>
                                 <div class="p-6">
                                     <div class="flex items-start justify-between mb-4">
                                         <div class="flex-1">
@@ -194,8 +198,8 @@
                                                 items="${fn:split(fn:replace(fn:replace(recipe.ingredients, '[', ''), ']', ''), ',')}">
 
                                                 <ul class="space-y-2">
-                                                    <li class="flex items-start gap-2"><span
-                                                            class="text-orange-500 mt-1">•</span><span>${fn:trim(fn:replace(ingredient,
+                                                    <li class="flex items-center gap-2 mt-2"><span
+                                                            class="text-orange-500">&#9830;</span><span>${fn:trim(fn:replace(ingredient,
                                                             '"', ''))}</span>
                                                     </li>
                                                 </ul>
