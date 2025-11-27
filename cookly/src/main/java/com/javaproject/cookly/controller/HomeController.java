@@ -1,5 +1,6 @@
 package com.javaproject.cookly.controller;
 
+import com.javaproject.cookly.service.userService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -19,7 +20,6 @@ import com.javaproject.cookly.service.userService;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
-
 
 @Controller
 public class HomeController {

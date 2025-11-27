@@ -72,7 +72,17 @@
                                 </c:if>
                             </div>
 
+                            <div>
+                                <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight">
+                                    Smart Recipe Platform
+                                </h1>
 
+                                <span
+                                    class="text-sm font-semibold bg-clip-text text-transparent bg-gradient-to-r from-orange-500 to-pink-500">
+                                    AI-Powered Recipe Discovery
+                                </span>
+                            </div>
+                            </div>
 
                             <nav class="hidden md:flex ml-6 mt-2 space-x-8 text-sm font-medium pb-3">
                                 <a href="/" class="text-orange-600 border-b-2 border-orange-600 pb-1">Recipes</a>
@@ -90,6 +100,80 @@
                                         Matcher</a>
                                 </c:if>
                             </nav>
+                        </header>
+                        <!-- Button -->
+                        <button
+                            class="bg-gradient-to-r from-orange-500 to-pink-500 text-white text-base font-semibold py-2.5 px-5 rounded-xl shadow-md hover:opacity-90 transition flex items-center space-x-2">
+                            <!-- Login Icon -->
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 12H3m12-6l6 6-6 6" />
+                            </svg>
+                            <span><a href="/login"
+                                    class="bg-orange-600 text-white text-sm font-medium py-2 px-4 rounded-lg shadow-md hover:bg-orange-700">Login
+                                    / Register</a></span>
+                        </button>
+                        </div>
+
+                        <!-- Nav -->
+                        <nav class="hidden md:flex ml-8 mt-3 space-x-10 text-base font-semibold pb-4">
+
+                            <a href="/"
+                                class="text-orange-600 border-b-2 border-orange-600 pb-1 flex items-center space-x-2">
+                                <!-- Recipe Icon -->
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M4 6h16M4 12h16M4 18h7" />
+                                </svg>
+                                <span>Recipes</span>
+                            </a>
+
+                            <a href="/marketList"
+                                class="text-gray-700 hover:text-orange-600 transition flex items-center space-x-2">
+                                <!-- Shopping Basket Icon -->
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M4 9h16l-1.5 9h-13L4 9zM7 9l3-6m4 6l3-6" />
+                                </svg>
+                                <span>Market List</span>
+                            </a>
+
+                            <a href="/addRecipe"
+                                class="text-gray-700 hover:text-orange-600 transition flex items-center space-x-2">
+                                <!-- Plus Icon -->
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 4v16m8-8H4" />
+                                </svg>
+                                <span>Add Recipe</span>
+                            </a>
+
+                            <a href="/profile"
+                                class="text-gray-700 hover:text-orange-600 transition flex items-center space-x-2">
+                                <!-- User Icon -->
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5.121 17.804A9 9 0 1118.88 17.804M12 7a4 4 0 100-8 4 4 0 000 8z" />
+                                </svg>
+                                <span>Profile</span>
+                            </a>
+
+                            <a href="/ingredientMatcher"
+                                class="text-gray-700 hover:text-orange-600 transition flex items-center space-x-2">
+                                <!-- Search Icon -->
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M21 21l-4.35-4.35M11 18a7 7 0 100-14 7 7 0 000 14z" />
+                                </svg>
+                                <span>Ingredient Matcher</span>
+                            </a>
+                        </nav>
                         </header>
 
 
@@ -222,6 +306,9 @@
                                 </nav>
                             </div>
                         </main>
+                        <footer class="bg-gray-100 mt-12 py-6 text-center">
+                            <p class="text-gray-600">&copy; 2025 coockly. All rights reserved.</p>
+                        </footer>
 
 
 

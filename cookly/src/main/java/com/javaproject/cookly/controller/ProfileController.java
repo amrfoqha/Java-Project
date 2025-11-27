@@ -1,6 +1,10 @@
 package com.javaproject.cookly.controller;
 
 
+import com.javaproject.cookly.model.Recipe;
+import com.javaproject.cookly.model.User;
+import com.javaproject.cookly.service.RecipeService;
+import com.javaproject.cookly.service.userService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,5 +33,28 @@ public class ProfileController {
         
         return "Profile.jsp"; 
     }
+
+
+
+    @Autowired
+    private RecipeService recipeService;
+
+    // Add recipe to favorites
+    @PostMapping("/favorite/{recipeId}")
+    public String addFavorite(@PathVariable Long recipeId) {
+
+        Long loggedInUserId = 1L; // Replace with session user ID
+        User user = userService.findUserById(loggedInUserId);
+
+        Recipe recipe = recipeService.getRecipeById(recipeId);
+
+        if (user != null && recipe != null) {
+            user.getFavoritedRecipes().add(recipe);
+            userService.save(user);
+        }
+
+        return "redirect:/profile";
+    }
+
 
 }
