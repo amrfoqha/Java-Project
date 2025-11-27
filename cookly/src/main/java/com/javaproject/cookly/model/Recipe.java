@@ -32,7 +32,7 @@ public class Recipe {
     private Long id;
     @NotBlank(message = "Title must not be blank")
     @Column(nullable = false)
-    @Size(min = 2, max = 30, message = "Title must be between 2 and 30 characters long")
+    @Size(min = 2, max = 100, message = "Title must be between 2 and 30 characters long")
     private String title;
 
     @NotBlank(message = "Description must not be blank")
@@ -46,6 +46,11 @@ public class Recipe {
     @Lob
     @Size(min = 2, max = 2500, message = "Ingredients must be between 2 and 2500 characters long")
     private String ingredients;
+
+    @NotBlank(message = "Cuisine must not be blank")
+    @Column(nullable = false)
+    @Size(min = 2, max = 2500, message = "Cuisine must be between 2 and 2500 characters long")
+    private String cuisine;
 
     @NotBlank(message = "Steps must not be blank")
     @Column(nullable = false)
@@ -110,7 +115,7 @@ public class Recipe {
     }
 
     public Recipe(String title, String description, String ingredients, String steps, String image, String category,
-            String cookingTime, int calories) {
+            String cookingTime, int calories, String cuisine) {
         this.title = title;
         this.description = description;
         this.ingredients = ingredients;
@@ -119,6 +124,13 @@ public class Recipe {
         this.category = category;
         this.cookingTime = cookingTime;
         this.calories = calories;
+        this.cuisine = cuisine;
+    }
+    public String getCuisine() {
+        return cuisine;
+    }
+    public void setCuisine(String cuisine) {
+        this.cuisine = cuisine;
     }
     public Long getId() {
         return id;

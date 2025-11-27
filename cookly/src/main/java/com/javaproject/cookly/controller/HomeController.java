@@ -57,6 +57,14 @@ public class HomeController {
 
         return "redirect:/";
     }
+      @GetMapping("/login")
+      public String login() {
+          return "this is the login page";
+      }
+      @GetMapping("/ingredientMatcher")
+      public String ingredientMatcher() {
+          return "IngredientMatcher.jsp";
+      }
 
     
 }
