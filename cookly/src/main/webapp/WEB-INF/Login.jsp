@@ -77,6 +77,9 @@
     </div>
 
 </div>
+<footer class="bg-gray-100 mt-12 py-6 text-center">
+    <p class="text-gray-600">&copy; 2025 coockly. All rights reserved.</p>
+</footer>
 
 </body>
 </html>
