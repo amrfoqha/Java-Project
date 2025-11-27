@@ -49,8 +49,16 @@ public class RecipeService {
         return recipeRepo.findAll(PageRequest.of(page, size));
 
     }
+
     public List<Recipe> getRecipesByName(String name) {
         return recipeRepo.findByTitleContainingIgnoreCase(name);
+    }
+    
+    public void save(Recipe recipe) {
+        recipeRepo.save(recipe);
+    }
+    public boolean checkFavorite(Long recipeId, Long userId) {
+        return recipeRepo.existsByFavoritedBy(recipeId, userId);
     }
 
 }

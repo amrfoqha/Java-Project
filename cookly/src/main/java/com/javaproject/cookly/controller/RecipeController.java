@@ -56,8 +56,10 @@ public class RecipeController {
         if (httpSession.getAttribute("loggedInUser") == null) {
             return "redirect:/login";
         }
+        boolean isFavorited = recipeService.checkFavorite(id, ((User) httpSession.getAttribute("loggedInUser")).getId());
         Recipe recipe = recipeService.getRecipeById(id);
         model.addAttribute("recipe", recipe);
+        model.addAttribute("isFavorited", isFavorited);
         return "RecipeDetails.jsp";
     }
 
