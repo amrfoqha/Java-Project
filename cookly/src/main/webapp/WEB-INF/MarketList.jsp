@@ -37,6 +37,15 @@
                     AI-Powered Recipe Discovery
                 </span>
                             </div>
+                            <c:if test="${loggedInUser != null}">
+                                <a href="/logout"
+                                    class="bg-orange-600 text-white text-sm font-medium py-2 px-4 rounded-lg shadow-md hover:bg-orange-700">Logout</a>
+                            </c:if>
+                            <c:if test="${loggedInUser == null}">
+                                <a href="/login"
+                                    class="bg-orange-600 text-white text-sm font-medium py-2 px-4 rounded-lg shadow-md hover:bg-orange-700">Login
+                                    / Register</a>
+                            </c:if>
                         </div>
 
                         <!-- Button -->

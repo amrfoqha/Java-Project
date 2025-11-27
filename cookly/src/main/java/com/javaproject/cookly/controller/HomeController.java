@@ -8,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,17 +16,22 @@ import com.javaproject.cookly.model.LoginUser;
 import com.javaproject.cookly.model.Recipe;
 import com.javaproject.cookly.model.User;
 import com.javaproject.cookly.service.RecipeService;
+import com.javaproject.cookly.service.userService;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 @Controller
 public class HomeController {
     @Autowired
     private RecipeService recipeService;
-    @RequestMapping(value="/**")
-    public String redirect() {
-        return "redirect:/";
-    }
+    @Autowired
+    private userService userService;
+
+    // @RequestMapping(value="/**")
+    // public String redirect() {
+    //     return "redirect:/";
+    // }
     @GetMapping("/")
     public String home(@RequestParam(defaultValue = "0") int page,
                        Model model) {
@@ -44,54 +48,61 @@ public class HomeController {
     }
 
     @GetMapping("/login")
-    public String showAuthPage(Model model) {
-        model.addAttribute("newUser", new User());
-        model.addAttribute("loginUser", new LoginUser());
+    public String showAuthPage(@ModelAttribute("newUser") User newUser,
+                               @ModelAttribute("loginUser") LoginUser loginUser,BindingResult result,
+                               Model model) {
         return "Login.jsp";
     }
 
     @PostMapping("/register")
-    public String register(@Valid @ModelAttribute("newUser") User newUser,
-                           BindingResult result,
-                           Model model) {
-
-
-        if (result.hasErrors()) {
-            model.addAttribute("loginUser", new LoginUser());
-            return "login.jsp";
-        }
+    public String register(@Valid @ModelAttribute("newUser") User newUser,BindingResult result,
+                               @ModelAttribute("loginUser") LoginUser loginUser,Model model, HttpSession httpSession) {
+                
+               User user = userService.createUser(newUser, result);
+               if (result.hasErrors()) {
+              return "Login.jsp";
+          } else {
+              httpSession.setAttribute("loggedInUser", user);
+          }             
 
         return "redirect:/";
     }
 
     @PostMapping("/login")
     public String login(@Valid @ModelAttribute("loginUser") LoginUser loginUser,
-                        BindingResult result,
-                        Model model) {
+                        BindingResult result,@ModelAttribute("newUser") User newUser,Model model, HttpSession httpSession) {
+                            
 
-
-        if (result.hasErrors()) {
-            model.addAttribute("newUser", new User());
-            return "login.jsp";
-        }
-
-        return "redirect:/";
+        User user = userService.loginUser(loginUser, result);
+                 if (result.hasErrors()) {
+                     return "Login.jsp";
+                 }
+                 else {
+                    httpSession.setAttribute("loggedInUser", user);
+                    return "redirect:/";
+                 }
     }
       @GetMapping("/ingredientMatcher")
-      public String ingredientMatcher() {
+      public String ingredientMatcher(HttpSession httpSession) {
+        if (httpSession.getAttribute("loggedInUser") == null) {
+            return "redirect:/login";
+        }
           return "IngredientMatcher.jsp";
       }
       @GetMapping("/marketList")
-      public String marketList() {
+      public String marketList(HttpSession httpSession) {
+        if (httpSession.getAttribute("loggedInUser") == null) {
+            return "redirect:/login";
+        }
           return "MarketList.jsp";
       }
 
-    @GetMapping("/about/us")
-    public String aboutUs() {
 
-        return "aboutus.jsp";
-    }
-
+      @GetMapping("/logout")
+      public String logout(HttpSession httpSession) {
+          httpSession.invalidate();
+          return "redirect:/";
+      }
  
 
     
