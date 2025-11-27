@@ -13,6 +13,7 @@
             <body class="bg-gradient-to-br from-orange-50 via-white to-emerald-50 min-h-screen">
             <header class="bg-white shadow-lg sticky top-0 z-50 px-10">
                 <div class="flex justify-between px-6 py-5 items-center">
+
                     <!-- Logo + Title -->
                     <div class="flex items-center space-x-4">
             <span class="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-orange-200 to-pink-200 text-orange-600 rounded-2xl shadow-sm">
@@ -37,6 +38,7 @@
                         </div>
                     </div>
 
+
                     <!-- Button -->
                     <button
                             class="bg-gradient-to-r from-orange-500 to-pink-500 text-white text-base font-semibold py-2.5 px-5 rounded-xl shadow-md hover:opacity-90 transition flex items-center space-x-2">
@@ -45,12 +47,15 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                   d="M15 12H3m12-6l6 6-6 6" />
                         </svg>
-                        <span>Login / Register</span>
+                        <span><a href="/login" class="bg-orange-600 text-white text-sm font-medium py-2 px-4 rounded-lg shadow-md hover:bg-orange-700">Login / Register</a></span>
                     </button>
+
                 </div>
+
 
                 <!-- Nav -->
                 <nav class="hidden md:flex ml-8 mt-3 space-x-10 text-base font-semibold pb-4">
+
 
                     <a href="/" class="text-gray-700 hover:text-orange-600 transition flex items-center space-x-2">
                         <!-- Recipe Icon -->

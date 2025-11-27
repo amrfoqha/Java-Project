@@ -41,9 +41,9 @@
             </div>
 
             <div>
-                <form:label path="confirm" class="block font-semibold">Confirm Password</form:label>
-                <form:errors path="confirm" cssClass="text-red-500 text-sm"/>
-                <form:password path="confirm" cssClass="w-full px-3 py-2 border rounded-lg"/>
+                <form:label path="confirmPassword" class="block font-semibold">Confirm Password</form:label>
+                <form:errors path="confirmPassword" cssClass="text-red-500 text-sm"/>
+                <form:password path="confirmPassword" cssClass="w-full px-3 py-2 border rounded-lg"/>
             </div>
 
             <input type="submit"
@@ -59,15 +59,15 @@
         <form:form action="/login" method="post" modelAttribute="loginUser" class="space-y-4">
 
             <div>
-                <form:label path="email" class="block font-semibold">Email</form:label>
-                <form:errors path="email" cssClass="text-red-500 text-sm"/>
-                <form:input path="email" cssClass="w-full px-3 py-2 border rounded-lg"/>
+                <form:label path="loginEmail" class="block font-semibold">Email</form:label>
+                <form:errors path="loginEmail" cssClass="text-red-500 text-sm"/>
+                <form:input path="loginEmail" cssClass="w-full px-3 py-2 border rounded-lg"/>
             </div>
 
             <div>
-                <form:label path="password" class="block font-semibold">Password</form:label>
-                <form:errors path="password" cssClass="text-red-500 text-sm"/>
-                <form:password path="password" cssClass="w-full px-3 py-2 border rounded-lg"/>
+                <form:label path="loginPassword" class="block font-semibold">Password</form:label>
+                <form:errors path="loginPassword" cssClass="text-red-500 text-sm"/>
+                <form:password path="loginPassword" cssClass="w-full px-3 py-2 border rounded-lg"/>
             </div>
 
             <input type="submit"

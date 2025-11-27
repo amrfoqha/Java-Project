@@ -47,7 +47,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                       d="M15 12H3m12-6l6 6-6 6" />
                             </svg>
-                            <span>Login / Register</span>
+                            <span><a href="/login" class="bg-orange-600 text-white text-sm font-medium py-2 px-4 rounded-lg shadow-md hover:bg-orange-700">Login / Register</a></span>
                         </button>
                     </div>
 
