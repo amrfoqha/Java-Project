@@ -57,7 +57,7 @@
                     <h1 class="text-4xl font-extrabold text-orange-500 mb-10 text-center relative z-10">Create New
                         Recipe</h1>
 
-                    <form:form modelAttribute="recipe" action="/saveRecipe/${user.id}" method="post"
+                    <form:form modelAttribute="recipe" action="/saveRecipe/${lo.id}" method="post"
                         class="space-y-6 relative z-10">
 
                         <!-- Recipe Title + Image -->
@@ -128,10 +128,7 @@
 
                         <!-- Buttons -->
                         <div class="flex flex-col md:flex-row gap-4 mt-8 justify-center">
-
-
-                            <a href="/profile" class="bg-gradient-to-r from-orange-400 to-emerald-500 text-white px-8 py-3 rounded-full font-semibold hover:scale-105 hover:shadow-xl transition-all duration-300">
-                                Create Recipe></a>
+                            <button class="bg-gradient-to-r from-orange-400 to-emerald-500 text-white px-8 py-3 rounded-full font-semibold hover:scale-105 hover:shadow-xl transition-all duration-300">create Recipe</button>
 
                             <a href="/"
                                 class="bg-gray-200 text-gray-800 px-8 py-3 rounded-full font-semibold hover:bg-gray-300 hover:scale-105 transition-all duration-300 text-center shadow-sm">
