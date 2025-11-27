@@ -19,21 +19,33 @@
                                 Recipe
                                 Discovery</span>
                         </div>
-                        <button
-                            class="bg-orange-600 text-white text-sm font-medium py-2 px-4 rounded-lg shadow-md hover:bg-orange-700">Login
-                            / Register</button>
+                        <c:if test="${loggedInUser != null}">
+                            <a href="/logout"
+                                class="bg-orange-600 text-white text-sm font-medium py-2 px-4 rounded-lg shadow-md hover:bg-orange-700">Logout</a>
+                        </c:if>
+                        <c:if test="${loggedInUser == null}">
+                            <a href="/login"
+                                class="bg-orange-600 text-white text-sm font-medium py-2 px-4 rounded-lg shadow-md hover:bg-orange-700">Login
+                                / Register</a>
+                        </c:if>
                     </div>
 
 
                     <nav class="hidden md:flex ml-6 mt-2 space-x-8 text-sm font-medium pb-3">
                         <a href="/" class="text-gray-600 hover:text-orange-600 transition">Recipes</a>
-                        <a href="/marketList" class="text-gray-600 hover:text-orange-600 transition">Market
-                            List</a>
-                        <a href="/addRecipe" class="text-orange-600 border-b-2 border-orange-600 pb-1">Add
-                            Recipe</a>
-                        <a href="/profile" class="text-gray-600 hover:text-orange-600 transition">Profile</a>
-                        <a href="/ingredientMatcher" class="text-gray-600 hover:text-orange-600 transition">Ingredient
-                            Matcher</a>
+
+                        <c:if test="${loggedInUser != null}">
+
+                            <a href="/marketList" class="text-gray-600 hover:text-orange-600 transition">Market
+                                List</a>
+                            <a href="/addRecipe" class="text-orange-600 border-b-2 border-orange-600 pb-1">Add
+                                Recipe</a>
+                            <a href="/profile/${loggedInUser.id}"
+                                class="text-gray-600 hover:text-orange-600 transition">Profile</a>
+                            <a href="/ingredientMatcher"
+                                class="text-gray-600 hover:text-orange-600 transition">Ingredient
+                                Matcher</a>
+                        </c:if>
                     </nav>
                 </header>
 

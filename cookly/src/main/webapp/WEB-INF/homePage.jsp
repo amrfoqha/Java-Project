@@ -47,6 +47,7 @@
                                 }
                             }
                         </script>
+                        <script src="../js/search.js"></script>
                     </head>
 
                     <body class="min-h-screen">
@@ -60,21 +61,34 @@
                                         Recipe
                                         Discovery</span>
                                 </div>
-                                <a href="/login" class="bg-orange-600 text-white text-sm font-medium py-2 px-4 rounded-lg shadow-md hover:bg-orange-700">Login / Register</a>
+                                <c:if test="${loggedInUser != null}">
+                                    <a href="/logout"
+                                        class="bg-orange-600 text-white text-sm font-medium py-2 px-4 rounded-lg shadow-md hover:bg-orange-700">Logout</a>
+                                </c:if>
+                                <c:if test="${loggedInUser == null}">
+                                    <a href="/login"
+                                        class="bg-orange-600 text-white text-sm font-medium py-2 px-4 rounded-lg shadow-md hover:bg-orange-700">Login
+                                        / Register</a>
+                                </c:if>
                             </div>
 
 
 
                             <nav class="hidden md:flex ml-6 mt-2 space-x-8 text-sm font-medium pb-3">
                                 <a href="/" class="text-orange-600 border-b-2 border-orange-600 pb-1">Recipes</a>
-                                <a href="/marketList" class="text-gray-600 hover:text-orange-600 transition">Market
-                                    List</a>
-                                <a href="/addRecipe" class="text-gray-600 hover:text-orange-600 transition">Add
-                                    Recipe</a>
-                                <a href="/profile" class="text-gray-600 hover:text-orange-600 transition">Profile</a>
-                                <a href="/ingredientMatcher"
-                                    class="text-gray-600 hover:text-orange-600 transition">Ingredient
-                                    Matcher</a>
+
+
+                                <c:if test="${loggedInUser != null}">
+                                    <a href="/marketList" class="text-gray-600 hover:text-orange-600 transition">Market
+                                        List</a>
+                                    <a href="/addRecipe" class="text-gray-600 hover:text-orange-600 transition">Add
+                                        Recipe</a>
+                                    <a href="/profile/${loggedInUser.id}"
+                                        class="text-gray-600 hover:text-orange-600 transition">Profile</a>
+                                    <a href="/ingredientMatcher"
+                                        class="text-gray-600 hover:text-orange-600 transition">Ingredient
+                                        Matcher</a>
+                                </c:if>
                             </nav>
                         </header>
 
@@ -89,7 +103,7 @@
                                 <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
                                     <!-- Search Input - REMOVED SVG and adjusted padding from pl-10 to pl-4 -->
                                     <div class="relative flex-grow">
-                                        <input type="text" placeholder="Search recipe..."
+                                        <input id="searchInput" type="text" placeholder="Search recipe..."
                                             class="w-full pl-4 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-primary-orange focus:border-primary-orange transition"
                                             aria-label="Search recipes">
                                     </div>
@@ -114,7 +128,7 @@
                             </section>
 
 
-                            <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <section id="result" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
                                 <c:forEach var="recipe" items="${recipes}">
 

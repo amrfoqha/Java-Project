@@ -21,9 +21,15 @@
                                     Recipe
                                     Discovery</span>
                             </div>
-                            <button
-                                class="bg-orange-600 text-white text-sm font-medium py-2 px-4 rounded-lg shadow-md hover:bg-orange-700">Login
-                                / Register</button>
+                            <c:if test="${loggedInUser != null}">
+                                <a href="/logout"
+                                    class="bg-orange-600 text-white text-sm font-medium py-2 px-4 rounded-lg shadow-md hover:bg-orange-700">Logout</a>
+                            </c:if>
+                            <c:if test="${loggedInUser == null}">
+                                <a href="/login"
+                                    class="bg-orange-600 text-white text-sm font-medium py-2 px-4 rounded-lg shadow-md hover:bg-orange-700">Login
+                                    / Register</a>
+                            </c:if>
                         </div>
 
 
@@ -33,7 +39,8 @@
                                 List</a>
                             <a href="/addRecipe" class="text-gray-600 hover:text-orange-600 transition">Add
                                 Recipe</a>
-                            <a href="/profile" class="text-gray-600 hover:text-orange-600 transition">Profile</a>
+                            <a href="/profile/${loggedInUser.id}"
+                                class="text-gray-600 hover:text-orange-600 transition">Profile</a>
                             <a href="/ingredientMatcher"
                                 class="text-gray-600 hover:text-orange-600 transition">Ingredient
                                 Matcher</a>

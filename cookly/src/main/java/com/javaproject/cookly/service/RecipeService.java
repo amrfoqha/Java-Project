@@ -49,5 +49,8 @@ public class RecipeService {
         return recipeRepo.findAll(PageRequest.of(page, size));
 
     }
+    public List<Recipe> getRecipesByName(String name) {
+        return recipeRepo.findByTitleContainingIgnoreCase(name);
+    }
 
 }
