@@ -60,10 +60,9 @@
                                         Recipe
                                         Discovery</span>
                                 </div>
-                                <button
-                                    class="bg-orange-600 text-white text-sm font-medium py-2 px-4 rounded-lg shadow-md hover:bg-orange-700">Login
-                                    / Register</button>
+                                <a href="/login" class="bg-orange-600 text-white text-sm font-medium py-2 px-4 rounded-lg shadow-md hover:bg-orange-700">Login / Register</a>
                             </div>
+
 
 
                             <nav class="hidden md:flex ml-6 mt-2 space-x-8 text-sm font-medium pb-3">
