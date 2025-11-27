@@ -1,11 +1,14 @@
 package com.javaproject.cookly.service;
 
-import java.util.Date;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Sort;
 import com.javaproject.cookly.model.Recipe;
 import com.javaproject.cookly.model.User;
 import com.javaproject.cookly.repository.RecipeRepo;
@@ -42,4 +45,9 @@ public class RecipeService {
         }
     }
     
+    public Page<Recipe> getRecipesByPage(int page, int size) {
+        return recipeRepo.findAll(PageRequest.of(page, size));
+
+    }
+
 }
