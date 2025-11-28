@@ -81,6 +81,7 @@
                                         </svg>
                                         <span>Recipes</span>
                                     </a>
+<c:if test="${not empty sessionScope.loggedInUser}">
 
                                     <a href="/marketList"
                                         class="text-gray-700 hover:text-orange-600 transition flex items-center space-x-2">
@@ -125,6 +126,15 @@
                                         </svg>
                                         <span>Ingredient Matcher</span>
                                     </a>
+</c:if>
+                                    <a href="/about" class="flex items-center space-x-1 text-gray-600 hover:text-orange-600 transition">
+                                        <!-- Icon: info circle -->
+                                        <svg class="w-4 h-4 text-gray-500 hover:text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M12 20a8 8 0 100-16 8 8 0 000 16z"/>
+                                        </svg>
+                                        <span>About Us</span>
+                                    </a>
+
                                 </nav>
                             </header>
                             <div class="max-w-5xl mx-auto mt-10"><a href="/"

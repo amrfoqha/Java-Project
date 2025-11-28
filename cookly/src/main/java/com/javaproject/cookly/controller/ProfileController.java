@@ -12,35 +12,28 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.javaproject.cookly.model.User;
-import com.javaproject.cookly.service.userService;
-
-import jakarta.servlet.http.HttpSession;
-
 @Controller
 public class ProfileController {
-    @Autowired
-    private userService userService;
+@Autowired
+private userService userService;
 
 
+    @GetMapping("/profile")
+    public String profile(Model model) {
+        Long loggedInUserId = 1L;
+        User user = userService.findUserById(loggedInUserId);
 
-    @GetMapping("/profile/{id}")
-    public String profile(@PathVariable Long id, Model model,HttpSession httpSession) {
-        if (httpSession.getAttribute("loggedInUser") == null) {
+        if (user == null) {
             return "redirect:/login";
         }
-        User user = userService.findUserById(id);
+
         model.addAttribute("user", user);
-        
-        return "Profile.jsp"; 
+
+        // Just return the JSP page directly
+        return "Profile.jsp"; // JSP path: src/main/webapp/WEB-INF/Profile.jsp
     }
 
 
-
-    
-
-    // Add recipe to favorites
-    
 
 
 }
