@@ -1,4 +1,5 @@
 package com.javaproject.cookly.model;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -206,10 +207,25 @@ public class Recipe {
     public List<Comment> getComments() {
         return comments;
     }
+
     public void setComments(List<Comment> comments) {
         this.comments = comments;
     }
 
+    public double getAverageRating() {
+            int sum = 0;
+            for (Comment comment : comments) {
+                sum += comment.getRate();
+            }
+        if(comments.size() == 0) {
+            return 0;
+        }
+        return (double) sum / comments.size();
+    }
+
+    public void setAverageRating(double averageRating) {
+        this.averageRating = averageRating;
+    }
 
     public void setUser(User user) {
     }

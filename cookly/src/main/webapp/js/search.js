@@ -1,12 +1,9 @@
-// search.js
-
 function search() {
     const searchInput = document.getElementById('searchInput').value.trim();
     const results = document.getElementById('result');
 
     if (!results) return;
 
-    // If input is empty, you can choose to show top recipes or clear
     const url = '/search?q=' + encodeURIComponent(searchInput);
     fetch(url)
         .then(response => {
@@ -31,11 +28,9 @@ function search() {
                     if (Array.isArray(recipe.category)) {
                         categories = recipe.category;
                     } else if (typeof recipe.category === 'string') {
-                        // convert stringified array to array
                         categories = JSON.parse(recipe.category.replace(/'/g, '"'));
                     }
                 } catch (e) {
-                    // fallback if parsing fails
                     categories = [recipe.category];
                 }
 
@@ -112,22 +107,15 @@ function search() {
         });
 }
 
-// ---------------------------
-// Event Listeners
-// ---------------------------
 document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('searchInput');
     if (!searchInput) return;
 
     let debounceTimeout;
-
-    // Debounce input search
     searchInput.addEventListener('input', () => {
         clearTimeout(debounceTimeout);
         debounceTimeout = setTimeout(search, 400);
     });
-
-    // Search on Enter key
     searchInput.addEventListener('keyup', e => {
         if (e.key === 'Enter') search();
     });

@@ -52,17 +52,18 @@
                             </div>
                         </div>
 
-                        <!-- Login Button -->
                         <c:if test="${loggedInUser != null}">
                             <a href="/logout"
-                                class="bg-orange-600 text-white text-sm font-medium py-2 px-4 rounded-lg shadow-md hover:bg-orange-700">Logout</a>
+                                class="bg-gradient-to-r from-orange-500 to-pink-500 text-white text-sm font-semibold py-2.5 px-5 rounded-xl shadow-xl hover:opacity-90 smooth-hover">Logout</a>
                         </c:if>
                         <c:if test="${loggedInUser == null}">
                             <a href="/login"
-                                class="bg-orange-600 text-white text-sm font-medium py-2 px-4 rounded-lg shadow-md hover:bg-orange-700">Login
-                                / Register</a>
+                                class="bg-gradient-to-r from-orange-500 to-pink-500 text-white text-sm font-semibold py-2.5 px-5 rounded-xl shadow-xl hover:opacity-90 smooth-hover">
+                                Login / Register
+                            </a>
                         </c:if>
                     </div>
+
 
                     <!-- NAV -->
                     <nav class="hidden md:flex ml-8 mt-3 space-x-10 text-base font-semibold pb-4">
