@@ -2,6 +2,7 @@ package com.javaproject.cookly.service;
 
 import java.util.Optional;
 
+import jakarta.transaction.Transactional;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -58,6 +59,14 @@ public class userService {
         
     return goldUser;
 }
+    @Transactional
+    public User findUserByIdWithFavorites(Long id) {
+        User user = userRepo.findById(id).orElse(null);
+        if (user != null) {
+            user.getFavoritedRecipes().size(); // force initialization
+        }
+        return user;
+    }
 
 public User findUserById(Long id) {
     return userRepo.findById(id).orElse(null);
@@ -65,6 +74,8 @@ public User findUserById(Long id) {
 public User findUserByEmail(String email) {
     return userRepo.findByEmail(email).orElse(null);
 }
+
+
 
 
 

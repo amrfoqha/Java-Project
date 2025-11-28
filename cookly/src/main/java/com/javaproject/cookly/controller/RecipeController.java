@@ -1,6 +1,7 @@
 package com.javaproject.cookly.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,19 +43,55 @@ public class RecipeController {
 
         return "AddRecipe.jsp";
     }
+//    @PostMapping("/saveRecipe/{id}")
+//    public String saveRecipe(@PathVariable("id")User user, @Valid @ModelAttribute("recipe") Recipe recipe, BindingResult result, Model model, HttpSession httpSession) {
+//        System.out.println(recipe);
+//        User user1 = userService.findUserById(user.getId());
+//        model.addAttribute("user1", user1);
+//        if (result.hasErrors()) {
+//            return "AddRecipe.jsp";
+//        }
+//        recipeService.createRecipe(recipe ,user1 );
+//
+//        return "redirect:/addRecipe";
+//
+//    }
+
     @PostMapping("/saveRecipe/{id}")
-    public String saveRecipe(@PathVariable("id")User user, @Valid @ModelAttribute("recipe") Recipe recipe, BindingResult result, Model model, HttpSession httpSession) {
+    public String saveRecipe(@PathVariable("id") User user,
+                             @Valid @ModelAttribute("recipe") Recipe recipe,
+                             BindingResult result,
+                             Model model,
+                             HttpSession httpSession) {
+
         System.out.println(recipe);
+
         User user1 = userService.findUserById(user.getId());
         if (result.hasErrors()) {
             model.addAttribute("user1", user1);
             return "AddRecipe.jsp";
         }
-        recipeService.createRecipe(recipe ,user1 );
 
-        return "redirect:/addRecipe";
+        // Save the recipe and associate with user
+        Recipe savedRecipe = recipeService.createRecipe(recipe, user1);
 
+        // Add recipe to user's publishedRecipes list if not already
+        if (user1.getPublishedRecipes() != null) {
+            user1.getPublishedRecipes().add(savedRecipe);
+        } else {
+            List<Recipe> publishedRecipes = new ArrayList<>();
+            publishedRecipes.add(savedRecipe);
+            user1.setPublishedRecipes(publishedRecipes);
+        }
+
+        // Save updated user (if cascade is not set)
+        userService.save(user1);
+
+        return "redirect:/profile/" + user1.getId();
     }
+
+
+
 
     @GetMapping("/recipeDetails/{id}")
     public String showRecipeDetails(@PathVariable Long id, Model model, HttpSession httpSession) {

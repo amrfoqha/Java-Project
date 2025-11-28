@@ -34,7 +34,7 @@ public class HomeController {
     public String home(@RequestParam(defaultValue = "0") int page,
                        Model model) {
 
-        int pageSize = 9; 
+        int pageSize = 9;
 
         Page<Recipe> recipePage = recipeService.getRecipesByPage(page, pageSize);
 
@@ -55,13 +55,13 @@ public class HomeController {
     @PostMapping("/register")
     public String register(@Valid @ModelAttribute("newUser") User newUser,BindingResult result,
                                @ModelAttribute("loginUser") LoginUser loginUser,Model model, HttpSession httpSession) {
-                
+
                User user = userService.createUser(newUser, result);
                if (result.hasErrors()) {
               return "Login.jsp";
           } else {
               httpSession.setAttribute("loggedInUser", user);
-          }             
+          }
 
         return "redirect:/";
     }
@@ -69,7 +69,7 @@ public class HomeController {
     @PostMapping("/login")
     public String login(@Valid @ModelAttribute("loginUser") LoginUser loginUser,
                         BindingResult result,@ModelAttribute("newUser") User newUser,Model model, HttpSession httpSession) {
-                            
+
 
         User user = userService.loginUser(loginUser, result);
                  if (result.hasErrors()) {
@@ -102,8 +102,20 @@ public class HomeController {
           httpSession.invalidate();
           return "redirect:/";
       }
-      
-      
 
-    
+
+    @GetMapping("/about")
+    public String about() {
+        // No login check, anyone can access
+        return "aboutus.jsp"; // logical view name, no .jsp
+    }
+
+
+
+
+
+
+
+
+
 }

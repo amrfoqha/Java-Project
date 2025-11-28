@@ -1,146 +1,238 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us - Smart Recipe Planner</title>
-    <!-- Load Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        /* Custom styles for the Inter font and smooth transitions */
-        :root {
-            --color-primary: #10B981; /* Emerald 500 */
-            --color-secondary: #064E3B; /* Emerald 900 */
-        }
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f7fafc;
-        }
-        .text-primary { color: var(--color-primary); }
-        .bg-secondary { background-color: var(--color-secondary); }
-        .border-primary { border-color: var(--color-primary); }
-        .btn-primary {
-            background-color: var(--color-primary);
-            transition: all 0.3s ease;
-        }
-        .btn-primary:hover {
-            background-color: #059669; /* Emerald 600 */
-            transform: translateY(-1px);
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
-        }
-    </style>
-</head>
-<body>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+        <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+            <!DOCTYPE html>
+            <html lang="en">
 
-<main class="min-h-screen">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>About Us - Smart Recipe Planner</title>
+                <script src="https://cdn.tailwindcss.com"></script>
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+                <style>
+                    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap');
 
-    <!-- Hero Section: Mission Statement -->
-    <section class="bg-secondary text-white py-24 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-6xl mx-auto text-center">
-            <p class="text-primary text-lg font-semibold mb-3 tracking-wider uppercase">Our Story</p>
-            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-6">
-                Transforming Mealtime from Chore to Choice.
-            </h1>
-            <p class="text-xl max-w-3xl mx-auto opacity-80">
-                We believe that eating healthy, reducing food waste, and enjoying home-cooked meals shouldn't require endless planning. Our platform leverages intelligent technology to deliver personalized meal plans and recipes tailored perfectly to your life.
-            </p>
-        </div>
-    </section>
+                    * {
+                        font-family: 'Cairo', sans-serif;
+                    }
 
-    <!-- Our Foundation: Story and Inspiration -->
-    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <!-- Story Text -->
-            <div class="lg:order-1">
-                <h2 class="text-3xl font-bold mb-4 text-gray-800">The Kitchen of the Future, Today.</h2>
-                <p class="text-gray-600 mb-6 leading-relaxed">
-                    The idea for the Smart Recipe Planner was born out of frustration: too many meal planning apps offered generic solutions, ignoring dietary complexities, budget constraints, and the reality of a busy schedule. Our founders, a mix of culinary experts and AI engineers, decided to build something better.
-                </p>
-                <p class="text-gray-600 mb-6 leading-relaxed">
-                    Our goal was simple: to create a system that truly understands your pantry, your goals, and your family's preferences. We moved beyond simple filters to develop proprietary algorithms that suggest recipes based on what you *have*, what you *love*, and what your body *needs*.
-                </p>
-                <p class="text-gray-600 font-semibold leading-relaxed">
-                    We're not just a recipe database—we are your personal culinary assistant, committed to making every meal a success.
-                </p>
-            </div>
-            <!-- Placeholder Image (styled to look professional) -->
-            <div class="lg:order-2 flex justify-center">
-                <img
-                        src="https://placehold.co/600x400/D1FAE5/065F46?text=The+Smart+Kitchen"
-                        alt="A stylized placeholder image of a modern kitchen being used for cooking"
-                        class="rounded-xl shadow-2xl object-cover transform hover:scale-[1.02] transition duration-500 border-4 border-primary"
-                />
-            </div>
-        </div>
-    </section>
+                    body {
+                        font-family: 'Inter', sans-serif;
+                        background-color: #f8fafc;
+                    }
+                </style>
+            </head>
 
-    <!-- Our Values Section -->
-    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
-        <div class="max-w-6xl mx-auto text-center">
-            <h2 class="text-4xl font-extrabold mb-4 text-gray-800">Our Core Values</h2>
-            <p class="text-lg text-gray-500 mb-12">These principles guide every recipe recommendation and product decision we make.</p>
+            <body class="bg-gradient-to-br from-orange-50 via-white to-green-50 min-h-screen">
+                <header class="bg-white shadow-lg sticky top-0 z-50 px-10 smooth-hover">
+                    <div class="flex justify-between px-6 py-5 items-center">
 
-            <div class="grid md:grid-cols-3 gap-8">
+                        <div class="flex items-center space-x-4 smooth-hover">
+                            <span
+                                class="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-orange-300 to-pink-300 text-orange-700 rounded-2xl shadow-md">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                                        d="M12 6a4 4 0 00-8 0c0 1.657 1.343 3 3 3h10a3 3 0 100-6 4 4 0 00-8 0" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                                        d="M5 12h14v6a2 2 0 01-2 2H7a2 2 0 01-2-2v-6z" />
+                                </svg>
+                            </span>
 
-                <!-- Value 1: Health & Wellness -->
-                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition duration-300">
-                    <!-- Icon: Heart SVG -->
-                    <svg class="w-10 h-10 text-primary mb-4 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
-                    <h3 class="text-xl font-semibold mb-3 text-gray-800">Personalized Health</h3>
-                    <p class="text-gray-500">
-                        We prioritize nutritional balance and dietary requirements, ensuring our smart plans align perfectly with your wellness goals—whether for fitness, allergy management, or simple, clean eating.
-                    </p>
-                </div>
+                            <div>
+                                <h1
+                                    class="text-3xl font-extrabold bg-gradient-to-r from-orange-600 to-pink-500 bg-clip-text text-transparent">
+                                    Smart Recipe Platform
+                                </h1>
+                                <span class="text-sm font-semibold text-gray-600">AI-Powered Recipe Discovery</span>
+                            </div>
+                        </div>
 
-                <!-- Value 2: Innovation & Efficiency -->
-                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition duration-300">
-                    <!-- Icon: Lightbulb SVG -->
-                    <svg class="w-10 h-10 text-primary mb-4 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 20.155V21a1 1 0 102 0v-1.845a7.999 7.999 0 004.97-6.281l-.99-4.952a1 1 0 00-.99-.817H6.38a1 1 0 00-.99.817l-.99 4.952A7.999 7.999 0 0012 20.155zM12 3a4 4 0 00-4 4h8a4 4 0 00-4-4z"></path></svg>
-                    <h3 class="text-xl font-semibold mb-3 text-gray-800">Smart Technology</h3>
-                    <p class="text-gray-500">
-                        We leverage AI to optimize your planning, minimize food waste, and save you time. Our technology constantly learns from your feedback to refine suggestions and improve your experience.
-                    </p>
-                </div>
+                        <c:if test="${loggedInUser != null}">
+                            <a href="/logout"
+                                class="bg-gradient-to-r from-orange-500 to-pink-500 text-white text-sm font-semibold py-2.5 px-5 rounded-xl shadow-xl hover:opacity-90 smooth-hover">Logout</a>
+                        </c:if>
+                        <c:if test="${loggedInUser == null}">
+                            <a href="/login"
+                                class="bg-gradient-to-r from-orange-500 to-pink-500 text-white text-sm font-semibold py-2.5 px-5 rounded-xl shadow-xl hover:opacity-90 smooth-hover">
+                                Login / Register
+                            </a>
+                        </c:if>
+                    </div>
 
-                <!-- Value 3: Sustainability & Impact -->
-                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition duration-300">
-                    <!-- Icon: Leaf/Globe SVG -->
-                    <svg class="w-10 h-10 text-primary mb-4 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9h-3m-1 9a9 9 0 01-9-9m-3 0h3m-9 0h12m-9 5a4.5 4.5 0 01-4.5-4.5v-1.25a.75.75 0 011.5 0V14h7v-1.25a.75.75 0 011.5 0V14h7v-1.25a.75.75 0 011.5 0V14a4.5 4.5 0 01-4.5 4.5h-12zM12 5.25a.75.75 0 00-1.5 0v3a.75.75 0 001.5 0v-3z"></path></svg>
-                    <h3 class="text-xl font-semibold mb-3 text-gray-800">Conscious Cooking</h3>
-                    <p class="text-gray-500">
-                        Our planning tools are designed to reduce your environmental footprint by minimizing ingredient overlap, helping you use up what you buy, and championing seasonal, local ingredients.
-                    </p>
-                </div>
+                    <nav class="hidden md:flex ml-8 mt-3 space-x-10 text-base font-semibold pb-4">
 
-            </div>
-        </div>
-    </section>
+                        <a href="/" class="flex items-center space-x-1 text-gray-600 hover:text-orange-600 transition">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" stroke="currentColor" fill="none">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 6h16M4 12h16M4 18h7" />
+                            </svg>
+                            <span>Recipes</span>
+                        </a>
+                        <c:if test="${not empty loggedInUser}">
+                            <a href="/marketList"
+                                class="text-gray-700 hover:text-orange-600 flex items-center space-x-2 smooth-hover">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" stroke="currentColor"
+                                    fill="none">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M4 9h16l-1.5 9h-13L4 9zM7 9l3-6m4 6l3-6" />
+                                </svg>
+                                <span>Market List</span>
+                            </a>
 
-    <!-- The People Behind the Platform (CTA) -->
-    <section class="py-24 px-4 sm:px-6 lg:px-8 bg-white">
-        <div class="max-w-4xl mx-auto text-center">
-            <h2 class="text-4xl font-bold mb-4 text-gray-800">Ready to Meet Your Meal Goals?</h2>
-            <p class="text-xl text-gray-600 mb-8">
-                We are a team of passionate foodies, dedicated developers, and health enthusiasts working every day to make your kitchen smarter and your life easier. Join the thousands of users who are already saving time and eating better.
-            </p>
-            <a href="/" class="btn-primary inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-full text-white shadow-lg md:py-4 md:text-lg md:px-10">
-                Start Your Smart Recipe Today
-                <!-- Arrow Right SVG -->
-                <svg class="ml-2 -mr-1 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-            </a>
-        </div>
-    </section>
+                            <a href="/addRecipe"
+                                class="text-gray-700 hover:text-orange-600 flex items-center space-x-2 smooth-hover">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" stroke="currentColor"
+                                    fill="none">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 4v16m8-8H4" />
+                                </svg>
+                                <span>Add Recipe</span>
+                            </a>
 
-</main>
+                            <a href="/profile/${loggedInUser.id}"
+                                class="text-gray-700 hover:text-orange-600 flex items-center space-x-2 smooth-hover">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" stroke="currentColor"
+                                    fill="none">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5.121 17.804A9 9 0 1118.88 17.804M12 7a4 4 0 100-8 4 4 0 000 8z" />
+                                </svg>
+                                <span>Profile</span>
+                            </a>
 
-<!-- Simple Footer -->
-<footer class="bg-secondary py-8 text-center">
-    <p class="text-gray-400 text-sm">&copy; 2025 Smart Recipe Meal Planner. All rights reserved.</p>
-</footer>
+                            <a href="/ingredientMatcher"
+                                class="text-gray-700 hover:text-orange-600 flex items-center space-x-2 smooth-hover">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" stroke="currentColor"
+                                    fill="none">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M21 21l-4.35-4.35M11 18a7 7 0 100-14 7 7 0 000 14z" />
+                                </svg>
+                                <span>Ingredient Matcher</span>
+                            </a>
+                        </c:if>
+                        <a href="/about"
+                            class="text-orange-600 border-b-2 border-orange-600 pb-1 flex items-center space-x-2 smooth-hover">
+                            <svg class="w-4 h-4 text-gray-500 hover:text-orange-500" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 16h-1v-4h-1m1-4h.01M12 20a8 8 0 100-16 8 8 0 000 16z" />
+                            </svg>
+                            <span>About Us</span>
+                        </a>
 
-</body>
-</html>
+                    </nav>
+                </header>
 
-</body>
-</html>
+
+                <main class="container mx-auto px-4 py-8 max-w-7xl">
+
+                    <div
+                        class="bg-gradient-to-br from-orange-500 via-red-500 to-pink-500 rounded-3xl p-12 text-white mb-12 text-center">
+                        <h1 class="text-5xl md:text-6xl font-bold mb-6">About Us</h1>
+                        <p class="text-2xl text-white/90 leading-relaxed max-w-3xl mx-auto">
+                            Smart platform combining love for cooking and technology to make your kitchen experience
+                            easier and more enjoyable.
+                        </p>
+                    </div>
+
+                    <!-- Our Story -->
+                    <div class="bg-white rounded-3xl p-10 shadow-2xl mb-12">
+                        <h2 class="text-3xl font-bold mb-6 text-orange-600">Our Story</h2>
+                        <div class="space-y-6 text-gray-700 text-lg leading-relaxed">
+                            <p>
+                                Our journey started with a simple idea: how can we make healthy cooking easier and more
+                                enjoyable for everyone?
+                                In 2024, we launched <span class="font-bold text-orange-600">Smart Recipe Planner</span>
+                                to become the first platform in the Arab world combining AI and culinary expertise.
+                            </p>
+                            <p>
+                                We believe cooking is not just preparing a meal—it’s an art and an experience that
+                                brings loved ones together and creates lasting memories.
+                                That’s why we designed a platform to help you plan meals smartly, discover new recipes,
+                                and share your creations with a community of cooking enthusiasts.
+                            </p>
+                            <p>
+                                Today, we proudly serve thousands of users who use our platform daily to improve their
+                                healthy lifestyle and reach their nutritional goals.
+                            </p>
+                        </div>
+                    </div>
+
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+
+                        <div
+                            class="bg-gradient-to-br from-green-500 to-teal-500 rounded-3xl p-10 text-white shadow-2xl">
+                            <h2 class="text-3xl font-bold mb-4">Our Mission</h2>
+                            <p class="text-xl leading-relaxed">
+                                Empower individuals to achieve a healthy lifestyle by providing smart meal planning
+                                tools, discovering diverse recipes, and building a supportive community of healthy
+                                cooking lovers.
+                            </p>
+                        </div>
+
+                        <div
+                            class="bg-gradient-to-br from-purple-500 to-indigo-500 rounded-3xl p-10 text-white shadow-2xl">
+                            <h2 class="text-3xl font-bold mb-4">Our Vision</h2>
+                            <p class="text-xl leading-relaxed">
+                                To become the leading platform in the Arab world for smart meal planning,
+                                and the first source of inspiration for anyone seeking a balanced, healthy home-cooked
+                                life.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-3xl p-10 shadow-2xl mb-12">
+                        <h2 class="text-4xl font-bold mb-8 text-center text-orange-600">Why Choose Smart Recipe Planner?
+                        </h2>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            <div class="text-center p-6 rounded-2xl hover:bg-orange-50 transition-all">
+                                <div
+                                    class="w-20 h-20 bg-gradient-to-br from-orange-500 to-red-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                                    <i class="fas fa-sparkles text-white text-3xl"></i>
+                                </div>
+                                <h3 class="text-xl font-bold mb-2">Smart Recommendations</h3>
+                                <p class="text-gray-600 text-sm">AI-powered system suggests recipes based on your
+                                    available ingredients and health goals.</p>
+                            </div>
+
+                            <div class="text-center p-6 rounded-2xl hover:bg-green-50 transition-all">
+                                <div
+                                    class="w-20 h-20 bg-gradient-to-br from-green-500 to-teal-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                                    <i class="fas fa-calendar-alt text-white text-3xl"></i>
+                                </div>
+                                <h3 class="text-xl font-bold mb-2">Meal Planning</h3>
+                                <p class="text-gray-600 text-sm">Plan your weekly meals smartly with automatic calorie
+                                    and nutrition calculations.</p>
+                            </div>
+
+                            <div class="text-center p-6 rounded-2xl hover:bg-purple-50 transition-all">
+                                <div
+                                    class="w-20 h-20 bg-gradient-to-br from-purple-500 to-indigo-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                                    <i class="fas fa-users text-white text-3xl"></i>
+                                </div>
+                                <h3 class="text-xl font-bold mb-2">Active Community</h3>
+                                <p class="text-gray-600 text-sm">Join a community of cooking enthusiasts, share recipes,
+                                    and learn from others' experiences.</p>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div
+                        class="bg-gradient-to-br from-orange-500 to-red-500 rounded-3xl p-12 text-white text-center shadow-2xl mb-12">
+                        <h2 class="text-4xl font-bold mb-4">Have a Question?</h2>
+                        <p class="text-xl mb-6">We’re here to help! Feel free to reach out anytime.</p>
+                        <a href="mailto:info@smart-recipe.com"
+                            class="bg-white text-orange-500 px-8 py-4 rounded-xl font-bold hover:bg-gray-100 transition-all">Contact
+                            Us</a>
+                    </div>
+
+                </main>
+
+
+
+            </body>
+
+            </html>

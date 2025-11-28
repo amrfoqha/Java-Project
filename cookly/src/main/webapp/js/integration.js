@@ -69,12 +69,17 @@ const ingredients = [];
                                     card.href = `/recipeDetails/${recipe.id}`;
 
                                     let categoriesHtml = "";
-                                    if (Array.isArray(recipe.category)) {
-                                        categoriesHtml = recipe.category
+                                    if (recipe.category) {
+                                        // Example: replace any unwanted characters (like quotes) first
+                                        let cleanedCategory = recipe.category.replace(/\\|"/g, "");
+                                        
+                                        // Split by comma and trim each item
+                                        const categoriesArray = cleanedCategory.split(",").map(c => c.trim());
+                                        
+                                        // Generate HTML
+                                        categoriesHtml = categoriesArray
                                             .map(cate => `<span class="bg-orange-50 text-orange-600 text-xs px-2 py-1 rounded">${cate}</span>`)
                                             .join('');
-                                    } else if (recipe.category) {
-                                        categoriesHtml = `<span class="bg-orange-50 text-orange-600 text-xs px-2 py-1 rounded">${recipe.category}</span>`;
                                     }
 
                                     card.innerHTML = `
