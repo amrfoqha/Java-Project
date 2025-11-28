@@ -58,86 +58,87 @@
                         Recipe</h1>
 
                     <form:form modelAttribute="recipe" action="/saveRecipe" method="post"
-                        class="space-y-6 relative z-10">
+                               class="space-y-6 relative z-10">
 
-                        <!-- Recipe Title + Image -->
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <label class="block text-gray-700 font-semibold mb-2">Recipe Title *</label>
-                                <form:input path="title" required="true"
-                                    cssClass="border border-emerald-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-opacity-50 hover:shadow-md transition" />
-                            </div>
-                            <div>
-                                <label class="block text-gray-700 font-semibold mb-2">Image URL *</label>
-                                <form:input path="image" required="true"
-                                    cssClass="border border-emerald-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-opacity-50 hover:shadow-md transition" />
-                            </div>
-                        </div>
-
-                        <!-- Description -->
+                    <!-- Recipe Title + Image -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label class="block text-gray-700 font-semibold mb-2">Description *</label>
-                            <form:textarea path="description" required="true" rows="4"
-                                cssClass="border border-emerald-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-opacity-50 resize-none hover:shadow-md transition" />
+                            <label class="block text-gray-700 font-semibold mb-2">Recipe Title *</label>
+                            <form:input path="title" required="true"
+                                        cssClass="border border-emerald-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-opacity-50 hover:shadow-md transition" />
                         </div>
-
-                        <!-- Calories + Cooking Time + Category -->
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            <div>
-                                <label class="block text-gray-700 font-semibold mb-2">Calories *</label>
-                                <form:input path="calories" type="number" required="true"
-                                    cssClass="border border-emerald-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-opacity-50 hover:shadow-md transition" />
-                            </div>
-                            <div>
-                                <label class="block text-gray-700 font-semibold mb-2">Cooking Time *</label>
-                                <form:input path="cookingTime" type="text" required="true" placeholder="e.g., 30 min"
-                                    cssClass="border border-emerald-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-opacity-50 hover:shadow-md transition" />
-                            </div>
-                            <div>
-                                <label class="block text-gray-700 font-semibold mb-2">Category *</label>
-
-                                <!-- UPDATED CATEGORY DROPDOWN -->
-                                <form:select path="category" required="true"
-                                    cssClass="border border-emerald-300 rounded-lg p-3 w-full bg-white focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-opacity-50 hover:shadow-md transition">
-                                    <form:option value="" label="Select a category" />
-                                    <form:option value="Main Dishes" label="Main Dishes" />
-                                    <form:option value="Salads" label="Salads" />
-                                    <form:option value="Dessert" label="Dessert" />
-                                    <form:option value="Healthy Food" label="Healthy Food" />
-                                    <form:option value="Vegan" label="Vegan" />
-                                </form:select>
-
-                            </div>
-                        </div>
-
-                        <!-- Ingredients -->
                         <div>
-                            <label class="block text-gray-700 font-semibold mb-2">Ingredients *</label>
-                            <form:textarea path="ingredients" required="true"
-                                placeholder="Write all ingredients here..." rows="4"
-                                cssClass="border border-emerald-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-opacity-50 resize-none hover:shadow-md transition" />
+                            <label class="block text-gray-700 font-semibold mb-2">Image URL *</label>
+                            <form:input path="image" required="true"
+                                        cssClass="border border-emerald-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-opacity-50 hover:shadow-md transition" />
                         </div>
+                    </div>
 
-                        <!-- Steps -->
+                    <!-- Description -->
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">Description *</label>
+                        <form:textarea path="description" required="true" rows="4"
+                                       cssClass="border border-emerald-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-opacity-50 resize-none hover:shadow-md transition" />
+                    </div>
+
+                    <!-- Calories + Cooking Time + Category + Cuisine -->
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">  <!-- Updated to 4 columns to fit Cuisine -->
                         <div>
-                            <label class="block text-gray-700 font-semibold mb-2">Steps *</label>
-                            <form:textarea path="steps" required="true" placeholder="Write all steps here..." rows="4"
-                                cssClass="border border-emerald-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-opacity-50 resize-none hover:shadow-md transition" />
+                            <label class="block text-gray-700 font-semibold mb-2">Calories *</label>
+                            <form:input path="calories" type="number" required="true"
+                                        cssClass="border border-emerald-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-opacity-50 hover:shadow-md transition" />
                         </div>
-
-
-                        <!-- Buttons -->
-                        <div class="flex flex-col md:flex-row gap-4 mt-8 justify-center">
-                            <button class="bg-gradient-to-r from-orange-400 to-emerald-500 text-white px-8 py-3 rounded-full font-semibold hover:scale-105 hover:shadow-xl transition-all duration-300">create Recipe</button>
-
-                            <a href="/"
-                                class="bg-gray-200 text-gray-800 px-8 py-3 rounded-full font-semibold hover:bg-gray-300 hover:scale-105 transition-all duration-300 text-center shadow-sm">
-                                Cancel
-                            </a>
+                        <div>
+                            <label class="block text-gray-700 font-semibold mb-2">Cooking Time *</label>
+                            <form:input path="cookingTime" type="text" required="true" placeholder="e.g., 30 min"
+                                        cssClass="border border-emerald-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-opacity-50 hover:shadow-md transition" />
                         </div>
+                        <div>
+                            <label class="block text-gray-700 font-semibold mb-2">Category *</label>
+                            <form:select path="category" required="true"
+                                         cssClass="border border-emerald-300 rounded-lg p-3 w-full bg-white focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-opacity-50 hover:shadow-md transition">
+                                <form:option value="" label="Select a category" />
+                                <form:option value="Main Dishes" label="Main Dishes" />
+                                <form:option value="Salads" label="Salads" />
+                                <form:option value="Dessert" label="Dessert" />
+                                <form:option value="Healthy Food" label="Healthy Food" />
+                                <form:option value="Vegan" label="Vegan" />
+                            </form:select>
+                        </div>
+                        <!-- NEW: Cuisine Field -->
+                        <div>
+                            <label class="block text-gray-700 font-semibold mb-2">Cuisine *</label>
+                            <form:input path="cuisine" required="true" placeholder="e.g., Italian"
+                                        cssClass="border border-emerald-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-opacity-50 hover:shadow-md transition" />
+                        </div>
+                    </div>
+
+                    <!-- Ingredients -->
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">Ingredients *</label>
+                        <form:textarea path="ingredients" required="true"
+                                       placeholder="Write all ingredients here..." rows="4"
+                                       cssClass="border border-emerald-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-opacity-50 resize-none hover:shadow-md transition" />
+                    </div>
+
+                    <!-- Steps -->
+                    <div>
+                        <label class="block text-gray-700 font-semibold mb-2">Steps *</label>
+                        <form:textarea path="steps" required="true" placeholder="Write all steps here..." rows="4"
+                                       cssClass="border border-emerald-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-opacity-50 resize-none hover:shadow-md transition" />
+                    </div>
+
+                    <!-- Buttons -->
+                    <div class="flex flex-col md:flex-row gap-4 mt-8 justify-center">
+                        <button class="bg-gradient-to-r from-orange-400 to-emerald-500 text-white px-8 py-3 rounded-full font-semibold hover:scale-105 hover:shadow-xl transition-all duration-300">create Recipe</button>
+
+                        <a href="/"
+                           class="bg-gray-200 text-gray-800 px-8 py-3 rounded-full font-semibold hover:bg-gray-300 hover:scale-105 transition-all duration-300 text-center shadow-sm">
+                            Cancel
+                        </a>
+                    </div>
 
                     </form:form>
-                </div>
 
             </body>
 

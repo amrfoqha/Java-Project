@@ -46,30 +46,36 @@ public class RecipeController {
     @PostMapping("/saveRecipe")
     public String saveRecipe(@Valid @ModelAttribute("recipe") Recipe recipe,
                              BindingResult result, Model model, HttpSession session) {
+        // Get the logged-in user from session (do this early)
         User loggedUser = (User) session.getAttribute("loggedInUser");
 
+        // If no user is logged in, redirect to login
         if (loggedUser == null) {
             System.out.println("ERROR: No logged-in user in session. Redirecting to login.");
             return "redirect:/login";
         }
 
+        // If there are validation errors (e.g., missing cuisine), pass them to the view and return to the form
         if (result.hasErrors()) {
             System.out.println("Validation errors: " + result.getAllErrors());
+            model.addAttribute("errors", result.getAllErrors());  // Pass errors to the JSP view for display
             model.addAttribute("loggedUser", loggedUser);
-            return "AddRecipe.jsp";
+            return "AddRecipe.jsp";  // Return to the form page with errors shown
         }
 
+        // If validation passes, try to save the recipe
         try {
-            System.out.println("Saving recipe for user ID: " + loggedUser.getId());
+            System.out.println("Logged in user ID: " + loggedUser.getId());
             recipeService.createRecipe(recipe, loggedUser);
             System.out.println("Recipe saved successfully. Redirecting to profile.");
-            return "redirect:/profile/" + loggedUser.getId();
+            return "redirect:/profile/" + loggedUser.getId();  // Redirect to profile on success
         } catch (Exception e) {
+            // If saving fails (e.g., database error), log it and return to the form with an error message
             System.out.println("Error saving recipe: " + e.getMessage());
-            e.printStackTrace();  // For full stack trace
-            model.addAttribute("error", "An error occurred while saving the recipe.");
+            e.printStackTrace();  // Full stack trace for debugging
+            model.addAttribute("error", "An error occurred while saving the recipe. Please try again.");
             model.addAttribute("loggedUser", loggedUser);
-            return "AddRecipe.jsp";
+            return "AddRecipe.jsp";  // Return to form with a generic error message
         }
     }
 //    @PostMapping("/saveRecipe")
@@ -87,7 +93,6 @@ public class RecipeController {
 //            return "redirect:/login";
 //
 //        }
-//        System.out.println("Logged in user ID: " + loggedUser.getId());
 //        recipeService.createRecipe(recipe ,loggedUser);
 //        return "redirect:/profile/" + loggedUser.getId();
 //    }
