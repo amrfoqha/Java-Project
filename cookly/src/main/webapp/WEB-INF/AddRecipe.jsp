@@ -19,21 +19,40 @@
                                 Recipe
                                 Discovery</span>
                         </div>
-                        <button
-                            class="bg-orange-600 text-white text-sm font-medium py-2 px-4 rounded-lg shadow-md hover:bg-orange-700">Login
-                            / Register</button>
+<%--                        <button--%>
+<%--                            class="bg-orange-600 text-white text-sm font-medium py-2 px-4 rounded-lg shadow-md hover:bg-orange-700">Login--%>
+<%--                            / Register</button>--%>
+                        <c:if test="${loggedInUser != null}">
+                            <a href="/logout"
+                               class="bg-orange-600 text-white text-sm font-medium py-2 px-4 rounded-lg shadow-md hover:bg-orange-700">Logout</a>
+                        </c:if>
+                        <c:if test="${loggedInUser == null}">
+                            <a href="/login"
+                               class="bg-orange-600 text-white text-sm font-medium py-2 px-4 rounded-lg shadow-md hover:bg-orange-700">Login
+                                / Register</a>
+                        </c:if>
                     </div>
 
 
                     <nav class="hidden md:flex ml-6 mt-2 space-x-8 text-sm font-medium pb-3">
                         <a href="/" class="text-gray-600 hover:text-orange-600 transition">Recipes</a>
+                        <c:if test="${not empty sessionScope.loggedInUser}">
                         <a href="/marketList" class="text-gray-600 hover:text-orange-600 transition">Market
                             List</a>
-                        <a href="/addRecipe" class="text-orange-600 border-b-2 border-orange-600 pb-1">Add
+                        <a href="/addRecipe" class="text-orange-600 border-b-2 border-orange-600 pb-1 flex items-center space-x-2 smooth-hover">Add
                             Recipe</a>
                         <a href="/profile" class="text-gray-600 hover:text-orange-600 transition">Profile</a>
                         <a href="/ingredientMatcher" class="text-gray-600 hover:text-orange-600 transition">Ingredient
                             Matcher</a>
+                        <a href="/about" class="flex items-center space-x-1 text-gray-600 hover:text-orange-600 transition">
+                            </c:if>
+                            <!-- Icon: info circle -->
+                            <svg class="w-4 h-4 text-gray-500 hover:text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M12 20a8 8 0 100-16 8 8 0 000 16z"/>
+                            </svg>
+                            <span>About Us</span>
+                        </a>
+
                     </nav>
                 </header>
 
@@ -57,7 +76,7 @@
                     <h1 class="text-4xl font-extrabold text-orange-500 mb-10 text-center relative z-10">Create New
                         Recipe</h1>
 
-                    <form:form modelAttribute="recipe" action="/saveRecipe/${lo.id}" method="post"
+                    <form:form modelAttribute="recipe" action="/saveRecipe/${loggedInUser.id}" method="post"
                         class="space-y-6 relative z-10">
 
                         <!-- Recipe Title + Image -->
@@ -111,18 +130,49 @@
                         </div>
 
                         <!-- Ingredients -->
+<%--                        <div>--%>
+<%--                            <label class="block text-gray-700 font-semibold mb-2">Ingredients *</label>--%>
+<%--                            <form:textarea path="ingredients" required="true"--%>
+<%--                                placeholder="Write all ingredients here..." rows="4"--%>
+<%--                                cssClass="border border-emerald-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-opacity-50 resize-none hover:shadow-md transition" />--%>
+<%--                        </div>--%>
                         <div>
                             <label class="block text-gray-700 font-semibold mb-2">Ingredients *</label>
-                            <form:textarea path="ingredients" required="true"
-                                placeholder="Write all ingredients here..." rows="4"
-                                cssClass="border border-emerald-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-opacity-50 resize-none hover:shadow-md transition" />
+
+                            <form:textarea
+                                    path="ingredients"
+                                    required="true"
+                                    placeholder='Write each ingredient on a new line, like:
+2 lb Boneless Chicken Thighs
+1/4 cup Lemon Juice
+1/4 cup Olive Oil
+2 tsp Cumin'
+                                    rows="6"
+                                    cssClass="border border-emerald-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-opacity-50 resize-none hover:shadow-md transition"
+                            />
+
+                            <p class="text-xs text-gray-500 mt-1">
+                                Each ingredient on a new line — it will appear as a list automatically.
+                            </p>
                         </div>
 
                         <!-- Steps -->
+<%--                        <div>--%>
+<%--                            <label class="block text-gray-700 font-semibold mb-2">Steps *</label>--%>
+<%--                            <form:textarea path="steps" required="true" placeholder="Write all steps here..." rows="4"--%>
+<%--                                cssClass="border border-emerald-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-opacity-50 resize-none hover:shadow-md transition" />--%>
+<%--                        </div>--%>
                         <div>
                             <label class="block text-gray-700 font-semibold mb-2">Steps *</label>
-                            <form:textarea path="steps" required="true" placeholder="Write all steps here..." rows="4"
-                                cssClass="border border-emerald-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-opacity-50 resize-none hover:shadow-md transition" />
+                            <form:textarea
+                                    path="steps"
+                                    required="true"
+                                    rows="6"
+                                    placeholder="Mix lemon juice, olive oil, and all spices to create marinade.
+Cut chicken into thin strips and marinate for at least 4 hours.
+Cook chicken on a skillet or grill until fully cooked and slightly charred.
+Serve wrapped in pita bread with garlic sauce and vegetables."
+                                    cssClass="border border-emerald-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-opacity-50 resize-none hover:shadow-md transition" />
                         </div>
 
 
@@ -135,6 +185,7 @@
                                 Cancel
                             </a>
                         </div>
+
 
                     </form:form>
                 </div>

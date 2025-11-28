@@ -59,5 +59,46 @@ public class Comment {
     protected void onUpdate() {
         this.updatedAt = new Date();
     }
+    public String getComment() {
+        return comment;
+    }
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+    public Long getId() {
+        return id;
+    }
+    public Comment() {
+    }
+    public Comment( String comment, int rate, User pubUser, Recipe pubRecipe) {
+        this.comment = comment;
+        this.rate = rate;
+        this.pubUser = pubUser;
+        this.pubRecipe = pubRecipe;
+    }
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+    public int getRate() {
+        return rate;
+    }
+    public void setRate(int rate) {
+        this.rate = rate;
+    }
+    public User getPubUser() {
+        return pubUser;
+    }
+    public void setPubUser(User pubUser) {
+        this.pubUser = pubUser;
+    }
+    public Recipe getPubRecipe() {
+        return pubRecipe;
+    }
+    public void setPubRecipe(Recipe pubRecipe) {
+        this.pubRecipe = pubRecipe;
+    }
 
 }

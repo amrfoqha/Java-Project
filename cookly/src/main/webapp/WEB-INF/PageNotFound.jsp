@@ -76,6 +76,7 @@
                                 </svg>
                                 <span>Recipes</span>
                             </a>
+                            <c:if test="${not empty sessionScope.loggedInUser}">
 
                             <a href="/marketList"
                                 class="text-gray-700 hover:text-orange-600 transition flex items-center space-x-2">
@@ -120,6 +121,7 @@
                                 </svg>
                                 <span>Ingredient Matcher</span>
                             </a>
+                            </c:if>
                         </nav>
                     </header>
 

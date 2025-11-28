@@ -207,7 +207,8 @@ public class Recipe {
     public void setComments(List<Comment> comments) {
         this.comments = comments;
     }
-    
 
 
+    public void setUser(User user) {
+    }
 }
