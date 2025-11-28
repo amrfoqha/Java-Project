@@ -17,6 +17,7 @@ public class FileDownloadController {
     @GetMapping("/downloadText")
     public ResponseEntity<byte[]> downloadTextFile(HttpSession session) {
         
+        @SuppressWarnings("unchecked")
         StringBuilder sb = new StringBuilder();
         List<String> marketList = (List<String>) session.getAttribute("temporaryRecipe");
         if (marketList == null) {

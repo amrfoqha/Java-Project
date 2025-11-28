@@ -38,10 +38,12 @@ public class Comment {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
+    @com.fasterxml.jackson.annotation.JsonIgnore
     private User pubUser;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "recipe_id")
+    @com.fasterxml.jackson.annotation.JsonIgnore
     private Recipe pubRecipe;
     
     @Column(updatable = false)
