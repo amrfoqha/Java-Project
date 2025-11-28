@@ -57,7 +57,7 @@
                     <h1 class="text-4xl font-extrabold text-orange-500 mb-10 text-center relative z-10">Create New
                         Recipe</h1>
 
-                    <form:form modelAttribute="recipe" action="/saveRecipe/${lo.id}" method="post"
+                    <form:form modelAttribute="recipe" action="/saveRecipe" method="post"
                         class="space-y-6 relative z-10">
 
                         <!-- Recipe Title + Image -->
