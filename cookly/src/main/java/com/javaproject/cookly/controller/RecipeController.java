@@ -30,6 +30,8 @@ public class RecipeController {
     private RecipeService recipeService;
     @Autowired
     userService userService;
+    @Autowired
+    CommentService commentService;
     
     @GetMapping("/addRecipe")
     public String showAddRecipeForm(Model model,HttpSession session) {
