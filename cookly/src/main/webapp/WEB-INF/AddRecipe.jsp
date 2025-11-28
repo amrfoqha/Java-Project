@@ -11,61 +11,30 @@
             </head>
 
             <body class="bg-gradient-to-br from-orange-50 via-white to-emerald-50 min-h-screen">
-                <header class="bg-white shadow-lg sticky top-0 z-50 px-10">
-                    <div class="flex justify-between px-6 py-5 items-center">
-
-                        <!-- Logo + Title -->
-                        <div class="flex items-center space-x-4">
-                            <span
-                                class="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-orange-200 to-pink-200 text-orange-600 rounded-2xl shadow-sm">
-                                <!-- Chef Hat Icon -->
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24"
-                                    stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
-                                        d="M12 6a4 4 0 00-8 0c0 1.657 1.343 3 3 3h10a3 3 0 100-6 4 4 0 00-8 0" />
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
-                                        d="M5 12h14v6a2 2 0 01-2 2H7a2 2 0 01-2-2v-6z" />
-                                </svg>
-                            </span>
-
-                            <div>
-                                <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight">
-                                    Smart Recipe Platform
-                                </h1>
-
-                                <span
-                                    class="text-sm font-semibold bg-clip-text text-transparent bg-gradient-to-r from-orange-500 to-pink-500">
-                                    AI-Powered Recipe Discovery
-                                </span>
-                            </div>
-                            <c:if test="${loggedInUser != null}">
-                                <a href="/logout"
-                                    class="bg-orange-600 text-white text-sm font-medium py-2 px-4 rounded-lg shadow-md hover:bg-orange-700">Logout</a>
-                            </c:if>
-                            <c:if test="${loggedInUser == null}">
-                                <a href="/login"
-                                    class="bg-orange-600 text-white text-sm font-medium py-2 px-4 rounded-lg shadow-md hover:bg-orange-700">Login
-                                    / Register</a>
-                            </c:if>
+                <header class="bg-white shadow-sm sticky top-0 z-50 px-8">
+                    <div class="flex justify-between px-6 py-4 items-center">
+                        <div>
+                            <h1 class="text-2xl font-bold text-gray-800">Smart Recipe Platform</h1>
+                            <span class="text-xs text-gray-500 bg-gray-200 px-2 py-0.5 rounded">AI-Powered
+                                Recipe
+                                Discovery</span>
                         </div>
+                        <button
+                            class="bg-orange-600 text-white text-sm font-medium py-2 px-4 rounded-lg shadow-md hover:bg-orange-700">Login
+                            / Register</button>
+                    </div>
 
 
-                        <nav class="hidden md:flex ml-6 mt-2 space-x-8 text-sm font-medium pb-3">
-                            <a href="/" class="text-gray-600 hover:text-orange-600 transition">Recipes</a>
-
-                            <c:if test="${loggedInUser != null}">
-
-                                <a href="/marketList" class="text-gray-600 hover:text-orange-600 transition">Market
-                                    List</a>
-                                <a href="/addRecipe" class="text-orange-600 border-b-2 border-orange-600 pb-1">Add
-                                    Recipe</a>
-                                <a href="/profile/${loggedInUser.id}"
-                                    class="text-gray-600 hover:text-orange-600 transition">Profile</a>
-                                <a href="/ingredientMatcher"
-                                    class="text-gray-600 hover:text-orange-600 transition">Ingredient
-                                    Matcher</a>
-                            </c:if>
-                        </nav>
+                    <nav class="hidden md:flex ml-6 mt-2 space-x-8 text-sm font-medium pb-3">
+                        <a href="/" class="text-gray-600 hover:text-orange-600 transition">Recipes</a>
+                        <a href="/marketList" class="text-gray-600 hover:text-orange-600 transition">Market
+                            List</a>
+                        <a href="/addRecipe" class="text-orange-600 border-b-2 border-orange-600 pb-1">Add
+                            Recipe</a>
+                        <a href="/profile" class="text-gray-600 hover:text-orange-600 transition">Profile</a>
+                        <a href="/ingredientMatcher" class="text-gray-600 hover:text-orange-600 transition">Ingredient
+                            Matcher</a>
+                    </nav>
                 </header>
 
                 <!-- Main card container -->
@@ -88,7 +57,7 @@
                     <h1 class="text-4xl font-extrabold text-orange-500 mb-10 text-center relative z-10">Create New
                         Recipe</h1>
 
-                    <form:form modelAttribute="recipe" action="/saveRecipe/${user.id}" method="post"
+                    <form:form modelAttribute="recipe" action="/saveRecipe/${lo.id}" method="post"
                         class="space-y-6 relative z-10">
 
                         <!-- Recipe Title + Image -->
@@ -159,11 +128,7 @@
 
                         <!-- Buttons -->
                         <div class="flex flex-col md:flex-row gap-4 mt-8 justify-center">
-
-
-                            <a href="/profile"
-                                class="bg-gradient-to-r from-orange-400 to-emerald-500 text-white px-8 py-3 rounded-full font-semibold hover:scale-105 hover:shadow-xl transition-all duration-300">
-                                Create Recipe></a>
+                            <button class="bg-gradient-to-r from-orange-400 to-emerald-500 text-white px-8 py-3 rounded-full font-semibold hover:scale-105 hover:shadow-xl transition-all duration-300">create Recipe</button>
 
                             <a href="/"
                                 class="bg-gray-200 text-gray-800 px-8 py-3 rounded-full font-semibold hover:bg-gray-300 hover:scale-105 transition-all duration-300 text-center shadow-sm">
@@ -173,9 +138,6 @@
 
                     </form:form>
                 </div>
-                <footer class="bg-gray-100 mt-12 py-6 text-center">
-                    <p class="text-gray-600">&copy; 2025 coockly. All rights reserved.</p>
-                </footer>
 
             </body>
 
