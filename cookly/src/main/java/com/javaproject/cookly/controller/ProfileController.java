@@ -31,7 +31,7 @@ private userService userService;
         }
 
         model.addAttribute("user", user);
-
+        
         return "Profile.jsp";
     }
 

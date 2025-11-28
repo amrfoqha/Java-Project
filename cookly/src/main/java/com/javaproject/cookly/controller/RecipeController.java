@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -123,7 +124,7 @@ public class RecipeController {
     
     @GetMapping("/addIngredient")
     public String addIngredient(@RequestParam String ingredient, Model model, HttpSession session) {
-     
+
         if (session.getAttribute("temporaryRecipe") == null) {
             session.setAttribute("temporaryRecipe", new ArrayList<String>());
         }
@@ -133,6 +134,28 @@ public class RecipeController {
         model.addAttribute("ingredient", ingredient);
         return "redirect:/marketList";
     }
+    
+    
+    @PostMapping("/filter")
+    public String filterRecipes(
+            @RequestParam(value = "category", required = false) List<String> categories,
+            @RequestParam(value = "calories", required = false) Integer calories,
+            Model model
+    ) {
+
+        if (categories == null) categories = new ArrayList<>();
+        if (calories == null) calories = 0;
+
+        List<Recipe> results = recipeService.filterRecipes(categories, calories);
+
+        model.addAttribute("recipes", results);
+        model.addAttribute("selectedCategories", categories);
+        model.addAttribute("selectedCalories", calories);
+
+        return "homePage.jsp";
+    }
+
+
 
 
 }

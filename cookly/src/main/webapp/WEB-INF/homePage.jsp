@@ -158,15 +158,14 @@
                                 <h1 class="text-3xl font-extrabold text-gray-900 mb-2">Discover Recipes</h1>
                                 <p class="text-gray-500 mb-6">Explore our collection of delicious recipes</p>
 
-                                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-                                    <!-- Search Input - REMOVED SVG and adjusted padding from pl-10 to pl-4 -->
+                                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 pr-7">
                                     <div class="relative flex-grow">
                                         <input id="searchInput" type="text" placeholder="Search recipe..."
                                             class="w-full pl-4 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-primary-orange focus:border-primary-orange transition"
                                             aria-label="Search recipes">
                                     </div>
 
-                                    <button
+                                    <button onclick="applyFilters()"
                                         class="flex items-center gap-2 px-4 py-2 rounded-lg border transition-colors border-gray-300 hover:bg-gray-50"><svg
                                             xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -183,9 +182,80 @@
                                             <path d="M8 12H3"></path>
                                         </svg>Filters</button>
                                 </div>
+                                <div id="filters"
+                                    class="hidden max-w-4xl mx-auto bg-white shadow-md rounded-xl p-6 mt-6">
+                                    <form class="space-y-6" action="/filter" method="post">
+                                        <div>
+                                            <h3 class="font-medium text-gray-700 mb-2">Category</h3>
+                                            <div class="flex flex-wrap gap-3">
+
+                                                <button type="button" value="Main Dishes"
+                                                    class="cat-btn px-4 py-2 rounded-full border border-gray-300 bg-gray-100 text-gray-700 hover:bg-gray-200 transition">
+                                                    Main Dishes
+                                                </button>
+
+                                                <button type="button" value="Salads"
+                                                    class="cat-btn px-4 py-2 rounded-full border border-gray-300 bg-gray-100 text-gray-700 hover:bg-gray-200 transition">
+                                                    Salads
+                                                </button>
+
+                                                <button type="button" value="Dessert"
+                                                    class="cat-btn px-4 py-2 rounded-full border border-gray-300 bg-gray-100 text-gray-700 hover:bg-gray-200 transition">
+                                                    Dessert
+                                                </button>
+
+                                                <button type="button" value="Healthy Food"
+                                                    class="cat-btn px-4 py-2 rounded-full border border-gray-300 bg-gray-100 text-gray-700 hover:bg-gray-200 transition">
+                                                    Healthy Food
+                                                </button>
+
+                                                <button type="button" value="Vegan"
+                                                    class="cat-btn px-4 py-2 rounded-full border border-gray-300 bg-gray-100 text-gray-700 hover:bg-gray-200 transition">
+                                                    Vegan
+                                                </button>
+
+                                            </div>
+                                        </div>
+
+
+                                        <div class="flex items-center gap-3 mt-2">
+                                            <label class="font-medium text-gray-700">Calories</label>
+                                            <input type="range" name="calories" min="0" max="4500" step="50"
+                                                id="calories" class="w-full accent-orange-500 cursor-pointer">
+                                            <span id="caloriesLabel"
+                                                class="px-3 py-1 bg-orange-100 text-orange-700 rounded-lg text-sm font-semibold">
+                                                0
+                                            </span>
+                                        </div>
+
+                                        <div class="pt-2">
+                                            <button type="submit"
+                                                class="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 rounded-xl shadow-md transition">
+                                                Apply Filters
+                                            </button>
+                                        </div>
+
+                                    </form>
+                                </div>
+
+                                <script>
+                                    function applyFilters() {
+                                        const filter = document.getElementById('filters');
+                                        filter.classList.toggle('hidden');
+                                    }
+                                    document.querySelectorAll('.cat-btn').forEach(btn => {
+                                        btn.addEventListener('click', function () {
+                                            this.classList.toggle('bg-orange-500');
+                                            this.classList.toggle('text-white');
+                                            this.classList.toggle('border-orange-500');
+                                        })
+                                    });
+
+                                    const calories = document.getElementById('calories');
+                                    const caloriesLabel = document.getElementById('caloriesLabel');
+                                    calories.addEventListener('input', () => caloriesLabel.textContent = calories.value);
+                                </script>
                             </section>
-
-
                             <section id="result" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
                                 <c:forEach var="recipe" items="${recipes}">
@@ -200,7 +270,7 @@
                                                 class="w-full h-48 object-cover hover:scale-110 ease-in-out duration-300" />
 
                                         </div>
-                                        <div class="p-4 ">
+                                        <div class="p-4">
                                             <h3 class="font-semibold text-lg mb-1">${recipe.title}</h3>
                                             <h3 class="font-light text-xs mb-1 text-gray-500">${recipe.description}
                                             </h3>
@@ -232,22 +302,25 @@
                                             </div>
 
 
-                                            <%-- <div
-                                                class="flex items-center text-yellow-500 text-sm font-semibold mb-2 gap-1">
-                                                ${recipe.rating} <span
-                                                    class="text-gray-500 font-normal">(${recipe.ratingCount})</span>
-                                        </div> --%>
+                                            <div
+                                                class="flex items-center justify-between text-yellow-500 text-sm font-semibold mb-2 gap-1 w-1/5">
+                                                <span>&#9733; <span
+                                                        class="text-red-700">${recipe.getAverageRating()}</span></span>
+                                                <span
+                                                    class="text-gray-500 font-normal">(${recipe.comments.size()})</span>
+                                            </div>
 
 
-                                        <div class="flex gap-2 pt-1">
-                                            <c:forEach var="cate"
-                                                items="${fn:split(fn:replace(fn:replace(recipe.category, '[', ''), ']', ''), ',')}">
-                                                <span class="bg-orange-50 text-orange-600 text-xs px-2 py-1 rounded">
-                                                    ${fn:trim(fn:replace(cate, '"', ''))}
-                                                </span>
-                                            </c:forEach>
+                                            <div class="flex gap-2 pt-1">
+                                                <c:forEach var="cate"
+                                                    items="${fn:split(fn:replace(fn:replace(recipe.category, '[', ''), ']', ''), ',')}">
+                                                    <span
+                                                        class="bg-orange-50 text-orange-600 text-xs px-2 py-1 rounded">
+                                                        ${fn:trim(fn:replace(cate, '"', ''))}
+                                                    </span>
+                                                </c:forEach>
 
-                                        </div>
+                                            </div>
                                         </div>
                                     </a>
                                     </div>
@@ -257,7 +330,7 @@
                             <div class="flex justify-center mt-6 w-full mx-auto">
                                 <nav aria-label="Page navigation ">
                                     <ul class="flex items-center gap-2">
-                                        <li>
+                                        <li <c:if test="${currentPage == 0}">class="hidden"</c:if>>
                                             <a href="/?page=${currentPage-1}"
                                                 class="flex items-center justify-center px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition duration-150">Previous</a>
                                         </li>
@@ -269,7 +342,7 @@
                                                 </span>
                                             </p>
                                         </li>
-                                        <li>
+                                        <li <c:if test="${currentPage == totalPages - 1 }">class="hidden"</c:if>>
                                             <a href="/?page=${currentPage+1}"
                                                 class="flex items-center justify-center px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition duration-150">Next</a>
                                         </li>

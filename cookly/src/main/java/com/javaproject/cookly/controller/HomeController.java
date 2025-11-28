@@ -41,6 +41,7 @@ public class HomeController {
         model.addAttribute("recipes", recipePage.getContent());
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", recipePage.getTotalPages());
+        
 
         return "homePage.jsp";
     }

@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -16,14 +17,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import com.javaproject.cookly.model.Recipe;
-import com.javaproject.cookly.model.User;
-import com.javaproject.cookly.repository.RecipeRepo;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.javaproject.cookly.model.Recipe;
+import com.javaproject.cookly.model.User;
+import com.javaproject.cookly.repository.RecipeRepo;
 
 @Service
 public class RecipeService {
@@ -72,6 +72,18 @@ public class RecipeService {
     public boolean checkFavorite(Long recipeId, Long userId) {
         return recipeRepo.existsByFavoritedBy(recipeId, userId);
     }
+
+    public List<Recipe> filterRecipes(List<String> categories, Integer calories) {
+        if ((categories == null || categories.isEmpty()) && (calories != null && calories > 0)) {
+            return recipeRepo.findByCaloriesLessThanEqual(calories);
+        }
+        if (calories == null || calories <= 0) {
+            return recipeRepo.filterRecipes(categories, null);
+        }
+        return recipeRepo.filterRecipes(categories, calories);
+    }
+
+
 
     public List<Recipe> findRecipesByUserIngredients(List<String> userIngredients) {
         String searchValue = String.join(",", userIngredients); 
