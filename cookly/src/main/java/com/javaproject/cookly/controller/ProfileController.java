@@ -35,25 +35,25 @@ private userService userService;
 
 
 
-    @Autowired
-    private RecipeService recipeService;
-
-    // Add recipe to favorites
-    @PostMapping("/favorite/{recipeId}")
-    public String addFavorite(@PathVariable Long recipeId) {
-
-        Long loggedInUserId = 1L; // Replace with session user ID
-        User user = userService.findUserById(loggedInUserId);
-
-        Recipe recipe = recipeService.getRecipeById(recipeId);
-
-        if (user != null && recipe != null) {
-            user.getFavoritedRecipes().add(recipe);
-            userService.save(user);
-        }
-
-        return "redirect:/profile";
-    }
+//    @Autowired
+//    private RecipeService recipeService;
+//
+//    // Add recipe to favorites
+//    @PostMapping("/favorite/{recipeId}")
+//    public String addFavorite(@PathVariable Long recipeId) {
+//
+//        Long loggedInUserId = 1L; // Replace with session user ID
+//        User user = userService.findUserById(loggedInUserId);
+//
+//        Recipe recipe = recipeService.getRecipeById(recipeId);
+//
+//        if (user != null && recipe != null) {
+//            user.getFavoritedRecipes().add(recipe);
+//            userService.save(user);
+//        }
+//
+//        return "redirect:/profile";
+//    }
 
 
 }

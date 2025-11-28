@@ -50,4 +50,15 @@ public class RecipeService {
 
     }
 
+    public List<Recipe> getRecipesByName(String name) {
+        return recipeRepo.findByTitleContainingIgnoreCase(name);
+    }
+    
+    public void save(Recipe recipe) {
+        recipeRepo.save(recipe);
+    }
+    public boolean checkFavorite(Long recipeId, Long userId) {
+        return recipeRepo.existsByFavoritedBy(recipeId, userId);
+    }
+
 }
