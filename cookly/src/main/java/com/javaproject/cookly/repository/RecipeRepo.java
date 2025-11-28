@@ -18,7 +18,6 @@ public interface RecipeRepo extends CrudRepository<Recipe, Long>, PagingAndSorti
     List<Recipe> findAll();
     List<Recipe> findByPubUser(User user);
     List<Recipe> findByFavoritedBy(User user);
-    List<Recipe> findByComments(User user);
 
     List<Recipe> findByTitleContainingIgnoreCase(String name);
     
