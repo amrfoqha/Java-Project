@@ -1,228 +1,267 @@
-
-
-
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+        <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Profile - Smart Kitchen</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+            <!DOCTYPE html>
+            <html lang="en">
 
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap');
-        * {
-            font-family: 'Cairo', sans-serif;
-        }
+            <head>
+                <meta charset="UTF-8">
+                <title>Profile - Smart Kitchen</title>
+                <script src="https://cdn.tailwindcss.com"></script>
 
-        /* Smooth hover animation */
-        .smooth-hover {
-            transition: all .25s ease-in-out;
-        }
-    </style>
-</head>
+                <style>
+                    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap');
 
-<body class="bg-gray-50">
+                    * {
+                        font-family: 'Cairo', sans-serif;
+                    }
 
-<!-- HEADER -->
-<header class="bg-white shadow-lg sticky top-0 z-50 px-10 smooth-hover">
-    <div class="flex justify-between px-6 py-5 items-center">
+                    /* Smooth hover animation */
+                    .smooth-hover {
+                        transition: all .25s ease-in-out;
+                    }
+                </style>
+            </head>
 
-        <!-- Logo + Title -->
-        <div class="flex items-center space-x-4 smooth-hover">
-                <span class="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-orange-300 to-pink-300 text-orange-700 rounded-2xl shadow-md">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 6a4 4 0 00-8 0c0 1.657 1.343 3 3 3h10a3 3 0 100-6 4 4 0 00-8 0" />
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M5 12h14v6a2 2 0 01-2 2H7a2 2 0 01-2-2v-6z" />
-                    </svg>
-                </span>
+            <body class="bg-gray-50">
 
-            <div>
-                <h1 class="text-3xl font-extrabold bg-gradient-to-r from-orange-600 to-pink-500 bg-clip-text text-transparent">
-                    Smart Recipe Platform
-                </h1>
-                <span class="text-sm font-semibold text-gray-600">AI-Powered Recipe Discovery</span>
-            </div>
-        </div>
+                <!-- HEADER -->
+                <header class="bg-white shadow-lg sticky top-0 z-50 px-10 smooth-hover">
+                    <div class="flex justify-between px-6 py-5 items-center">
 
-        <!-- Login Button -->
-        <c:if test="${loggedInUser != null}">
-            <a href="/logout"
-               class="bg-orange-600 text-white text-sm font-medium py-2 px-4 rounded-lg shadow-md hover:bg-orange-700">Logout</a>
-        </c:if>
-        <c:if test="${loggedInUser == null}">
-            <a href="/login"
-               class="bg-orange-600 text-white text-sm font-medium py-2 px-4 rounded-lg shadow-md hover:bg-orange-700">Login
-                / Register</a>
-        </c:if>
-    </div>
+                        <!-- Logo + Title -->
+                        <div class="flex items-center space-x-4 smooth-hover">
+                            <span
+                                class="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-orange-300 to-pink-300 text-orange-700 rounded-2xl shadow-md">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                                        d="M12 6a4 4 0 00-8 0c0 1.657 1.343 3 3 3h10a3 3 0 100-6 4 4 0 00-8 0" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                                        d="M5 12h14v6a2 2 0 01-2 2H7a2 2 0 01-2-2v-6z" />
+                                </svg>
+                            </span>
 
-    <!-- NAV -->
-    <nav class="hidden md:flex ml-8 mt-3 space-x-10 text-base font-semibold pb-4">
+                            <div>
+                                <h1
+                                    class="text-3xl font-extrabold bg-gradient-to-r from-orange-600 to-pink-500 bg-clip-text text-transparent">
+                                    Smart Recipe Platform
+                                </h1>
+                                <span class="text-sm font-semibold text-gray-600">AI-Powered Recipe Discovery</span>
+                            </div>
+                        </div>
 
-        <a href="/" class="text-gray-700 hover:text-orange-600 flex items-center space-x-2 smooth-hover">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" stroke="currentColor" fill="none">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
-            </svg>
-            <span>Recipes</span>
-        </a>
-<c:if test="${not empty sessionScope.loggedInUser}">
-
-        <a href="/marketList" class="text-gray-700 hover:text-orange-600 flex items-center space-x-2 smooth-hover">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" stroke="currentColor" fill="none">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 9h16l-1.5 9h-13L4 9zM7 9l3-6m4 6l3-6" />
-            </svg>
-            <span>Market List</span>
-        </a>
-
-        <a href="/addRecipe" class="text-gray-700 hover:text-orange-600 flex items-center space-x-2 smooth-hover">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" stroke="currentColor" fill="none">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-            </svg>
-            <span>Add Recipe</span>
-        </a>
-
-        <a href="/profile/${loggedInUser.id}" class="text-orange-600 border-b-2 border-orange-600 pb-1 flex items-center space-x-2 smooth-hover">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" stroke="currentColor" fill="none">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A9 9 0 1118.88 17.804M12 7a4 4 0 100-8 4 4 0 000 8z" />
-            </svg>
-            <span>Profile</span>
-        </a>
-
-        <a href="/ingredientMatcher" class="text-gray-700 hover:text-orange-600 flex items-center space-x-2 smooth-hover">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" stroke="currentColor" fill="none">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M11 18a7 7 0 100-14 7 7 0 000 14z" />
-            </svg>
-            <span>Ingredient Matcher</span>
-        </a>
-</c:if>
-        <a href="/about" class="flex items-center space-x-1 text-gray-600 hover:text-orange-600 transition">
-            <!-- Icon: info circle -->
-            <svg class="w-4 h-4 text-gray-500 hover:text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M12 20a8 8 0 100-16 8 8 0 000 16z"/>
-            </svg>
-            <span>About Us</span>
-        </a>
-
-
-    </nav>
-</header>
-
-<!-- MAIN SECTION -->
-<main class="container mx-auto px-4 py-8 max-w-7xl">
-
-    <!-- PROFILE HEADER -->
-    <div class="bg-gradient-to-r from-orange-500 to-pink-500 rounded-3xl p-10 text-white shadow-xl mb-10 smooth-hover">
-        <div class="flex items-center gap-8">
-            <div class="w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-2xl">
-                <img src="https://scontent.fjrs2-2.fna.fbcdn.net/v/t39.30808-6/476830334_9124096434325901_976653848012665385_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=a5f93a&_nc_ohc=hfC-WlcWg7oQ7kNvwGw4K7R&_nc_oc=AdnbjQMaETVZ-GaKAnyVamYoYn-QPgwZUgm97DEwuPMF49o6VcSvE84_Yjrsc7qfqM8&_nc_zt=23&_nc_ht=scontent.fjrs2-2.fna&_nc_gid=hOG-MAGxhOAYSecdinAInw&oh=00_AfigRlQGTk6x-ZjFPghyUIHZZ-NiR97DolO_Nu46dEjEnA&oe=692DF4B8"
-                     alt="${user.name}" class="w-full h-full object-cover">
-            </div>
-
-            <div class="flex-1">
-                <h1 class="text-4xl font-bold mb-2 drop-shadow-sm">${user.name}</h1>
-
-                <div class="mt-4">
-                    <div class="flex items-center justify-between mb-1">
-                        <span class="text-white/90 text-sm italic">“Where taste meets tech.”</span>
-                        <span class="font-semibold">250 / 1000</span>
+                        <!-- Login Button -->
+                        <c:if test="${loggedInUser != null}">
+                            <a href="/logout"
+                                class="bg-orange-600 text-white text-sm font-medium py-2 px-4 rounded-lg shadow-md hover:bg-orange-700">Logout</a>
+                        </c:if>
+                        <c:if test="${loggedInUser == null}">
+                            <a href="/login"
+                                class="bg-orange-600 text-white text-sm font-medium py-2 px-4 rounded-lg shadow-md hover:bg-orange-700">Login
+                                / Register</a>
+                        </c:if>
                     </div>
-                    <div class="w-full bg-white/25 rounded-full h-3">
-                        <div class="bg-white h-full rounded-full" style="width: 25%"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- ACHIEVEMENTS -->
-    <div class="flex justify-center gap-10 mb-12">
+                    <!-- NAV -->
+                    <nav class="hidden md:flex ml-8 mt-3 space-x-10 text-base font-semibold pb-4">
 
-        <!-- Favorite Meals -->
-        <div class="bg-white rounded-2xl p-6 shadow-xl w-64 smooth-hover hover:-translate-y-1">
-            <div class="w-12 h-12 rounded-xl bg-red-50 text-red-500 flex items-center justify-center mb-3">
-                ❤️
-            </div>
-            <div class="text-4xl font-bold mb-1 text-gray-900">
-                ${fn:length(user.favoritedRecipes)}
-            </div>
-            <div class="text-gray-600 text-sm">Favourite Meals</div>
-        </div>
+                        <a href="/"
+                            class="text-gray-700 hover:text-orange-600 flex items-center space-x-2 smooth-hover">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" stroke="currentColor" fill="none">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 6h16M4 12h16M4 18h7" />
+                            </svg>
+                            <span>Recipes</span>
+                        </a>
+                        <c:if test="${not empty sessionScope.loggedInUser}">
 
-        <!-- My Recipes -->
-        <div class="bg-white rounded-2xl p-6 shadow-xl w-64 smooth-hover hover:-translate-y-1">
-            <div class="w-12 h-12 rounded-xl bg-orange-50 text-orange-500 flex items-center justify-center mb-3">
-                🍴
-            </div>
-            <div class="text-4xl font-bold mb-1 text-gray-900">
-                ${fn:length(user.publishedRecipes)}
-            </div>
-            <div class="text-gray-600 text-sm">My Recipes</div>
-        </div>
+                            <a href="/marketList"
+                                class="text-gray-700 hover:text-orange-600 flex items-center space-x-2 smooth-hover">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" stroke="currentColor"
+                                    fill="none">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M4 9h16l-1.5 9h-13L4 9zM7 9l3-6m4 6l3-6" />
+                                </svg>
+                                <span>Market List</span>
+                            </a>
 
-    </div>
+                            <a href="/addRecipe"
+                                class="text-gray-700 hover:text-orange-600 flex items-center space-x-2 smooth-hover">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" stroke="currentColor"
+                                    fill="none">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 4v16m8-8H4" />
+                                </svg>
+                                <span>Add Recipe</span>
+                            </a>
 
-    <!-- SAVED RECIPES -->
-    <div class="bg-white rounded-3xl p-8 shadow-xl">
-        <h2 class="text-3xl font-bold mb-6 text-gray-900">Saved Recipes</h2>
+                            <a href="/profile/${loggedInUser.id}"
+                                class="text-orange-600 border-b-2 border-orange-600 pb-1 flex items-center space-x-2 smooth-hover">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" stroke="currentColor"
+                                    fill="none">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5.121 17.804A9 9 0 1118.88 17.804M12 7a4 4 0 100-8 4 4 0 000 8z" />
+                                </svg>
+                                <span>Profile</span>
+                            </a>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <a href="/ingredientMatcher"
+                                class="text-gray-700 hover:text-orange-600 flex items-center space-x-2 smooth-hover">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" stroke="currentColor"
+                                    fill="none">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M21 21l-4.35-4.35M11 18a7 7 0 100-14 7 7 0 000 14z" />
+                                </svg>
+                                <span>Ingredient Matcher</span>
+                            </a>
+                        </c:if>
+                        <a href="/about"
+                            class="flex items-center space-x-1 text-gray-600 hover:text-orange-600 transition">
+                            <!-- Icon: info circle -->
+                            <svg class="w-4 h-4 text-gray-500 hover:text-orange-500" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 16h-1v-4h-1m1-4h.01M12 20a8 8 0 100-16 8 8 0 000 16z" />
+                            </svg>
+                            <span>About Us</span>
+                        </a>
 
-            <c:forEach var="recipe" items="${user.favoritedRecipes}">
-                <div class="flex gap-4 p-4 border-2 border-gray-200 rounded-xl hover:border-orange-400 hover:bg-orange-50 smooth-hover cursor-pointer shadow-sm">
-                    <img src="${recipe.image}" class="w-20 h-20 rounded-lg object-cover">
 
-                    <div class="flex-1">
-                        <div class="font-bold text-lg mb-1 line-clamp-1 text-gray-900">${recipe.title}</div>
-                        <div class="text-sm text-gray-600 line-clamp-1">${recipe.description}</div>
+                    </nav>
+                </header>
 
-                        <div class="flex items-center gap-2 mt-2">
-                            <span class="text-yellow-500">⭐</span>
-                            <span class="text-sm font-semibold">${recipe.calories} cal</span>
+                <main class="container mx-auto px-4 py-8 max-w-7xl">
+
+                    <div
+                        class="bg-gradient-to-r from-orange-500 to-pink-500 rounded-3xl p-10 text-white shadow-xl mb-10 smooth-hover">
+                        <div class="flex items-center gap-8">
+                            <div class="w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-2xl">
+                                <img src="https://scontent.fjrs2-2.fna.fbcdn.net/v/t39.30808-6/476830334_9124096434325901_976653848012665385_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=a5f93a&_nc_ohc=hfC-WlcWg7oQ7kNvwGw4K7R&_nc_oc=AdnbjQMaETVZ-GaKAnyVamYoYn-QPgwZUgm97DEwuPMF49o6VcSvE84_Yjrsc7qfqM8&_nc_zt=23&_nc_ht=scontent.fjrs2-2.fna&_nc_gid=hOG-MAGxhOAYSecdinAInw&oh=00_AfigRlQGTk6x-ZjFPghyUIHZZ-NiR97DolO_Nu46dEjEnA&oe=692DF4B8"
+                                    alt="${user.name}" class="w-full h-full object-cover">
+                            </div>
+
+                            <div class="flex-1">
+                                <h1 class="text-4xl font-bold mb-2 drop-shadow-sm">${user.name}</h1>
+
+                                <div class="mt-4">
+                                    <div class="flex items-center justify-between mb-1">
+                                        <span class="text-white/90 text-sm italic">“Where taste meets tech.”</span>
+                                        <span class="font-semibold">250 / 1000</span>
+                                    </div>
+                                    <div class="w-full bg-white/25 rounded-full h-3">
+                                        <div class="bg-white h-full rounded-full" style="width: 25%"></div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </c:forEach>
+                    <div class="flex justify-center gap-10 mb-12">
 
-        </div>
-    </div>
-    <div class="bg-white rounded-3xl p-8 shadow-xl mt-12">
-        <h2 class="text-3xl font-bold mb-6 text-gray-900">My Recipes</h2>
+                        <!-- Favorite Meals -->
+                        <div class="bg-white rounded-2xl p-6 shadow-xl w-64 smooth-hover hover:-translate-y-1">
+                            <div
+                                class="w-12 h-12 rounded-xl bg-red-50 text-red-500 flex items-center justify-center mb-3">
+                                ❤️
+                            </div>
+                            <div class="text-4xl font-bold mb-1 text-gray-900">
+                                ${fn:length(user.favoritedRecipes)}
+                            </div>
+                            <div class="text-gray-600 text-sm">Favourite Meals</div>
+                        </div>
 
+                        <!-- My Recipes -->
+                        <div class="bg-white rounded-2xl p-6 shadow-xl w-64 smooth-hover hover:-translate-y-1">
+                            <div
+                                class="w-12 h-12 rounded-xl bg-orange-50 text-orange-500 flex items-center justify-center mb-3">
+                                🍴
+                            </div>
+                            <div class="text-4xl font-bold mb-1 text-gray-900">
+                                ${fn:length(user.publishedRecipes)}
+                            </div>
+                            <div class="text-gray-600 text-sm">My Recipes</div>
+                        </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-
-
-<c:forEach var="recipe" items="${user.publishedRecipes}">
-                <a href="/recipeDetails/${recipe.id}"
-                   class="flex flex-col p-4 border-2 border-gray-200 rounded-xl hover:border-orange-400 hover:bg-orange-50 smooth-hover cursor-pointer shadow-sm">
-
-                    <img src="${recipe.image}" class="w-full h-40 rounded-lg object-cover mb-3">
-
-                    <div class="font-bold text-lg mb-1 text-gray-900 line-clamp-1">
-                            ${recipe.title}
                     </div>
 
-                    <div class="text-sm text-gray-600 line-clamp-2">
-                            ${recipe.description}
+
+                    <div class="bg-white rounded-3xl p-8 shadow-xl">
+                        <h2 class="text-3xl font-bold mb-6 text-gray-900">Favorite Recipes</h2>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+                            <c:forEach var="recipe" items="${user.favoritedRecipes}">
+                                <a href="/recipeDetails/${recipe.id}"
+                                    class="flex gap-4 p-4 border-2 border-gray-200 rounded-xl hover:border-orange-400 hover:bg-orange-50 smooth-hover cursor-pointer shadow-sm">
+                                    <img src="${recipe.image}" class="w-20 h-20 rounded-lg object-cover">
+
+                                    <div class="flex-1">
+                                        <div class="font-bold text-lg mb-1 line-clamp-1 text-gray-900">${recipe.title}
+                                        </div>
+                                        <div class="text-sm text-gray-600 line-clamp-1">${recipe.description}</div>
+
+                                        <div class="flex items-center text-sm text-gray-500 gap-4 mb-2 mt-3">
+                                            <span class="flex items-center gap-1"><span><svg
+                                                        xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                        class="lucide lucide-clock" aria-hidden="true">
+                                                        <path d="M12 6v6l4 2"></path>
+                                                        <circle cx="12" cy="12" r="10"></circle>
+                                                    </svg></span>
+                                                ${recipe.cookingTime}</span>
+                                            <span class="flex items-center gap-1 text-red-500"><span>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                        class="lucide lucide-flame" aria-hidden="true">
+                                                        <path
+                                                            d="M12 3q1 4 4 6.5t3 5.5a1 1 0 0 1-14 0 5 5 0 0 1 1-3 1 1 0 0 0 5 0c0-2-1.5-3-1.5-5q0-2 2.5-4">
+                                                        </path>
+                                                    </svg>
+                                                </span>
+                                                ${recipe.calories}</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </c:forEach>
+
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-3xl p-8 shadow-xl mt-12">
+                        <h2 class="text-3xl font-bold mb-6 text-gray-900">My Recipes</h2>
+
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+
+                            <c:forEach var="recipe" items="${user.publishedRecipes}">
+                                <a href="/recipeDetails/${recipe.id}"
+                                    class="flex flex-col p-4 border-2 border-gray-200 rounded-xl hover:border-orange-400 hover:bg-orange-50 smooth-hover cursor-pointer shadow-sm">
+
+                                    <img src="${recipe.image}" class="w-full h-40 rounded-lg object-cover mb-3">
+
+                                    <div class="font-bold text-lg mb-1 text-gray-900 line-clamp-1">
+                                        ${recipe.title}
+                                    </div>
+
+                                    <div class="text-sm text-gray-600 line-clamp-2">
+                                        ${recipe.description}
+                                    </div>
+
+                                </a>
+                            </c:forEach>
+
+                        </div>
                     </div>
 
-                </a>
-            </c:forEach>
+                </main>
 
-        </div>
-    </div>
+                <footer class="bg-gray-100 mt-20 py-6 text-center">
+                    <p class="text-gray-600">&copy; 2025 Smart Kitchen. All rights reserved.</p>
+                </footer>
 
-</main>
+            </body>
 
-<!-- FOOTER -->
-<footer class="bg-gray-100 mt-20 py-6 text-center">
-    <p class="text-gray-600">&copy; 2025 Smart Kitchen. All rights reserved.</p>
-</footer>
-
-</body>
-</html>
+            </html>

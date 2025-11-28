@@ -87,10 +87,10 @@ public ResponseEntity<String> addToMarket(@PathVariable Long recipeId, HttpSessi
         
         System.out.println("Updated Market Session List: " + session.getAttribute("temporaryRecipe"));
 
-        return ResponseEntity.ok("✔ Recipe ingredients added to market list.");
+        return ResponseEntity.ok("Recipe ingredients added to market list");
     }
 
-    return ResponseEntity.status(404).body("❌ Recipe not found.");
+    return ResponseEntity.status(404).body("Recipe not found");
 }
 
 @DeleteMapping("/deleteIngredient")
@@ -101,9 +101,9 @@ public ResponseEntity<String> deleteIngredient(@RequestParam String ingredient, 
         temporaryRecipe.remove(ingredient);
         session.setAttribute("temporaryRecipe", temporaryRecipe);
         System.out.println("Updated Market Session List: " + session.getAttribute("temporaryRecipe"));
-        return ResponseEntity.ok("✔ Ingredient deleted from market list.");
+        return ResponseEntity.ok("Ingredient deleted from market list.");
     }
-    return ResponseEntity.status(404).body("❌ Market list not found.");
+    return ResponseEntity.status(404).body("Market list not found.");
 }
 
 

@@ -28,7 +28,7 @@
                 <header class="bg-white shadow-lg sticky top-0 z-50 px-10 smooth-hover">
                     <div class="flex justify-between px-6 py-5 items-center">
 
-                        <!-- Logo + Title -->
+                        
                         <div class="flex items-center space-x-4 smooth-hover">
                 <span class="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-orange-300 to-pink-300 text-orange-700 rounded-2xl shadow-md">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -45,7 +45,7 @@
                             </div>
                         </div>
 
-                        <!-- Login Button -->
+                         
                         <c:if test="${loggedInUser != null}">
                             <a href="/logout"
                                class="bg-orange-600 text-white text-sm font-medium py-2 px-4 rounded-lg shadow-md hover:bg-orange-700">Logout</a>
@@ -57,7 +57,7 @@
                         </c:if>
                     </div>
 
-                    <!-- NAV -->
+                    
                     <nav class="hidden md:flex ml-8 mt-3 space-x-10 text-base font-semibold pb-4">
 
                         <a href="/" class="text-gray-700 hover:text-orange-600 flex items-center space-x-2 smooth-hover">

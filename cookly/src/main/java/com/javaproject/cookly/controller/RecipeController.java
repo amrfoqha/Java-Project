@@ -67,9 +67,8 @@ public class RecipeController {
         System.out.println(recipe);
 
         User user1 = userService.findUserById(user.getId());
-        model.addAttribute("user1", user1);
-
         if (result.hasErrors()) {
+            model.addAttribute("user1", user1);
             return "AddRecipe.jsp";
         }
 
@@ -124,6 +123,7 @@ public class RecipeController {
     
     @GetMapping("/addIngredient")
     public String addIngredient(@RequestParam String ingredient, Model model, HttpSession session) {
+     
         if (session.getAttribute("temporaryRecipe") == null) {
             session.setAttribute("temporaryRecipe", new ArrayList<String>());
         }
