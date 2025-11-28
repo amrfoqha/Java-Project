@@ -30,83 +30,75 @@ public class RecipeController {
     private RecipeService recipeService;
     @Autowired
     userService userService;
-    @Autowired
-    CommentService commentService;
     
     @GetMapping("/addRecipe")
-    public String showAddRecipeForm(Model model,HttpSession httpSession) {
-        if (httpSession.getAttribute("loggedInUser") == null) {
+    public String showAddRecipeForm(Model model,HttpSession session) {
+        if (session.getAttribute("loggedInUser") == null) {
             return "redirect:/login";
         }
         // Create empty recipe object for form binding
-        model.addAttribute("user", new User());
         model.addAttribute("recipe", new Recipe());
 
         return "AddRecipe.jsp";
     }
-//    @PostMapping("/saveRecipe/{id}")
-//    public String saveRecipe(@PathVariable("id")User user, @Valid @ModelAttribute("recipe") Recipe recipe, BindingResult result, Model model, HttpSession httpSession) {
-//        System.out.println(recipe);
-//        User user1 = userService.findUserById(user.getId());
-//        model.addAttribute("user1", user1);
-//        if (result.hasErrors()) {
-//            return "AddRecipe.jsp";
-//        }
-//        recipeService.createRecipe(recipe ,user1 );
-//
-//        return "redirect:/addRecipe";
-//
-//    }
+    @PostMapping("/saveRecipe")
+    public String saveRecipe(@Valid @ModelAttribute("recipe") Recipe recipe,
+                             BindingResult result, Model model, HttpSession session) {
+        User loggedUser = (User) session.getAttribute("loggedInUser");
 
-    @PostMapping("/saveRecipe/{id}")
-    public String saveRecipe(@PathVariable("id") User user,
-                             @Valid @ModelAttribute("recipe") Recipe recipe,
-                             BindingResult result,
-                             Model model,
-                             HttpSession httpSession) {
+        if (loggedUser == null) {
+            System.out.println("ERROR: No logged-in user in session. Redirecting to login.");
+            return "redirect:/login";
+        }
 
-        System.out.println(recipe);
-
-        User user1 = userService.findUserById(user.getId());
         if (result.hasErrors()) {
-            model.addAttribute("user1", user1);
+            System.out.println("Validation errors: " + result.getAllErrors());
+            model.addAttribute("loggedUser", loggedUser);
             return "AddRecipe.jsp";
         }
 
-        // Save the recipe and associate with user
-        Recipe savedRecipe = recipeService.createRecipe(recipe, user1);
-
-        // Add recipe to user's publishedRecipes list if not already
-        if (user1.getPublishedRecipes() != null) {
-            user1.getPublishedRecipes().add(savedRecipe);
-        } else {
-            List<Recipe> publishedRecipes = new ArrayList<>();
-            publishedRecipes.add(savedRecipe);
-            user1.setPublishedRecipes(publishedRecipes);
+        try {
+            System.out.println("Saving recipe for user ID: " + loggedUser.getId());
+            recipeService.createRecipe(recipe, loggedUser);
+            System.out.println("Recipe saved successfully. Redirecting to profile.");
+            return "redirect:/profile/" + loggedUser.getId();
+        } catch (Exception e) {
+            System.out.println("Error saving recipe: " + e.getMessage());
+            e.printStackTrace();  // For full stack trace
+            model.addAttribute("error", "An error occurred while saving the recipe.");
+            model.addAttribute("loggedUser", loggedUser);
+            return "AddRecipe.jsp";
         }
-
-        // Save updated user (if cascade is not set)
-        userService.save(user1);
-
-        return "redirect:/profile/" + user1.getId();
     }
-
-
-
+//    @PostMapping("/saveRecipe")
+//    public String saveRecipe(@Valid @ModelAttribute("recipe") Recipe recipe, BindingResult result, Model model, HttpSession session) {
+//        if (result.hasErrors()) {
+//            User loggedUser = (User) session.getAttribute("loggedInUser");
+//            model.addAttribute("loggedUser", loggedUser);
+//            return "AddRecipe.jsp";
+//        }
+//
+//        User loggedUser = (User) session.getAttribute("loggedInUser");
+//        if (loggedUser == null) {
+//            model.addAttribute("loggedUser", loggedUser);
+//            System.out.println("ERROR: loggedUser is null! Session issue.");
+//            return "redirect:/login";
+//
+//        }
+//        System.out.println("Logged in user ID: " + loggedUser.getId());
+//        recipeService.createRecipe(recipe ,loggedUser);
+//        return "redirect:/profile/" + loggedUser.getId();
+//    }
 
     @GetMapping("/recipeDetails/{id}")
-    public String showRecipeDetails(@PathVariable Long id, Model model, HttpSession httpSession) {
+    public String showRecipeDetails(@PathVariable Long id, Model model,HttpSession httpSession) {
         if (httpSession.getAttribute("loggedInUser") == null) {
             return "redirect:/login";
         }
-        boolean isFavorited = recipeService.checkFavorite(id,
-                ((User) httpSession.getAttribute("loggedInUser")).getId());
+        boolean isFavorited = recipeService.checkFavorite(id, ((User) httpSession.getAttribute("loggedInUser")).getId());
         Recipe recipe = recipeService.getRecipeById(id);
         model.addAttribute("recipe", recipe);
         model.addAttribute("isFavorited", isFavorited);
-        model.addAttribute("comments", commentService.findByRecipeId(id));
-        model.addAttribute("avarageRating", commentService.getAverageRating(id));
-        model.addAttribute("totalComments", commentService.findByRecipeId(id).size());
         return "RecipeDetails.jsp";
     }
     
