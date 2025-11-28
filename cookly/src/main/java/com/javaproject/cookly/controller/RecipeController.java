@@ -106,6 +106,9 @@ public class RecipeController {
         Recipe recipe = recipeService.getRecipeById(id);
         model.addAttribute("recipe", recipe);
         model.addAttribute("isFavorited", isFavorited);
+        model.addAttribute("comments", recipe.getComments());
+        model.addAttribute("totalComments", recipe.getComments().size());
+        model.addAttribute("avarageRating", recipe.getAverageRating());
         return "RecipeDetails.jsp";
     }
     
