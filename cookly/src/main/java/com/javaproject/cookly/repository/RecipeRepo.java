@@ -1,7 +1,6 @@
 
 package com.javaproject.cookly.repository;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
@@ -18,10 +17,13 @@ public interface RecipeRepo extends CrudRepository<Recipe, Long>, PagingAndSorti
     List<Recipe> findAll();
     List<Recipe> findByPubUser(User user);
     List<Recipe> findByFavoritedBy(User user);
-    List<Recipe> findByComments(User user);
 
     List<Recipe> findByTitleContainingIgnoreCase(String name);
     
     @Query("SELECT COUNT(r) > 0 FROM Recipe r JOIN r.favoritedBy u WHERE r.id = :recipeId AND u.id = :userId")
     boolean existsByFavoritedBy(Long recipeId, Long userId);
+
+    @Query("SELECT r FROM Recipe r WHERE r.ingredients LIKE %:ingredients%")
+    List<Recipe> findByIngredientsContaining(String ingredients);
+
 }

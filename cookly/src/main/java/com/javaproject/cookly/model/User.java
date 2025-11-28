@@ -53,6 +53,7 @@ public class User {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date updatedAt;
     @OneToMany(mappedBy = "pubUser", fetch = FetchType.LAZY)
+    @com.fasterxml.jackson.annotation.JsonIgnore
     private List<Recipe> publishedRecipes;
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -61,9 +62,11 @@ public class User {
         joinColumns = @JoinColumn(name = "user_id"),
         inverseJoinColumns = @JoinColumn(name = "recipe_id")
     )
+    @com.fasterxml.jackson.annotation.JsonIgnore
     private List<Recipe> favoritedRecipes;
 
     @OneToMany(mappedBy = "pubUser", fetch = FetchType.LAZY)
+    @com.fasterxml.jackson.annotation.JsonIgnore
     private List<Comment> comments;
 
 

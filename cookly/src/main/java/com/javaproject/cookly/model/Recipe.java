@@ -95,9 +95,11 @@ public class Recipe {
         joinColumns = @JoinColumn(name = "recipe_id"),
         inverseJoinColumns = @JoinColumn(name = "user_id")
     )
+    @com.fasterxml.jackson.annotation.JsonIgnore
     private List<User> favoritedBy;
 
     @OneToMany(mappedBy = "pubRecipe", fetch = FetchType.LAZY)
+    @com.fasterxml.jackson.annotation.JsonIgnore
     private List<Comment> comments;
 
    
@@ -207,7 +209,8 @@ public class Recipe {
     public void setComments(List<Comment> comments) {
         this.comments = comments;
     }
-    
 
 
+    public void setUser(User user) {
+    }
 }

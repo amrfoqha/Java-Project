@@ -1,6 +1,5 @@
 package com.javaproject.cookly.controller;
 
-import com.javaproject.cookly.service.userService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -9,7 +8,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.javaproject.cookly.model.LoginUser;
@@ -36,7 +34,7 @@ public class HomeController {
     public String home(@RequestParam(defaultValue = "0") int page,
                        Model model) {
 
-        int pageSize = 9; 
+        int pageSize = 9;
 
         Page<Recipe> recipePage = recipeService.getRecipesByPage(page, pageSize);
 
@@ -57,13 +55,13 @@ public class HomeController {
     @PostMapping("/register")
     public String register(@Valid @ModelAttribute("newUser") User newUser,BindingResult result,
                                @ModelAttribute("loginUser") LoginUser loginUser,Model model, HttpSession httpSession) {
-                
+
                User user = userService.createUser(newUser, result);
                if (result.hasErrors()) {
               return "Login.jsp";
           } else {
               httpSession.setAttribute("loggedInUser", user);
-          }             
+          }
 
         return "redirect:/";
     }
@@ -71,7 +69,7 @@ public class HomeController {
     @PostMapping("/login")
     public String login(@Valid @ModelAttribute("loginUser") LoginUser loginUser,
                         BindingResult result,@ModelAttribute("newUser") User newUser,Model model, HttpSession httpSession) {
-                            
+
 
         User user = userService.loginUser(loginUser, result);
                  if (result.hasErrors()) {
@@ -90,10 +88,11 @@ public class HomeController {
           return "IngredientMatcher.jsp";
       }
       @GetMapping("/marketList")
-      public String marketList(HttpSession httpSession) {
-        if (httpSession.getAttribute("loggedInUser") == null) {
-            return "redirect:/login";
-        }
+      public String marketList(HttpSession httpSession, Model model) {
+          if (httpSession.getAttribute("loggedInUser") == null) {
+              return "redirect:/login";
+          }
+          model.addAttribute("marketList", httpSession.getAttribute("temporaryRecipe"));
           return "MarketList.jsp";
       }
 
@@ -103,7 +102,20 @@ public class HomeController {
           httpSession.invalidate();
           return "redirect:/";
       }
- 
 
-    
+
+    @GetMapping("/about")
+    public String about() {
+        // No login check, anyone can access
+        return "aboutus.jsp"; // logical view name, no .jsp
+    }
+
+
+
+
+
+
+
+
+
 }
