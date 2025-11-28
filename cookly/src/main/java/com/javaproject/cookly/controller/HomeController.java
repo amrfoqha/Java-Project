@@ -1,6 +1,7 @@
 package com.javaproject.cookly.controller;
 
-import com.javaproject.cookly.service.userService;
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -8,8 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.javaproject.cookly.model.LoginUser;
@@ -90,10 +91,11 @@ public class HomeController {
           return "IngredientMatcher.jsp";
       }
       @GetMapping("/marketList")
-      public String marketList(HttpSession httpSession) {
-        if (httpSession.getAttribute("loggedInUser") == null) {
-            return "redirect:/login";
-        }
+      public String marketList(HttpSession httpSession, Model model) {
+          if (httpSession.getAttribute("loggedInUser") == null) {
+              return "redirect:/login";
+          }
+          model.addAttribute("marketList", httpSession.getAttribute("temporaryRecipe"));
           return "MarketList.jsp";
       }
 
@@ -103,7 +105,8 @@ public class HomeController {
           httpSession.invalidate();
           return "redirect:/";
       }
- 
+      
+      
 
     
 }
