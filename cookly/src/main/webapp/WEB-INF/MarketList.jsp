@@ -144,7 +144,7 @@
                                     automatically</p>
                             </div>
                             <div>
-                                <button
+                                <a href="/downloadText"
                                     class="flex items-center gap-2 bg-white text-blue-600 px-6 py-3 rounded-xl hover:bg-gray-100 transition-all"><svg
                                         xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -152,7 +152,7 @@
                                         <path d="M12 15V3"></path>
                                         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                                         <path d="m7 10 5 5 5-5"></path>
-                                    </svg><span>Export</span></button>
+                                    </svg><span>Export</span></a>
                             </div>
                         </div>
                     </div>
@@ -160,119 +160,56 @@
                         <div
                             class="flex flex-col items-start justify-start w-1/4 h-36 border border-gray-200 rounded-3xl p-4 shadow-xl">
                             <h1 class="font-light">Total Items</h1>
-                            <h1 class="p-4 text-4xl ml-4">3</h1>
+                            <h1 class="p-4 text-4xl ml-4">${empty marketList ? 0 : marketList.size()}</h1>
                         </div>
                         <div
                             class="flex flex-col items-start justify-start w-1/4 h-36 border border-gray-200 rounded-3xl p-4 shadow-xl">
                             <h1 class="font-light">Purchased</h1>
-                            <h1 class="p-4 text-4xl ml-4">2</h1>
+                            <h1 class="p-4 text-4xl ml-4" id="purchasedCount"></h1>
                         </div>
                         <div
                             class="flex flex-col items-start justify-start w-1/4 h-36 border border-gray-200 rounded-3xl p-4 shadow-xl">
                             <h1 class="font-light">Remaining</h1>
-                            <h1 class="p-4 text-4xl ml-4">1</h1>
+                            <h1 class="p-4 text-4xl ml-4" id="remainingCount"></h1>
                         </div>
                     </div>
                     <div class="bg-white rounded-2xl p-6 shadow-xl w-[80%] mx-auto mt-10">
-                        <div class="flex gap-4"><input type="text" placeholder="Add new item..."
+                        <form action="/addIngredient" method="get" class="flex gap-4">
+                            <input type="text" name="ingredient" placeholder="Add new item..."
                                 class="flex-1 px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none"
-                                value=""><button
+                                value=""><button type="submit"
                                 class="flex items-center gap-2 bg-blue-500 text-white px-6 py-3 rounded-xl hover:bg-blue-600 transition-all"><svg
                                     xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                     stroke-linejoin="round" class="lucide lucide-plus" aria-hidden="true">
                                     <path d="M5 12h14"></path>
                                     <path d="M12 5v14"></path>
-                                </svg><span>Add</span></button></div>
+                                </svg><span>Add</span></button>
+                        </form>
                     </div>
                     <div class="bg-white rounded-2xl p-6 shadow-lg w-[80%] mx-auto mt-10">
                         <h3 class="text-xl mb-4 text-gray-700">Ingredients</h3>
                         <div class="space-y-2">
-                            <div
-                                class="flex items-center gap-3 p-3 rounded-xl transition-all bg-gray-50 hover:bg-gray-100">
-                                <button onclick="checkItem(this)"
-                                    class="w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-all border-gray-300 hover:border-green-500"></button><span
-                                    class="flex-1 ">Eggs - 2 pieces</span><button onclick="deleteItem(this)"
-                                    class="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-all"><svg
-                                        xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" class="lucide lucide-trash2 lucide-trash-2"
-                                        aria-hidden="true">
-                                        <path d="M10 11v6"></path>
-                                        <path d="M14 11v6"></path>
-                                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"></path>
-                                        <path d="M3 6h18"></path>
-                                        <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                                    </svg></button>
-                            </div>
-                            <div
-                                class="flex items-center gap-3 p-3 rounded-xl transition-all bg-gray-50 hover:bg-gray-100">
-                                <button onclick="checkItem(this)"
-                                    class="w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-all border-gray-300 hover:border-green-500"></button><span
-                                    class="flex-1 ">tomatoes - 1</span><button onclick="deleteItem(this)"
-                                    class="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-all"><svg
-                                        xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" class="lucide lucide-trash2 lucide-trash-2"
-                                        aria-hidden="true">
-                                        <path d="M10 11v6"></path>
-                                        <path d="M14 11v6"></path>
-                                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"></path>
-                                        <path d="M3 6h18"></path>
-                                        <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                                    </svg></button>
-                            </div>
-                            <div
-                                class="flex items-center gap-3 p-3 rounded-xl transition-all bg-gray-50 hover:bg-gray-100">
-                                <button onclick="checkItem(this)"
-                                    class="w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-all border-gray-300 hover:border-green-500">
-                                </button><span class="flex-1 ">carrots - 1</span><button onclick="deleteItem(this)"
-                                    class="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-all"><svg
-                                        xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" class="lucide lucide-trash2 lucide-trash-2"
-                                        aria-hidden="true">
-                                        <path d="M10 11v6"></path>
-                                        <path d="M14 11v6"></path>
-                                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"></path>
-                                        <path d="M3 6h18"></path>
-                                        <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                                    </svg></button>
-                            </div>
-                            <div
-                                class="flex items-center gap-3 p-3 rounded-xl transition-all bg-gray-50 hover:bg-gray-100">
-                                <button onclick="checkItem(this)"
-                                    class="w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-all border-gray-300 hover:border-green-500"></button><span
-                                    class="flex-1 ">onions - 1</span><button onclick="deleteItem(this)"
-                                    class="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-all"><svg
-                                        xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" class="lucide lucide-trash2 lucide-trash-2"
-                                        aria-hidden="true">
-                                        <path d="M10 11v6"></path>
-                                        <path d="M14 11v6"></path>
-                                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"></path>
-                                        <path d="M3 6h18"></path>
-                                        <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                                    </svg></button>
-                            </div>
-                            <div
-                                class="flex items-center gap-3 p-3 rounded-xl transition-all bg-gray-50 hover:bg-gray-100">
-                                <button onclick="checkItem(this)"
-                                    class="w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-all border-gray-300 hover:border-green-500"></button><span
-                                    class="flex-1 ">garlic - 2 cloves</span><button
-                                    class="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-all"><svg
-                                        xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" class="lucide lucide-trash2 lucide-trash-2"
-                                        aria-hidden="true">
-                                        <path d="M10 11v6"></path>
-                                        <path d="M14 11v6"></path>
-                                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"></path>
-                                        <path d="M3 6h18"></path>
-                                        <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                                    </svg></button>
-                            </div>
+                            <c:forEach items="${marketList}" var="ingredient">
+                                <div
+                                    class="flex items-center gap-3 p-3 rounded-xl transition-all bg-gray-50 hover:bg-gray-100">
+                                    <button onclick="checkItem(this)"
+                                        class="w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-all border-gray-300 hover:border-green-500"></button><span
+                                        class="flex-1 ">${ingredient}</span><button
+                                        onclick="deleteItem(this, '${ingredient}')"
+                                        class="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-all"><svg
+                                            xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round"
+                                            class="lucide lucide-trash2 lucide-trash-2" aria-hidden="true">
+                                            <path d="M10 11v6"></path>
+                                            <path d="M14 11v6"></path>
+                                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"></path>
+                                            <path d="M3 6h18"></path>
+                                            <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                        </svg></button>
+                                </div>
+                            </c:forEach>
                         </div>
                     </div>
 
@@ -295,11 +232,39 @@
                             } else {
                                 button.innerHTML = "";
                             }
+
+                            updatePurchasedRemaining();
+                        }
+                        updatePurchasedRemaining();
+
+                        function deleteItem(button, ingredient) {
+                            button.parentElement.remove();
+
+                            fetch("/deleteIngredient?ingredient=" + encodeURIComponent(ingredient), {
+                                method: "DELETE"
+                            })
+                                .then(response => {
+                                    if (response.ok) {
+
+                                        updatePurchasedRemaining();
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error('Error deleting ingredient:', error);
+                                });
                         }
 
-                        function deleteItem(button) {
-                            button.parentElement.remove();
+                        function updatePurchasedRemaining() {
+                            const totalItems = document.querySelectorAll('.space-y-2 > div').length;
+                            const purchasedItems = document.querySelectorAll('.space-y-2 .bg-green-500').length;
+                            const remainingItems = totalItems - purchasedItems;
+
+                            document.getElementById('purchasedCount').textContent = purchasedItems;
+                            document.getElementById('remainingCount').textContent = remainingItems;
                         }
+
+
+
                     </script>
                     <footer class="bg-gray-100 mt-12 py-6 text-center">
                         <p class="text-gray-600">&copy; 2025 coockly. All rights reserved.</p>
