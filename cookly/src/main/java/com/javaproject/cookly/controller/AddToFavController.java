@@ -58,7 +58,6 @@ public class AddToFavController {
 @GetMapping("/addToMarket/{recipeId}")
 public ResponseEntity<String> addToMarket(@PathVariable Long recipeId, HttpSession session) {
 
-    // 1. Initialize the session list if not exists
     if (session.getAttribute("temporaryRecipe") == null) {
         session.setAttribute("temporaryRecipe", new ArrayList<String>());
     }
@@ -69,14 +68,11 @@ public ResponseEntity<String> addToMarket(@PathVariable Long recipeId, HttpSessi
         @SuppressWarnings("unchecked")
         ArrayList<String> temporaryRecipe = (ArrayList<String>) session.getAttribute("temporaryRecipe");
 
-        // Parse the ingredients string: remove brackets and split by comma
         String ingredientsStr = recipe.getIngredients();
         ingredientsStr = ingredientsStr.replace("[", "").replace("]", "");
         
-        // Split by comma and add each ingredient
         String[] ingredients = ingredientsStr.split(",");
         for (String ingredient : ingredients) {
-            // Remove quotes and trim whitespace
             String cleanIngredient = ingredient.replace("\"", "").trim();
             if (!cleanIngredient.isEmpty() && !temporaryRecipe.contains(cleanIngredient)) {
                 temporaryRecipe.add(cleanIngredient);

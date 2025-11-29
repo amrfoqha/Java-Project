@@ -1,20 +1,23 @@
 package com.javaproject.cookly.service;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -26,19 +29,26 @@ import com.javaproject.cookly.model.User;
 import com.javaproject.cookly.repository.RecipeRepo;
 
 @Service
+@Transactional
 public class RecipeService {
+    @Value("${deepseek.api.key}")
+    private String deepseekApiKey;
 
     @Autowired
     private RecipeRepo recipeRepo;
     private static final String DEEPSEEK_API_URL = "https://api.deepseek.com/v1/chat/completions";
-    private static final String DEEPSEEK_API_KEY = "sk-f1696c3919d344d69d2f58d7291a4d9a";
-
     private static final Logger logger = LoggerFactory.getLogger(RecipeService.class);
     private final RestTemplate rest = new RestTemplate();
     private final ObjectMapper mapper = new ObjectMapper();
 
     public Recipe createRecipe(Recipe recipe, User user) {
         recipe.setPubUser(user);
+        String[] ingredients = recipe.getIngredients().split(" ");
+        String ingredient = String.join(",", ingredients);
+        recipe.setIngredients(ingredient);
+        String[] steps = recipe.getSteps().split(" ");
+        String step = String.join(",", steps);
+        recipe.setSteps(step);
         return recipeRepo.save(recipe);
     }
 
@@ -74,37 +84,31 @@ public class RecipeService {
     }
 
     public List<Recipe> filterRecipes(List<String> categories, Integer calories) {
-        if ((categories == null || categories.isEmpty()) && (calories != null && calories > 0)) {
-            return recipeRepo.findByCaloriesLessThanEqual(calories);
-        }
-        if (calories == null || calories <= 0) {
-            return recipeRepo.filterRecipes(categories, null);
-        }
-        return recipeRepo.filterRecipes(categories, calories);
-    }
+
+    String c0 = categories.size() > 0 ? categories.get(0) : null;
+    String c1 = categories.size() > 1 ? categories.get(1) : null;
+    String c2 = categories.size() > 2 ? categories.get(2) : null;
+
+    return recipeRepo.filterRecipes(c0, c1, c2, categories, calories == null ? 0 : calories);
+}
 
 
 
     public List<Recipe> findRecipesByUserIngredients(List<String> userIngredients) {
-        String searchValue = String.join(",", userIngredients); 
-        List<Recipe> allRecipes = recipeRepo.findByIngredientsContaining(searchValue);
+        if (userIngredients == null || userIngredients.isEmpty()) {
+            return List.of();
+        }
 
-        return allRecipes.stream()
-                .sorted((r1, r2) -> {
-                    List<String> r1Ingredients = Arrays.asList(r1.getIngredients().split(","));
-                    List<String> r2Ingredients = Arrays.asList(r2.getIngredients().split(","));
+        Set<Recipe> matchedRecipes = new HashSet<>();
+        for (String ingredient : userIngredients) {
+            matchedRecipes.addAll(recipeRepo.findByIngredient(ingredient));
+        }
 
-                    long r1Count = r1Ingredients.stream()
-                            .map(String::trim)
-                            .filter(userIngredients::contains)
-                            .count();
-
-                    long r2Count = r2Ingredients.stream()
-                            .map(String::trim)
-                            .filter(userIngredients::contains)
-                            .count();
-
-                    return Long.compare(r2Count, r1Count); // descending order
+        return matchedRecipes.stream()
+                .filter(recipe -> {
+                    String recipeIngredients = recipe.getIngredients().toLowerCase();
+                    return userIngredients.stream()
+                            .allMatch(ui -> recipeIngredients.contains(ui.toLowerCase()));
                 })
                 .collect(Collectors.toList());
     }
@@ -114,6 +118,19 @@ public class RecipeService {
         "You are an expert chef AI. Based on the following user ingredients: " +
         String.join(", ", userIngredients) + ". " +
         "Generate a realistic and coherent recipe that strictly matches these rules:\n\n" +
+        "Do NOT invent new ingredients. Use the field 'title' to say 'No recipe possible', 'description' to explain briefly, " +
+        "and set all other fields to empty values or arrays. Example:\n" +
+        "{\n" +
+        "  \"title\": \"No recipe possible\",\n" +
+        "  \"description\": \"It is not possible to make a dish with the provided ingredients.\",\n" +
+        "  \"category\": \"\",\n" +
+        "  \"cuisine\": \"\",\n" +
+        "  \"cookingTime\": \"\",\n" +
+        "  \"calories\": 0,\n" +
+        "  \"ingredients\": [],\n" +
+        "  \"steps\": [],\n" +
+        "  \"image\": \"https://example.com/default-food-image.jpg\"\n" +
+        "}\n\n" +
 
         "1. Return JSON only. No explanation.\n" +
         "2. JSON fields: title, description, category, cuisine, cookingTime, calories, ingredients, steps, image.\n\n" +
@@ -131,7 +148,7 @@ public class RecipeService {
 
         "7. cookingTime: return a short friendly time such as \"30 minutes\".\n" +
 
-        "8. image: return a realistic food image URL (Unsplash or Pexels).\n\n" +
+        "8. image: return a realistic food image URL (if it Unsplash or Pexels return https://img.freepik.com/free-photo/top-view-banquet-with-lots-food_52683-101174.jpg?semt=ais_hybrid&w=740&q=80).\n\n" +
 
         "Return valid JSON like this example:\n" +
         "{\n" +
@@ -157,7 +174,7 @@ public class RecipeService {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.setBearerAuth(DEEPSEEK_API_KEY);
+        headers.setBearerAuth(deepseekApiKey);
 
         HttpEntity<String> request = new HttpEntity<>(body.toString(), headers);
 
@@ -188,13 +205,9 @@ public class RecipeService {
              throw new RuntimeException("Invalid API response: 'content' is empty. Response: " + rawResponse);
         }
         
-        // Clean up markdown code blocks if present
         content = content.replaceAll("```json", "").replaceAll("```", "").trim();
-
         logger.info("Parsed Content JSON String: {}", content);
-
         JsonNode json = mapper.readTree(content);
-
         Recipe r = new Recipe();
         r.setTitle(json.path("title").asText("Untitled Recipe"));
         r.setDescription(json.path("description").asText("No description available."));
@@ -202,7 +215,7 @@ public class RecipeService {
         r.setCuisine(json.path("cuisine").asText("International"));
         r.setCookingTime(json.path("cookingTime").asText("Unknown"));
         r.setCalories(json.path("calories").asInt(0));
-        r.setImage(json.path("image").asText("https://via.placeholder.com/400x250?text=No+Image"));
+        r.setImage(json.path("image").asText("https://img.freepik.com/free-photo/top-view-banquet-with-lots-food_52683-101174.jpg?semt=ais_hybrid&w=740&q=80"));
         
         List<String> ings = mapper.convertValue(json.path("ingredients"), new com.fasterxml.jackson.core.type.TypeReference<List<String>>() {});
         if(ings == null) ings = List.of();
@@ -212,8 +225,6 @@ public class RecipeService {
 
         r.setIngredients(String.join(", ", ings));
         r.setSteps(String.join(", ", steps));
-        
-        // Save to repo if you want to persist it, otherwise just return it
         recipeRepo.save(r);
         logger.info("Recipe generated and saved: {}", r.getTitle());
         logger.info("Recipe details - Category: {}, CookingTime: {}, Calories: {}", 

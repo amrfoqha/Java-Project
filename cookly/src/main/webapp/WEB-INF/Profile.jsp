@@ -22,6 +22,7 @@
                         transition: all .25s ease-in-out;
                     }
                 </style>
+                <script src="../js/quotes.js"></script>
             </head>
 
             <body class="bg-gray-50">
@@ -63,11 +64,7 @@
                             </a>
                         </c:if>
                     </div>
-
-
-                    <!-- NAV -->
                     <nav class="hidden md:flex ml-8 mt-3 space-x-10 text-base font-semibold pb-4">
-
                         <a href="/"
                             class="text-gray-700 hover:text-orange-600 flex items-center space-x-2 smooth-hover">
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" stroke="currentColor" fill="none">
@@ -87,7 +84,6 @@
                                 </svg>
                                 <span>Market List</span>
                             </a>
-
                             <a href="/addRecipe"
                                 class="text-gray-700 hover:text-orange-600 flex items-center space-x-2 smooth-hover">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" stroke="currentColor"
@@ -148,7 +144,9 @@
 
                                 <div class="mt-4">
                                     <div class="flex items-center justify-between mb-1">
-                                        <span class="text-white/90 text-sm italic">“Where taste meets tech.”</span>
+                                        <span id="quoteContainer"
+                                            class="text-white/90 text-lg italic smooth-hover">“Where taste
+                                            meets tech.”</span>
                                         <span class="font-semibold">250 / 1000</span>
                                     </div>
                                     <div class="w-full bg-white/25 rounded-full h-3">
@@ -262,6 +260,8 @@
                 <footer class="bg-gray-100 mt-20 py-6 text-center">
                     <p class="text-gray-600">&copy; 2025 Smart Kitchen. All rights reserved.</p>
                 </footer>
+
+
 
             </body>
 

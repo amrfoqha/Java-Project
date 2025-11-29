@@ -185,6 +185,7 @@
                                 <div id="filters"
                                     class="hidden max-w-4xl mx-auto bg-white shadow-md rounded-xl p-6 mt-6">
                                     <form class="space-y-6" action="/filter" method="post">
+                                        <input type="hidden" name="category" id="categoryInput">
                                         <div>
                                             <h3 class="font-medium text-gray-700 mb-2">Category</h3>
                                             <div class="flex flex-wrap gap-3">
@@ -248,6 +249,18 @@
                                             this.classList.toggle('bg-orange-500');
                                             this.classList.toggle('text-white');
                                             this.classList.toggle('border-orange-500');
+                                            const hidden = document.getElementById('categoryInput');
+                                            let selected = hidden.value ? hidden.value.split(',') : [];
+
+                                            if (selected.includes(this.value)) {
+                                                // remove it if already selected
+                                                selected = selected.filter(c => c !== this.value);
+                                            } else {
+                                                // add if not selected
+                                                selected.push(this.value);
+                                            }
+
+                                            hidden.value = selected.join(',');
                                         })
                                     });
 
@@ -350,7 +363,7 @@
                                 </nav>
                             </div>
                         </main>
-                        <footer class="bg-gray-100 mt-12 py-6 text-center">
+                        <footer class="bg-gray-100 mt-12 py-6 text-center fixed bottom-0 w-full">
                             <p class="text-gray-600">&copy; 2025 coockly. All rights reserved.</p>
                         </footer>
 

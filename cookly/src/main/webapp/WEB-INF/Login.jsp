@@ -20,20 +20,26 @@
                                 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
                             }
 
-                            /* Overlay to make form readable */
+
                             .overlay {
                                 background-color: rgba(255, 255, 255, 0.85);
-                                backdrop-filter: blur(10px);
+                                backdrop-filter: blur(1px);
                             }
                         </style>
                     </head>
 
-                    <body class="px-4">
-                        <!-- Main wrapper -->
-                        <div class="flex justify-center items-center flex-grow py-10">
+                    <body class="relative">
+
+                        <div class="absolute top-12 left-12">
+                            <a href="/"
+                                class="bg-gradient-to-r from-blue-600 to-green-500 text-white px-5 py-3 rounded-xl font-bold hover:bg-green-800 transition ease-in-out duration-300">Back
+                                to Home</a>
+                        </div>
+
+                        <div class=" flex justify-center items-center flex-grow py-10">
                             <div
-                                class="w-full max-w-3xl overlay shadow-2xl rounded-3xl overflow-hidden border border-gray-100">
-                                <!-- Header -->
+                                class="w-full max-w-3xl  shadow-2xl rounded-3xl overflow-hidden border border-gray-100">
+
                                 <div
                                     class="bg-gradient-to-r from-blue-600 to-green-500 text-white p-10 text-center shadow-md">
                                     <h1 class="text-4xl font-extrabold tracking-wide drop-shadow-sm">
@@ -43,76 +49,87 @@
                                         Your AI-powered kitchen assistant
                                     </p>
                                 </div>
-                                <!-- CENTERED CONTENT -->
-                                <div class="p-10">
-                                    <!-- REGISTER FORM (hidden at first) -->
+
+                                <div class="p-10 pt-5 backdrop-blur-md bg-none">
+
                                     <div id="registerSection" class="max-w-md mx-auto hidden text-center">
-                                        <h2 class="text-3xl font-bold mb-6 text-blue-700">
+                                        <h2 class="text-3xl font-semibold mb-6 text-white">
                                             👩‍🍳 Create Account
                                         </h2>
                                         <form:form action="/register" method="post" modelAttribute="newUser"
                                             class="space-y-5 text-left">
                                             <div>
-                                                <form:label path="name" class="font-semibold">Name</form:label>
-                                                <form:errors path="name" cssClass="text-red-500 text-sm" />
+                                                <form:label path="name" class="font-semibold text-white text-2xl">Name
+                                                </form:label>
                                                 <form:input path="name"
                                                     cssClass="w-full px-4 py-3 border rounded-xl shadow-sm" />
+                                                <form:errors path="name" cssClass="text-sm bg-gray-300 pl-2" />
                                             </div>
                                             <div>
-                                                <form:label path="email" class="font-semibold">Email</form:label>
-                                                <form:errors path="email" cssClass="text-red-500 text-sm" />
+                                                <form:label path="email" class="font-semibold text-white text-2xl">Email
+                                                </form:label>
                                                 <form:input path="email"
                                                     cssClass="w-full px-4 py-3 border rounded-xl shadow-sm" />
+                                                <form:errors path="email" cssClass="text-sm bg-gray-300 pl-2" />
                                             </div>
                                             <div>
-                                                <form:label path="password" class="font-semibold">Password</form:label>
-                                                <form:errors path="password" cssClass="text-red-500 text-sm" />
+                                                <form:label path="password" class="font-semibold text-white text-2xl">
+                                                    Password
+                                                </form:label>
                                                 <form:password path="password"
                                                     cssClass="w-full px-4 py-3 border rounded-xl shadow-sm" />
+                                                <form:errors path="password" cssClass="text-sm bg-gray-300 pl-2" />
                                             </div>
                                             <div>
-                                                <form:label path="confirmPassword" class="font-semibold">Confirm
+                                                <form:label path="confirmPassword"
+                                                    class="font-semibold text-white text-2xl">
+                                                    Confirm
                                                     Password</form:label>
-                                                <form:errors path="confirmPassword" cssClass="text-red-500 text-sm" />
                                                 <form:password path="confirmPassword"
                                                     cssClass="w-full px-4 py-3 border rounded-xl shadow-sm" />
+                                                <form:errors path="confirmPassword"
+                                                    cssClass="text-sm bg-gray-300 pl-2" />
                                             </div>
                                             <input type="submit" value="Register"
                                                 class="w-full bg-blue-600 text-white py-3 rounded-xl font-bold hover:bg-blue-700 transition shadow-md" />
                                         </form:form>
                                         <p class="mt-4">
                                             <button onclick="showLogin()"
-                                                class="text-green-600 hover:underline font-semibold">
+                                                class="text-white hover:underline font-semibold">
                                                 Already have an account? Login
                                             </button>
                                         </p>
                                     </div>
-                                    <!-- LOGIN FORM (default visible) -->
-                                    <div id="loginSection" class="max-w-md mx-auto text-center">
-                                        <h2 class="text-3xl font-bold mb-6 text-green-700">
+
+                                    <div id="loginSection" class="max-w-md mx-auto text-center ">
+                                        <h2 class="text-3xl font-semibold mb-3 text-white">
                                             🍽️ Login
                                         </h2>
                                         <form:form action="/login" method="post" modelAttribute="loginUser"
                                             class="space-y-5 text-left">
                                             <div>
-                                                <form:label path="loginEmail" class="font-semibold">Email</form:label>
-                                                <form:errors path="loginEmail" cssClass="text-red-500 text-sm" />
+                                                <form:label path="loginEmail" class="font-semibold text-white text-2xl">
+                                                    Email
+                                                </form:label>
                                                 <form:input path="loginEmail"
                                                     cssClass="w-full px-4 py-3 border rounded-xl shadow-sm" />
+                                                <form:errors path="loginEmail" cssClass="text-sm bg-gray-300 pl-2" />
                                             </div>
                                             <div>
-                                                <form:label path="loginPassword" class="font-semibold">Password
+                                                <form:label path="loginPassword"
+                                                    class="font-semibold text-white text-2xl">
+                                                    Password
                                                 </form:label>
-                                                <form:errors path="loginPassword" cssClass="text-red-500 text-sm" />
                                                 <form:password path="loginPassword"
                                                     cssClass="w-full px-4 py-3 border rounded-xl shadow-sm" />
+                                                <form:errors path="loginPassword" cssClass="text-sm bg-gray-300 pl-2" />
                                             </div>
                                             <input type="submit" value="Login"
                                                 class="w-full bg-green-600 text-white py-3 rounded-xl font-bold hover:bg-green-700 transition shadow-md" />
                                         </form:form>
                                         <p class="mt-4">
                                             <button onclick="showRegister()"
-                                                class="text-blue-600 hover:underline font-semibold">
+                                                class="text-white hover:underline font-semibold">
                                                 Don't have an account? Create one
                                             </button>
                                         </p>
@@ -120,20 +137,19 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Footer -->
-                        <footer class="mt-auto py-6 text-center bg-gray-100 shadow-inner">
-                            <p class="text-gray-600">&copy; 2025 Smart Recipe Platform. All rights reserved.</p>
+
+                        <footer class="py-6 text-center shadow-inner fixed bottom-0 w-full backdrop-blur-md">
+                            <p class="text-gray-800">&copy; 2025 Smart Recipe Platform. All rights reserved.</p>
                         </footer>
                         <script>
                             function showRegister() {
                                 document.getElementById("loginSection").classList.add("hidden");
                                 document.getElementById("registerSection").classList.remove("hidden");
-                            }
-                            function showLogin() {
+                            } function
+                                showLogin() {
                                 document.getElementById("registerSection").classList.add("hidden");
                                 document.getElementById("loginSection").classList.remove("hidden");
-                            }
-                        </script>
+                            } </script>
                     </body>
 
                     </html>

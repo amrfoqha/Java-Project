@@ -19,10 +19,7 @@ public class IngredientMatcherAi {
 
     @PostMapping("/match")
     public ResponseEntity<List<Recipe>> getMatchingRecipes(@RequestBody IngredientRequest request) {
-        System.out.println("ssssssssssssssssssssssssssssssssssssssssssssssssssssssss");
-        System.out.println(request.getIngredients());
         List<Recipe> matches = recipeService.findRecipesByUserIngredients(request.getIngredients());
-        System.out.println(matches);
         if(matches.isEmpty()){
             try {
                 Recipe aiRecipe = recipeService.generateRecipeWithAI(request.getIngredients());

@@ -150,16 +150,19 @@
                                     </svg>Back to recipes</a>
                                 <div class="bg-white rounded-lg shadow-sm overflow-hidden">
                                     <div class="relative h-96">
-                                        <button onclick="addToFavorites(this)" data-recipe-id="${recipe.id}"
-                                            class="p-2 absolute top-3 right-3 z-10 rounded-full backdrop-blur-sm transition-all bg-white/90 text-gray-600  ">
+                                        <c:if test="${loggedInUser != null}">
+                                            <button onclick="addToFavorites(this)" data-recipe-id="${recipe.id}"
+                                                class="p-2 absolute top-3 right-3 z-10 rounded-full backdrop-blur-sm transition-all bg-white/90 text-gray-600  ">
 
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round"
-                                                class="lucide lucide-bookmark" aria-hidden="true">
-                                                <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"></path>
-                                            </svg>
-                                        </button>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="lucide lucide-bookmark" aria-hidden="true">
+                                                    <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z">
+                                                    </path>
+                                                </svg>
+                                            </button>
+                                        </c:if>
                                         <img src="${recipe.image}" alt="${recipe.title}"
                                             class="w-full h-full object-cover">
                                     </div>
@@ -233,7 +236,8 @@
                                                         items="${fn:split(fn:replace(fn:replace(recipe.steps, '[', ''), ']', ''), ',')}">
                                                         <li class="flex gap-3 items-center"><span
                                                                 class="flex-shrink-0 w-4 h-4 bg-orange-500 text-white rounded-full flex items-center justify-center text-sm"></span><span
-                                                                class="flex-1">${fn:trim(fn:replace(instruction, '"',
+                                                                class="flex-1">${fn:trim(fn:replace(instruction,
+                                                                '"',
                                                                 ''))}</span></li>
                                                     </c:forEach>
                                                 </ol>
@@ -242,32 +246,31 @@
                                         <div class="border-t pt-6">
                                             <div class="flex items-center justify-between mb-4">
                                                 <h2>Reviews (${totalComments})</h2>
-                                                <div class="flex gap-10">
-
-
-                                                    <button onclick="saveRecipe(this)" data-recipe-id="${recipe.id}"
-                                                        id="addToMarket"
-                                                        class="flex items-center gap-2 bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors"><svg
-                                                            xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                            stroke-width="2" stroke-linecap="round"
-                                                            stroke-linejoin="round" class="lucide lucide-plus w-4 h-4"
-                                                            aria-hidden="true">
-                                                            <path d="M5 12h14"></path>
-                                                            <path d="M12 5v14"></path>
-                                                        </svg>Save Recipe</button>
-                                                    <button onclick="showReviewForm()"
-                                                        class="flex items-center gap-2 bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors"><svg
-                                                            xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                            stroke-width="2" stroke-linecap="round"
-                                                            stroke-linejoin="round" class="lucide lucide-plus w-4 h-4"
-                                                            aria-hidden="true">
-                                                            <path d="M5 12h14"></path>
-                                                            <path d="M12 5v14"></path>
-                                                        </svg>Add Review</button>
-                                                </div>
-
+                                                <c:if test="${loggedInUser != null}">
+                                                    <div class="flex gap-10">
+                                                        <button onclick="saveRecipe(this)" data-recipe-id="${recipe.id}"
+                                                            id="addToMarket"
+                                                            class="flex items-center gap-2 bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors"><svg
+                                                                xmlns="http://www.w3.org/2000/svg" width="24"
+                                                                height="24" viewBox="0 0 24 24" fill="none"
+                                                                stroke="currentColor" stroke-width="2"
+                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                class="lucide lucide-plus w-4 h-4" aria-hidden="true">
+                                                                <path d="M5 12h14"></path>
+                                                                <path d="M12 5v14"></path>
+                                                            </svg>Save Recipe</button>
+                                                        <button onclick="showReviewForm()"
+                                                            class="flex items-center gap-2 bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors"><svg
+                                                                xmlns="http://www.w3.org/2000/svg" width="24"
+                                                                height="24" viewBox="0 0 24 24" fill="none"
+                                                                stroke="currentColor" stroke-width="2"
+                                                                stroke-linecap="round" stroke-linejoin="round"
+                                                                class="lucide lucide-plus w-4 h-4" aria-hidden="true">
+                                                                <path d="M5 12h14"></path>
+                                                                <path d="M12 5v14"></path>
+                                                            </svg>Add Review</button>
+                                                    </div>
+                                                </c:if>
                                             </div>
                                             <form action="/recipe/${recipe.id}/review" method="post"
                                                 class="bg-gray-50 p-4 rounded-lg mb-6 hidden" id="reviewForm">
