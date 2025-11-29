@@ -213,12 +213,12 @@ public class Recipe {
     }
 
     public double getAverageRating() {
-            int sum = 0;
-            for (Comment comment : comments) {
-                sum += comment.getRate();
-            }
-        if(comments.size() == 0) {
-            return 0;
+        if (comments == null || comments.isEmpty()) {
+            return 0.0;
+        }
+        int sum = 0;
+        for (Comment comment : comments) {
+            sum += comment.getRate();
         }
         return (double) sum / comments.size();
     }

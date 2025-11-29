@@ -26,27 +26,38 @@ public interface RecipeRepo extends CrudRepository<Recipe, Long>, PagingAndSorti
     @Query("SELECT COUNT(r) > 0 FROM Recipe r JOIN r.favoritedBy u WHERE r.id = :recipeId AND u.id = :userId")
     boolean existsByFavoritedBy(Long recipeId, Long userId);
 
-    @Query("SELECT r FROM Recipe r WHERE r.ingredients LIKE %:ingredients%")
-    List<Recipe> findByIngredientsContaining(String ingredients);
+    // @Query("SELECT r FROM Recipe r WHERE r.ingredients LIKE %:ingredients% limit 3")
+    // List<Recipe> findByIngredientsContaining(String ingredients);
+
+    @Query("SELECT r FROM Recipe r WHERE r.ingredients LIKE %:ingredient%")
+    List<Recipe> findByIngredient(@Param("ingredient") String ingredient);
 
     List<Recipe> findByCaloriesLessThanEqual(int calories);
 
-   @Query("""
-    SELECT r FROM Recipe r
-    WHERE 
-        (
+    @Query("""
+        SELECT r FROM Recipe r
+        WHERE (:calories = 0 OR r.calories <= :calories)
+        AND (
             :categories IS NULL 
-            OR :#{#categories.size()} = 0
-            OR (
-                CONCAT(r.category, '') LIKE CONCAT('%', :#{#categories != null && !#categories.isEmpty() ? #categories[0] : ''}, '%')
+            OR EXISTS (
+                SELECT 1 FROM Recipe rr
+                WHERE rr.id = r.id AND (
+                    r.category LIKE CONCAT('%', :cat1, '%')
+                    OR r.category LIKE CONCAT('%', :cat2, '%')
+                    OR r.category LIKE CONCAT('%', :cat3, '%')
+                )
             )
         )
-        AND (:calories = 0 OR r.calories <= :calories)
     """)
-List<Recipe> filterRecipes(
-        @Param("categories") List<String> categories,
-        @Param("calories") Integer calories
-);
+    List<Recipe> filterRecipes(
+            @Param("cat1") String cat1,
+            @Param("cat2") String cat2,
+            @Param("cat3") String cat3,
+            @Param("categories") List<String> categories,
+            @Param("calories") Integer calories
+                            );
+
+
 
 
 }

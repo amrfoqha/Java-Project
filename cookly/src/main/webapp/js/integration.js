@@ -34,9 +34,6 @@ const ingredients = [];
                                 })
                                     .then(response => response.json())
                                     .then(data => {
-                                        console.log("Received data from API:", data);
-                                        console.log("Data type:", typeof data);
-                                        console.log("Is array:", Array.isArray(data));
                                         if (data.length > 0) {
                                             console.log("First recipe:", data[0]);
                                         }

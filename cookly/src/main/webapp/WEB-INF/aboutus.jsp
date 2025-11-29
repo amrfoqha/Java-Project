@@ -128,15 +128,13 @@
                 <main class="container mx-auto px-4 py-8 max-w-7xl">
 
                     <div
-                        class="bg-gradient-to-br from-orange-500 via-red-500 to-pink-500 rounded-3xl p-12 text-white mb-12 text-center">
+                        class="bg-gradient-to-r from-orange-500 to-pink-500 rounded-3xl p-12 text-white mb-12 text-center">
                         <h1 class="text-5xl md:text-6xl font-bold mb-6">About Us</h1>
                         <p class="text-2xl text-white/90 leading-relaxed max-w-3xl mx-auto">
                             Smart platform combining love for cooking and technology to make your kitchen experience
                             easier and more enjoyable.
                         </p>
                     </div>
-
-                    <!-- Our Story -->
                     <div class="bg-white rounded-3xl p-10 shadow-2xl mb-12">
                         <h2 class="text-3xl font-bold mb-6 text-orange-600">Our Story</h2>
                         <div class="space-y-6 text-gray-700 text-lg leading-relaxed">
@@ -163,7 +161,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
 
                         <div
-                            class="bg-gradient-to-br from-green-500 to-teal-500 rounded-3xl p-10 text-white shadow-2xl">
+                            class="bg-gradient-to-r from-orange-500 to-pink-500 rounded-3xl p-10 text-white shadow-2xl">
                             <h2 class="text-3xl font-bold mb-4">Our Mission</h2>
                             <p class="text-xl leading-relaxed">
                                 Empower individuals to achieve a healthy lifestyle by providing smart meal planning
@@ -173,7 +171,7 @@
                         </div>
 
                         <div
-                            class="bg-gradient-to-br from-purple-500 to-indigo-500 rounded-3xl p-10 text-white shadow-2xl">
+                            class="bg-gradient-to-r from-orange-500 to-pink-500 rounded-3xl p-10 text-white shadow-2xl">
                             <h2 class="text-3xl font-bold mb-4">Our Vision</h2>
                             <p class="text-xl leading-relaxed">
                                 To become the leading platform in the Arab world for smart meal planning,
@@ -189,7 +187,7 @@
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                             <div class="text-center p-6 rounded-2xl hover:bg-orange-50 transition-all">
                                 <div
-                                    class="w-20 h-20 bg-gradient-to-br from-orange-500 to-red-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                                    class="w-20 h-20 bg-gradient-to-r from-orange-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
                                     <i class="fas fa-sparkles text-white text-3xl"></i>
                                 </div>
                                 <h3 class="text-xl font-bold mb-2">Smart Recommendations</h3>
@@ -209,7 +207,7 @@
 
                             <div class="text-center p-6 rounded-2xl hover:bg-purple-50 transition-all">
                                 <div
-                                    class="w-20 h-20 bg-gradient-to-br from-purple-500 to-indigo-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                                    class="w-20 h-20 bg-gradient-to-r from-orange-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
                                     <i class="fas fa-users text-white text-3xl"></i>
                                 </div>
                                 <h3 class="text-xl font-bold mb-2">Active Community</h3>
@@ -221,7 +219,7 @@
 
 
                     <div
-                        class="bg-gradient-to-br from-orange-500 to-red-500 rounded-3xl p-12 text-white text-center shadow-2xl mb-12">
+                        class="bg-gradient-to-r from-orange-500 to-pink-500 rounded-3xl p-12 text-white text-center shadow-2xl mb-12">
                         <h2 class="text-4xl font-bold mb-4">Have a Question?</h2>
                         <p class="text-xl mb-6">We’re here to help! Feel free to reach out anytime.</p>
                         <a href="mailto:info@smart-recipe.com"
