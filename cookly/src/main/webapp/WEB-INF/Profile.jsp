@@ -135,7 +135,7 @@
                         class="bg-gradient-to-r from-orange-500 to-pink-500 rounded-3xl p-10 text-white shadow-xl mb-10 smooth-hover">
                         <div class="flex items-center gap-8">
                             <div class="w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-2xl">
-                                <img src="https://scontent.fjrs2-2.fna.fbcdn.net/v/t39.30808-6/476830334_9124096434325901_976653848012665385_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=a5f93a&_nc_ohc=hfC-WlcWg7oQ7kNvwGw4K7R&_nc_oc=AdnbjQMaETVZ-GaKAnyVamYoYn-QPgwZUgm97DEwuPMF49o6VcSvE84_Yjrsc7qfqM8&_nc_zt=23&_nc_ht=scontent.fjrs2-2.fna&_nc_gid=hOG-MAGxhOAYSecdinAInw&oh=00_AfigRlQGTk6x-ZjFPghyUIHZZ-NiR97DolO_Nu46dEjEnA&oe=692DF4B8"
+                                <img src="https://i.pinimg.com/736x/2c/47/d5/2c47d5dd5b532f83bb55c4cd6f5bd1ef.jpg"
                                     alt="${user.name}" class="w-full h-full object-cover">
                             </div>
 
