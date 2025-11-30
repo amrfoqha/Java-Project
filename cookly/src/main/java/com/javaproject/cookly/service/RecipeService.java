@@ -43,10 +43,10 @@ public class RecipeService {
 
     public Recipe createRecipe(Recipe recipe, User user) {
         recipe.setPubUser(user);
-        String[] ingredients = recipe.getIngredients().split("\n");
+        String[] ingredients = recipe.getIngredients().trim().split("\n");
         String ingredient = String.join(",", ingredients);
         recipe.setIngredients(ingredient);
-        String[] steps = recipe.getSteps().split("\n");
+        String[] steps = recipe.getSteps().trim().split("\n");
         String step = String.join(",", steps);
         recipe.setSteps(step);
         return recipeRepo.save(recipe);

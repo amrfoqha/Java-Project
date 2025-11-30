@@ -31,8 +31,6 @@
                         <body class="min-h-screen">
                             <header class="bg-white shadow-lg sticky top-0 z-50 px-10 smooth-hover">
                                 <div class="flex justify-between px-6 py-5 items-center">
-
-
                                     <div class="flex items-center space-x-4 smooth-hover">
                                         <span
                                             class="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-orange-300 to-pink-300 text-orange-700 rounded-2xl shadow-md">
@@ -47,25 +45,48 @@
 
                                         <div>
                                             <h1
-                                                class="text-3xl font-extrabold bg-gradient-to-r from-orange-600 to-pink-500 bg-clip-text text-transparent">
+                                                class="text-2xl sm:text-3xl md:text-4xl font-extrabold bg-gradient-to-r from-orange-600 to-pink-500 bg-clip-text text-transparent leading-tight">
                                                 Smart Recipe Platform
                                             </h1>
-                                            <span class="text-sm font-semibold text-gray-600">AI-Powered Recipe
-                                                Discovery</span>
+                                            <span class="text-xs sm:text-sm md:text-base font-semibold text-gray-600">
+                                                AI-Powered Recipe Discovery
+                                            </span>
                                         </div>
+
                                     </div>
 
+                                    <div class="hidden md:flex items-center gap-4">
+                                        <c:if test="${loggedInUser != null}">
+                                            <a href="/logout"
+                                                class="bg-gradient-to-r from-orange-500 to-pink-500 text-white text-sm font-semibold py-2.5 px-5 rounded-xl shadow-xl hover:opacity-90 smooth-hover">Logout</a>
+                                        </c:if>
+                                        <c:if test="${loggedInUser == null}">
+                                            <a href="/login"
+                                                class="bg-gradient-to-r from-orange-500 to-pink-500 text-white text-sm font-semibold py-2.5 px-5 rounded-xl shadow-xl hover:opacity-90 smooth-hover">
+                                                Login / Register
+                                            </a>
+                                        </c:if>
+                                    </div>
+                                    <div class="md:hidden flex items-center cursor-pointer">
+                                        <button id="hamburgerBtn" class="text-gray-700 focus:outline-none"
+                                            onclick="toggleMobileMenu()">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none"
+                                                viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M4 6h16M4 12h16M4 18h16" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <script>
+                                        function toggleMobileMenu() {
+                                            const button = document.getElementById("hamburgerBtn");
+                                            const mobileMenu = document.getElementById("mobileMenu");
+                                            button.onclick = () => {
+                                                mobileMenu.classList.toggle("hidden");
+                                            }
+                                        }
+                                    </script>
 
-                                    <c:if test="${loggedInUser != null}">
-                                        <a href="/logout"
-                                            class="bg-gradient-to-r from-orange-500 to-pink-500 text-white text-sm font-semibold py-2.5 px-5 rounded-xl shadow-xl hover:opacity-90 smooth-hover">Logout</a>
-                                    </c:if>
-                                    <c:if test="${loggedInUser == null}">
-                                        <a href="/login"
-                                            class="bg-gradient-to-r from-orange-500 to-pink-500 text-white text-sm font-semibold py-2.5 px-5 rounded-xl shadow-xl hover:opacity-90 smooth-hover">
-                                            Login / Register
-                                        </a>
-                                    </c:if>
                                 </div>
 
 
@@ -104,7 +125,7 @@
                                         </a>
 
                                         <a href="/profile/${loggedInUser.id}"
-                                            class="text-gray-700 hover:text-orange-600 flex items-center space-x-2 smooth-hover">
+                                            class="text-gray-700 hover:text-orange-600 flex items-center space-x-2 smooth-hover mt-2">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6"
                                                 stroke="currentColor" fill="none">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -126,8 +147,7 @@
 
                                     <a href="/about"
                                         class="flex items-center space-x-1 text-gray-600 hover:text-orange-600 transition">
-                                        <!-- Icon: info circle -->
-                                        <svg class="w-4 h-4 text-gray-500 hover:text-orange-500" fill="none"
+                                        <svg class="w-8 h-8 text-gray-500 hover:text-orange-500" fill="none"
                                             stroke="currentColor" viewBox="0 0 24 24"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -137,45 +157,78 @@
                                     </a>
 
                                 </nav>
+                                <div id="mobileMenu"
+                                    class="hidden md:hidden px-4 pb-4 space-y-3 border-t border-gray-200">
+                                    <a href="/" class="block text-orange-600 font-semibold">Recipes</a>
+                                    <c:if test="${not empty sessionScope.loggedInUser}">
+                                        <a href="/marketList" class="block text-gray-700">Market List</a>
+                                        <a href="/addRecipe" class="block text-gray-700">Add Recipe</a>
+                                        <a href="/profile/${loggedInUser.id}" class="block text-gray-700">Profile</a>
+                                        <a href="/ingredientMatcher" class="block text-gray-700">Ingredient Matcher</a>
+                                    </c:if>
+                                    <a href="/about" class="block text-gray-700">About Us</a>
+
+                                    <c:if test="${loggedInUser != null}">
+                                        <a href="/logout"
+                                            class="block bg-gradient-to-r from-orange-500 to-pink-500 text-white text-center py-2 rounded-xl shadow-md">Logout</a>
+                                    </c:if>
+                                    <c:if test="${loggedInUser == null}">
+                                        <a href="/login"
+                                            class="block bg-gradient-to-r from-orange-500 to-pink-500 text-white text-center py-2 rounded-xl shadow-md">Login
+                                            / Register</a>
+                                    </c:if>
+                                </div>
                             </header>
 
-                            <div class="max-w-5xl mx-auto mt-10"><a href="/"
-                                    class="flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4"><svg
-                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" class="lucide lucide-arrow-left w-5 h-5"
-                                        aria-hidden="true">
+                            <main class="max-w-5xl mx-auto mt-10 px-4 md:px-0">
+
+                                <!-- Back Button -->
+                                <a href="/"
+                                    class="flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4 text-sm md:text-base">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none"
+                                        stroke="currentColor" stroke-width="2">
                                         <path d="m12 19-7-7 7-7"></path>
                                         <path d="M19 12H5"></path>
-                                    </svg>Back to recipes</a>
+                                    </svg>
+                                    Back to recipes
+                                </a>
+
                                 <div class="bg-white rounded-lg shadow-sm overflow-hidden">
-                                    <div class="relative h-96">
+
+                                    <!-- Image + Favorite -->
+                                    <div class="relative h-60 sm:h-80 md:h-96">
                                         <c:if test="${loggedInUser != null}">
                                             <button onclick="addToFavorites(this)" data-recipe-id="${recipe.id}"
-                                                class="p-2 absolute top-3 right-3 z-10 rounded-full backdrop-blur-sm transition-all bg-white/90 text-gray-600  ">
-
+                                                class="p-2 absolute top-3 right-3 z-10 rounded-full backdrop-blur-sm bg-white/90 text-gray-600 shadow-sm">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" <c:if
                                                     test="${isFavorited}">fill="red"
                                         </c:if>
                                         <c:if test="${!isFavorited}">fill="none"</c:if>
-                                        viewBox="0 0 24 24" stroke="currentColor"
-                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                        class="lucide lucide-bookmark" aria-hidden="true">
-                                        <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z">
-                                        </path>
+                                        stroke="currentColor" stroke-width="2">
+                                        <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"></path>
                                         </svg>
                                         </button>
                                         </c:if>
+
                                         <img src="${recipe.image}" alt="${recipe.title}"
                                             class="w-full h-full object-cover">
                                     </div>
-                                    <div class="p-6">
-                                        <div class="flex items-start justify-between mb-4">
+
+                                    <!-- Recipe Body -->
+                                    <div class="p-4 sm:p-6">
+
+                                        <!-- Title + Stats -->
+                                        <div
+                                            class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-4">
                                             <div class="flex-1">
-                                                <h1 class="mb-2">${recipe.title}</h1>
-                                                <div class="flex items-center gap-4 text-gray-600">
-                                                    <div class="flex items-center gap-1"><svg
-                                                            xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                <h1 class="text-xl sm:text-2xl font-bold mb-2">${recipe.title}</h1>
+
+                                                <div
+                                                    class="flex flex-wrap items-center gap-4 text-gray-600 text-sm sm:text-base">
+
+                                                    <!-- Rating -->
+                                                    <div class="flex items-center gap-1">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                             viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                             stroke-width="2" stroke-linecap="round"
                                                             stroke-linejoin="round"
@@ -184,20 +237,27 @@
                                                             <path
                                                                 d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z">
                                                             </path>
-                                                        </svg><span>${avarageRating}</span><span
-                                                            class="text-sm">(${totalComments} reviews)</span>
+                                                        </svg>
+                                                        <span>${avarageRating}</span>
+                                                        <span class="text-sm">(${totalComments} reviews)</span>
                                                     </div>
-                                                    <div class="flex items-center gap-1"><svg
-                                                            xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+
+                                                    <!-- Cooking Time -->
+                                                    <div class="flex items-center gap-1">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                             viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                             stroke-width="2" stroke-linecap="round"
                                                             stroke-linejoin="round" class="lucide lucide-clock w-5 h-5"
                                                             aria-hidden="true">
                                                             <path d="M12 6v6l4 2"></path>
                                                             <circle cx="12" cy="12" r="10"></circle>
-                                                        </svg><span>${recipe.cookingTime}</span></div>
-                                                    <div class="flex items-center gap-1"><svg
-                                                            xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        </svg>
+                                                        <span>${recipe.cookingTime}</span>
+                                                    </div>
+
+                                                    <!-- Calories -->
+                                                    <div class="flex items-center gap-1">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                             viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                             stroke-width="2" stroke-linecap="round"
                                                             stroke-linejoin="round"
@@ -205,132 +265,137 @@
                                                             aria-hidden="true">
                                                             <path d="M16 7h6v6"></path>
                                                             <path d="m22 7-8.5 8.5-5-5L2 17"></path>
-                                                        </svg><span>${recipe.calories} calories</span></div>
+                                                        </svg>
+                                                        <span>${recipe.calories} calories</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="flex gap-2 pt-1 mb-4">
+
+                                        <!-- Categories -->
+                                        <div class="flex flex-wrap gap-2 mb-4">
                                             <c:forEach var="cate"
                                                 items="${fn:split(fn:replace(fn:replace(recipe.category, '[', ''), ']', ''), ',')}">
                                                 <span class="bg-orange-50 text-orange-600 text-xs px-2 py-1 rounded">
                                                     ${fn:trim(fn:replace(cate, '"', ''))}
                                                 </span>
                                             </c:forEach>
-
                                         </div>
-                                        <div class="grid md:grid-cols-2 gap-8 mb-8">
-                                            <div>
-                                                <h2 class="mb-4">Ingredients</h2>
-                                                <c:forEach var="ingredient"
-                                                    items="${fn:split(fn:replace(fn:replace(recipe.ingredients, '[', ''), ']', ''), ',')}">
 
-                                                    <ul class="space-y-2">
-                                                        <li class="flex items-center gap-2 mt-2"><span
-                                                                class="text-orange-500">&#9830;</span><span>${fn:trim(fn:replace(ingredient,
-                                                                '"', ''))}</span>
-                                                        </li>
-                                                    </ul>
-                                                </c:forEach>
-                                            </div>
+                                        <!-- Ingredients + Instructions -->
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+
+                                            <!-- Ingredients -->
                                             <div>
-                                                <h2 class="mb-4">Instructions</h2>
+                                                <h2 class="text-lg font-semibold mb-4">Ingredients</h2>
+                                                <ul class="space-y-2">
+                                                    <c:forEach var="ingredient"
+                                                        items="${fn:split(fn:replace(fn:replace(recipe.ingredients, '[', ''), ']', ''), ',')}">
+                                                        <li class="flex items-center gap-2">
+                                                            <span class="text-orange-500">&#9830;</span>
+                                                            <span>${fn:trim(fn:replace(ingredient, '"', ''))}</span>
+                                                        </li>
+                                                    </c:forEach>
+                                                </ul>
+                                            </div>
+
+                                            <!-- Instructions -->
+                                            <div>
+                                                <h2 class="text-lg font-semibold mb-4">Instructions</h2>
                                                 <ol class="space-y-3">
                                                     <c:forEach var="instruction"
                                                         items="${fn:split(fn:replace(fn:replace(recipe.steps, '[', ''), ']', ''), ',')}">
-                                                        <li class="flex gap-3 items-center"><span
-                                                                class="flex-shrink-0 w-4 h-4 bg-orange-500 text-white rounded-full flex items-center justify-center text-sm"></span><span
-                                                                class="flex-1">${fn:trim(fn:replace(instruction,
-                                                                '"',
-                                                                ''))}</span></li>
+                                                        <li class="flex gap-3 items-center">
+                                                            <span
+                                                                class="w-4 h-4 bg-orange-500 text-white rounded-full flex items-center justify-center text-xs"></span>
+                                                            <span class="flex-1">${fn:trim(fn:replace(instruction, '"',
+                                                                ''))}</span>
+                                                        </li>
                                                     </c:forEach>
                                                 </ol>
                                             </div>
+
                                         </div>
+
+                                        <!-- Reviews Section -->
                                         <div class="border-t pt-6">
-                                            <div class="flex items-center justify-between mb-4">
-                                                <h2>Reviews (${totalComments})</h2>
+                                            <div
+                                                class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
+
+                                                <h2 class="text-lg font-semibold">Reviews (${totalComments})</h2>
+
+                                                <!-- Buttons -->
                                                 <c:if test="${loggedInUser != null}">
-                                                    <div class="flex gap-10">
+                                                    <div class="flex flex-wrap gap-3">
                                                         <button onclick="saveRecipe(this)" data-recipe-id="${recipe.id}"
                                                             id="addToMarket"
-                                                            class="flex items-center gap-2 bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors"><svg
-                                                                xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                height="24" viewBox="0 0 24 24" fill="none"
-                                                                stroke="currentColor" stroke-width="2"
-                                                                stroke-linecap="round" stroke-linejoin="round"
-                                                                class="lucide lucide-plus w-4 h-4" aria-hidden="true">
-                                                                <path d="M5 12h14"></path>
-                                                                <path d="M12 5v14"></path>
-                                                            </svg>Save Recipe</button>
+                                                            class="flex items-center gap-2 bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition">
+                                                            Save Recipe
+                                                        </button>
+
                                                         <button onclick="showReviewForm()"
-                                                            class="flex items-center gap-2 bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors"><svg
-                                                                xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                height="24" viewBox="0 0 24 24" fill="none"
-                                                                stroke="currentColor" stroke-width="2"
-                                                                stroke-linecap="round" stroke-linejoin="round"
-                                                                class="lucide lucide-plus w-4 h-4" aria-hidden="true">
-                                                                <path d="M5 12h14"></path>
-                                                                <path d="M12 5v14"></path>
-                                                            </svg>Add Review</button>
+                                                            class="flex items-center gap-2 bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition">
+                                                            Add Review
+                                                        </button>
                                                     </div>
                                                 </c:if>
                                             </div>
+
+                                            <!-- Add Review Form -->
                                             <form action="/recipe/${recipe.id}/review" method="post"
                                                 class="bg-gray-50 p-4 rounded-lg mb-6 hidden" id="reviewForm">
 
                                                 <div class="mb-4">
                                                     <label class="block text-sm mb-2">Rating</label>
-
                                                     <div id="starRating"
                                                         class="flex gap-1 text-gray-400 text-4xl cursor-pointer">
-                                                        <span class="star " data-value="1">&#9733;</span>
+                                                        <span class="star" data-value="1">&#9733;</span>
                                                         <span class="star" data-value="2">&#9733;</span>
                                                         <span class="star" data-value="3">&#9733;</span>
                                                         <span class="star" data-value="4">&#9733;</span>
                                                         <span class="star" data-value="5">&#9733;</span>
                                                     </div>
-
-                                                    <!-- This hidden input will store the selected rating -->
                                                     <input type="hidden" id="rating" name="rating" value="0">
                                                 </div>
 
-
                                                 <div class="mb-4">
                                                     <label class="block text-sm mb-2">Comment</label>
-                                                    <textarea name="reviewText" class="w-full px-3 py-2 border border-gray-300 rounded-lg 
-                                                      focus:outline-none focus:ring-2 focus:ring-orange-500" rows="3"
-                                                        required></textarea>
+                                                    <textarea name="reviewText"
+                                                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                                                        rows="3" required></textarea>
                                                 </div>
 
                                                 <div class="flex gap-2">
                                                     <button type="submit"
-                                                        class="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors">
+                                                        class="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition">
                                                         Submit Review
                                                     </button>
                                                     <button type="button" onclick="hideReviewForm()"
-                                                        class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition-colors">
+                                                        class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition">
                                                         Cancel
                                                     </button>
                                                 </div>
                                             </form>
 
+                                            <!-- All Reviews -->
                                             <div class="space-y-4">
                                                 <c:forEach items="${comments}" var="comment">
                                                     <div class="bg-gray-50 p-4 rounded-lg">
-                                                        <div class="flex items-center justify-between mb-2">
+                                                        <div class="flex items-start justify-between mb-2">
+
                                                             <div class="flex items-center gap-3">
                                                                 <div
                                                                     class="w-10 h-10 bg-orange-200 rounded-full flex items-center justify-center">
                                                                     ${comment.pubUser.name.charAt(0)}
                                                                 </div>
 
-
                                                                 <div>
-                                                                    <div>${comment.pubUser.name}</div>
+                                                                    <div class="font-semibold">${comment.pubUser.name}
+                                                                    </div>
+
                                                                     <div class="flex items-center gap-2">
                                                                         <div class="flex">
-                                                                            <c:forEach begin="1" end="${comment.rate}"
-                                                                                varStatus="status">
+                                                                            <c:forEach begin="1" end="${comment.rate}">
                                                                                 <svg xmlns="http://www.w3.org/2000/svg"
                                                                                     width="24" height="24"
                                                                                     viewBox="0 0 24 24" fill="none"
@@ -346,25 +411,29 @@
                                                                                 </svg>
                                                                             </c:forEach>
                                                                         </div>
-                                                                        <span class="text-sm text-black">
+
+                                                                        <span class="text-sm">
                                                                             <fmt:formatDate value="${comment.createdAt}"
                                                                                 pattern="dd/MM/yyyy" />
-                                                                        </span>
-
                                                                         </span>
                                                                     </div>
                                                                 </div>
                                                             </div>
+
                                                         </div>
+
                                                         <p class="text-gray-700">${comment.comment}</p>
                                                     </div>
                                                 </c:forEach>
-
                                             </div>
+
                                         </div>
+
                                     </div>
                                 </div>
-                            </div>
+
+                            </main>
+
                             <footer class="bg-gray-100 mt-12 py-6 text-center">
                                 <p class="text-gray-600">&copy; 2025 coockly. All rights reserved.</p>
                             </footer>

@@ -7,7 +7,9 @@
             <head>
                 <meta charset="UTF-8">
                 <title>Create New Recipe</title>
-                <script src="https://cdn.tailwindcss.com"></script>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+                <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
                 <style>
                     @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap');
 
@@ -23,10 +25,10 @@
             </head>
 
             <body class="min-h-screen">
+
+                <!-- Header -->
                 <header class="bg-white shadow-lg sticky top-0 z-50 px-10 smooth-hover">
                     <div class="flex justify-between px-6 py-5 items-center">
-
-
                         <div class="flex items-center space-x-4 smooth-hover">
                             <span
                                 class="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-orange-300 to-pink-300 text-orange-700 rounded-2xl shadow-md">
@@ -41,25 +43,48 @@
 
                             <div>
                                 <h1
-                                    class="text-3xl font-extrabold bg-gradient-to-r from-orange-600 to-pink-500 bg-clip-text text-transparent">
+                                    class="text-2xl sm:text-3xl md:text-4xl font-extrabold bg-gradient-to-r from-orange-600 to-pink-500 bg-clip-text text-transparent leading-tight">
                                     Smart Recipe Platform
                                 </h1>
-                                <span class="text-sm font-semibold text-gray-600">AI-Powered Recipe
-                                    Discovery</span>
+                                <span class="text-xs sm:text-sm md:text-base font-semibold text-gray-600">
+                                    AI-Powered Recipe Discovery
+                                </span>
                             </div>
+
                         </div>
 
+                        <div class="hidden md:flex items-center gap-4">
+                            <c:if test="${loggedInUser != null}">
+                                <a href="/logout"
+                                    class="bg-gradient-to-r from-orange-500 to-pink-500 text-white text-sm font-semibold py-2.5 px-5 rounded-xl shadow-xl hover:opacity-90 smooth-hover">Logout</a>
+                            </c:if>
+                            <c:if test="${loggedInUser == null}">
+                                <a href="/login"
+                                    class="bg-gradient-to-r from-orange-500 to-pink-500 text-white text-sm font-semibold py-2.5 px-5 rounded-xl shadow-xl hover:opacity-90 smooth-hover">
+                                    Login / Register
+                                </a>
+                            </c:if>
+                        </div>
+                        <div class="md:hidden flex items-center cursor-pointer">
+                            <button id="hamburgerBtn" class="text-gray-700 focus:outline-none"
+                                onclick="toggleMobileMenu()">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M4 6h16M4 12h16M4 18h16" />
+                                </svg>
+                            </button>
+                        </div>
+                        <script>
+                            function toggleMobileMenu() {
+                                const button = document.getElementById("hamburgerBtn");
+                                const mobileMenu = document.getElementById("mobileMenu");
+                                button.onclick = () => {
+                                    mobileMenu.classList.toggle("hidden");
+                                }
+                            }
+                        </script>
 
-                        <c:if test="${loggedInUser != null}">
-                            <a href="/logout"
-                                class="bg-gradient-to-r from-orange-500 to-pink-500 text-white text-sm font-semibold py-2.5 px-5 rounded-xl shadow-xl hover:opacity-90 smooth-hover">Logout</a>
-                        </c:if>
-                        <c:if test="${loggedInUser == null}">
-                            <a href="/login"
-                                class="bg-gradient-to-r from-orange-500 to-pink-500 text-white text-sm font-semibold py-2.5 px-5 rounded-xl shadow-xl hover:opacity-90 smooth-hover">
-                                Login / Register
-                            </a>
-                        </c:if>
                     </div>
 
 
@@ -97,7 +122,7 @@
                             </a>
 
                             <a href="/profile/${loggedInUser.id}"
-                                class="text-gray-700 hover:text-orange-600 flex items-center space-x-2 smooth-hover">
+                                class="text-gray-700 hover:text-orange-600 flex items-center space-x-2 smooth-hover mt-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" stroke="currentColor"
                                     fill="none">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -119,8 +144,7 @@
 
                         <a href="/about"
                             class="flex items-center space-x-1 text-gray-600 hover:text-orange-600 transition">
-                            <!-- Icon: info circle -->
-                            <svg class="w-4 h-4 text-gray-500 hover:text-orange-500" fill="none" stroke="currentColor"
+                            <svg class="w-8 h-8 text-gray-500 hover:text-orange-500" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M13 16h-1v-4h-1m1-4h.01M12 20a8 8 0 100-16 8 8 0 000 16z" />
@@ -129,68 +153,94 @@
                         </a>
 
                     </nav>
+                    <div id="mobileMenu" class="hidden md:hidden px-4 pb-4 space-y-3 border-t border-gray-200">
+                        <a href="/" class="block text-gray-700">Recipes</a>
+                        <c:if test="${not empty sessionScope.loggedInUser}">
+                            <a href="/marketList" class="block text-gray-700">Market List</a>
+                            <a href="/addRecipe" class="block text-orange-600 font-semibold">Add Recipe</a>
+                            <a href="/profile/${loggedInUser.id}" class="block text-gray-700">Profile</a>
+                            <a href="/ingredientMatcher" class="block text-gray-700">Ingredient Matcher</a>
+                        </c:if>
+                        <a href="/about" class="block text-gray-700">About Us</a>
+
+                        <c:if test="${loggedInUser != null}">
+                            <a href="/logout"
+                                class="block bg-gradient-to-r from-orange-500 to-pink-500 text-white text-center py-2 rounded-xl shadow-md">Logout</a>
+                        </c:if>
+                        <c:if test="${loggedInUser == null}">
+                            <a href="/login"
+                                class="block bg-gradient-to-r from-orange-500 to-pink-500 text-white text-center py-2 rounded-xl shadow-md">Login
+                                / Register</a>
+                        </c:if>
+                    </div>
                 </header>
 
-                <!-- Main card container -->
+                <!-- Main Card -->
                 <div
-                    class="relative w-full max-w-4xl bg-white rounded-3xl shadow-2xl p-10 overflow-hidden mt-20 mx-auto">
+                    class="relative w-full max-w-4xl mx-auto mt-10 sm:mt-16 bg-white rounded-3xl shadow-2xl p-6 sm:p-10 overflow-hidden">
 
-                    <!-- Decorative background circles -->
+                    <!-- Background Circles -->
                     <div
-                        class="absolute -top-20 -left-20 w-72 h-72 bg-orange-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse">
+                        class="absolute -top-20 -left-20 w-56 h-56 sm:w-72 sm:h-72 bg-orange-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse">
                     </div>
                     <div
-                        class="absolute -bottom-20 -right-20 w-72 h-72 bg-emerald-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse">
+                        class="absolute -bottom-20 -right-20 w-56 h-56 sm:w-72 sm:h-72 bg-emerald-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse">
                     </div>
-
-                    <!-- Quote -->
-                    <p class="text-center text-xl text-emerald-600 italic mb-6 relative z-10">"Cooking is the art of
-                        turning fresh ingredients into joy."</p>
 
                     <!-- Title -->
-                    <h1 class="text-4xl font-extrabold text-orange-500 mb-10 text-center relative z-10">Create New
-                        Recipe</h1>
+                    <h1
+                        class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-orange-500 mb-4 text-center relative z-10">
+                        Create New Recipe</h1>
+                    <p class="text-center text-gray-600 italic mb-8 relative z-10 text-sm sm:text-base">"Cooking is the
+                        art of turning fresh ingredients into joy."</p>
 
+                    <!-- Recipe Form -->
                     <form:form modelAttribute="recipe" action="/saveRecipe" method="post"
                         class="space-y-6 relative z-10">
 
-                        <!-- Recipe Title + Image -->
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Title + Image -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-gray-700 font-semibold mb-2">Recipe Title *</label>
+                                <label class="block text-gray-700 font-semibold mb-2 text-sm sm:text-base">Recipe Title
+                                    *</label>
                                 <form:input path="title" required="true"
-                                    cssClass="border border-emerald-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-opacity-50 hover:shadow-md transition" />
+                                    cssClass="border border-emerald-300 rounded-lg p-2 sm:p-3 w-full focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-opacity-50 hover:shadow-md transition" />
                             </div>
                             <div>
-                                <label class="block text-gray-700 font-semibold mb-2">Image URL *</label>
+                                <label class="block text-gray-700 font-semibold mb-2 text-sm sm:text-base">Image URL
+                                    *</label>
                                 <form:input path="image" required="true"
-                                    cssClass="border border-emerald-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-opacity-50 hover:shadow-md transition" />
+                                    cssClass="border border-emerald-300 rounded-lg p-2 sm:p-3 w-full focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-opacity-50 hover:shadow-md transition" />
                             </div>
                         </div>
 
                         <!-- Description -->
                         <div>
-                            <label class="block text-gray-700 font-semibold mb-2">Description *</label>
-                            <form:textarea path="description" required="true" rows="4"
-                                cssClass="border border-emerald-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-opacity-50 resize-none hover:shadow-md transition" />
+                            <label class="block text-gray-700 font-semibold mb-2 text-sm sm:text-base">Description
+                                *</label>
+                            <form:textarea path="description" required="true" rows="3"
+                                cssClass="border border-emerald-300 rounded-lg p-2 sm:p-3 w-full focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-opacity-50 resize-none hover:shadow-md transition" />
                         </div>
 
-                        <!-- Calories + Cooking Time + Category + Cuisine -->
-                        <div class="grid grid-cols-1 md:grid-cols-4 gap-6"> <!-- Updated to 4 columns to fit Cuisine -->
+                        <!-- Calories, Cooking Time, Category, Cuisine -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                             <div>
-                                <label class="block text-gray-700 font-semibold mb-2">Calories *</label>
+                                <label class="block text-gray-700 font-semibold mb-2 text-sm sm:text-base">Calories
+                                    *</label>
                                 <form:input path="calories" type="number" required="true"
-                                    cssClass="border border-emerald-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-opacity-50 hover:shadow-md transition" />
+                                    cssClass="border border-emerald-300 rounded-lg p-2 sm:p-3 w-full focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-opacity-50 hover:shadow-md transition" />
                             </div>
                             <div>
-                                <label class="block text-gray-700 font-semibold mb-2">Cooking Time *</label>
+                                <label class="block text-gray-700 font-semibold mb-2 text-sm sm:text-base">Cooking Time
+                                    *</label>
                                 <form:input path="cookingTime" type="text" required="true" placeholder="e.g., 30 min"
-                                    cssClass="border border-emerald-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-opacity-50 hover:shadow-md transition" />
+                                    cssClass="border border-emerald-300 rounded-lg p-2 sm:p-3 w-full focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-opacity-50 hover:shadow-md transition" />
                             </div>
                             <div>
-                                <label class="block text-gray-700 font-semibold mb-2">Category *</label>
+                                <label class="block text-gray-700 font-semibold mb-2 text-sm sm:text-base">Category
+                                    *</label>
                                 <form:select path="category" required="true"
-                                    cssClass="border border-emerald-300 rounded-lg p-3 w-full bg-white focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-opacity-50 hover:shadow-md transition">
+                                    cssClass="border border-emerald-300 rounded-lg p-2 sm:p-3 w-full bg-white focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-opacity-50 hover:shadow-md transition">
                                     <form:option value="" label="Select a category" />
                                     <form:option value="Main Dishes" label="Main Dishes" />
                                     <form:option value="Salads" label="Salads" />
@@ -199,42 +249,44 @@
                                     <form:option value="Vegan" label="Vegan" />
                                 </form:select>
                             </div>
-                            <!-- NEW: Cuisine Field -->
                             <div>
-                                <label class="block text-gray-700 font-semibold mb-2">Cuisine *</label>
+                                <label class="block text-gray-700 font-semibold mb-2 text-sm sm:text-base">Cuisine
+                                    *</label>
                                 <form:input path="cuisine" required="true" placeholder="e.g., Italian"
-                                    cssClass="border border-emerald-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-opacity-50 hover:shadow-md transition" />
+                                    cssClass="border border-emerald-300 rounded-lg p-2 sm:p-3 w-full focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-opacity-50 hover:shadow-md transition" />
                             </div>
                         </div>
 
                         <!-- Ingredients -->
                         <div>
-                            <label class="block text-gray-700 font-semibold mb-2">Ingredients *</label>
+                            <label class="block text-gray-700 font-semibold mb-2 text-sm sm:text-base">Ingredients
+                                *</label>
                             <form:textarea path="ingredients" required="true"
-                                placeholder="Write all ingredients here..." rows="4"
-                                cssClass="border border-emerald-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-opacity-50 resize-none hover:shadow-md transition" />
+                                placeholder="Write all ingredients here..." rows="3"
+                                cssClass="border border-emerald-300 rounded-lg p-2 sm:p-3 w-full focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-opacity-50 resize-none hover:shadow-md transition" />
                         </div>
 
                         <!-- Steps -->
                         <div>
-                            <label class="block text-gray-700 font-semibold mb-2">Steps *</label>
-                            <form:textarea path="steps" required="true" placeholder="Write all steps here..." rows="4"
-                                cssClass="border border-emerald-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-opacity-50 resize-none hover:shadow-md transition" />
+                            <label class="block text-gray-700 font-semibold mb-2 text-sm sm:text-base">Steps *</label>
+                            <form:textarea path="steps" required="true" placeholder="Write all steps here..." rows="3"
+                                cssClass="border border-emerald-300 rounded-lg p-2 sm:p-3 w-full focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-opacity-50 resize-none hover:shadow-md transition" />
                         </div>
 
                         <!-- Buttons -->
-                        <div class="flex flex-col md:flex-row gap-4 mt-8 justify-center">
-                            <button
-                                class="bg-gradient-to-r from-orange-400 to-emerald-500 text-white px-8 py-3 rounded-full font-semibold hover:scale-105 hover:shadow-xl transition-all duration-300">create
-                                Recipe</button>
-
+                        <div class="flex flex-col sm:flex-row gap-4 mt-6 justify-center">
+                            <button type="submit"
+                                class="bg-gradient-to-r from-orange-400 to-emerald-500 text-white px-6 sm:px-8 py-2 sm:py-3 rounded-full font-semibold hover:scale-105 hover:shadow-xl transition-all duration-300">
+                                Create Recipe
+                            </button>
                             <a href="/"
-                                class="bg-gray-200 text-gray-800 px-8 py-3 rounded-full font-semibold hover:bg-gray-300 hover:scale-105 transition-all duration-300 text-center shadow-sm">
+                                class="bg-gray-200 text-gray-800 px-6 sm:px-8 py-2 sm:py-3 rounded-full font-semibold hover:bg-gray-300 hover:scale-105 transition-all duration-300 text-center shadow-sm">
                                 Cancel
                             </a>
                         </div>
 
                     </form:form>
+                </div>
 
             </body>
 

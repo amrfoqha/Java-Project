@@ -223,9 +223,7 @@ public class Recipe {
         return (double) sum / comments.size();
     }
 
-    public void setAverageRating(double averageRating) {
-        this.averageRating = averageRating;
-    }
+    
 
     public void setUser(User user) {
     }
