@@ -44,7 +44,7 @@ public class RecipeController {
     }
     @PostMapping("/saveRecipe")
     public String saveRecipe(@Valid @ModelAttribute("recipe") Recipe recipe,
-                             BindingResult result, Model model, HttpSession session) {
+            BindingResult result, Model model, HttpSession session) {
         User loggedUser = (User) session.getAttribute("loggedInUser");
         if (loggedUser == null) {
             System.out.println("ERROR: No logged-in user in session. Redirecting to login.");
@@ -53,22 +53,23 @@ public class RecipeController {
 
         if (result.hasErrors()) {
             System.out.println("Validation errors: " + result.getAllErrors());
-            model.addAttribute("errors", result.getAllErrors());  
+            model.addAttribute("errors", result.getAllErrors());
             model.addAttribute("loggedUser", loggedUser);
-            return "AddRecipe.jsp";  
+            return "AddRecipe.jsp";
         }
 
         try {
             System.out.println("Logged in user ID: " + loggedUser.getId());
             recipeService.createRecipe(recipe, loggedUser);
             System.out.println("Recipe saved successfully. Redirecting to profile.");
-            return "redirect:/profile/" + loggedUser.getId();  
+            return "redirect:/profile/" + loggedUser.getId();
         } catch (Exception e) {
             System.out.println("Error saving recipe: " + e.getMessage());
-            e.printStackTrace();  
+            e.printStackTrace();
             model.addAttribute("error", "An error occurred while saving the recipe. Please try again.");
             model.addAttribute("loggedUser", loggedUser);
-            return "AddRecipe.jsp";  
+            return "AddRecipe.jsp";
+        }
     }
 
 

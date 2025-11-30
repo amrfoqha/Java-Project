@@ -43,10 +43,10 @@ public class RecipeService {
 
     public Recipe createRecipe(Recipe recipe, User user) {
         recipe.setPubUser(user);
-        String[] ingredients = recipe.getIngredients().split(" ");
+        String[] ingredients = recipe.getIngredients().split("\n");
         String ingredient = String.join(",", ingredients);
         recipe.setIngredients(ingredient);
-        String[] steps = recipe.getSteps().split(" ");
+        String[] steps = recipe.getSteps().split("\n");
         String step = String.join(",", steps);
         recipe.setSteps(step);
         return recipeRepo.save(recipe);
@@ -148,7 +148,7 @@ public class RecipeService {
 
         "7. cookingTime: return a short friendly time such as \"30 minutes\".\n" +
 
-        "8. image: return a realistic food image URL (if it Unsplash or Pexels return https://img.freepik.com/free-photo/top-view-banquet-with-lots-food_52683-101174.jpg?semt=ais_hybrid&w=740&q=80).\n\n" +
+        "8. image: return a realistic food image URL (Not Unsplash or Pexels).\n\n" +
 
         "Return valid JSON like this example:\n" +
         "{\n" +

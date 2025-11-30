@@ -147,7 +147,7 @@
                                         <span id="quoteContainer"
                                             class="text-white/90 text-lg italic smooth-hover">“Where taste
                                             meets tech.”</span>
-                                        <span class="font-semibold">250 / 1000</span>
+
                                     </div>
                                     <div class="w-full bg-white/25 rounded-full h-3">
                                         <div class="bg-white h-full rounded-full" style="width: 25%"></div>
