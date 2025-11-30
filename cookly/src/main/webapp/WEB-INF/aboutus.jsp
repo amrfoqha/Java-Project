@@ -141,7 +141,7 @@
                             <p>
                                 Our journey started with a simple idea: how can we make healthy cooking easier and more
                                 enjoyable for everyone?
-                                In 2024, we launched <span class="font-bold text-orange-600">Smart Recipe Planner</span>
+                                In 2025, we launched <span class="font-bold text-orange-600">Smart Recipe Planner</span>
                                 to become the first platform in the Arab world combining AI and culinary expertise.
                             </p>
                             <p>
@@ -188,7 +188,9 @@
                             <div class="text-center p-6 rounded-2xl hover:bg-orange-50 transition-all">
                                 <div
                                     class="w-20 h-20 bg-gradient-to-r from-orange-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                                    <i class="fas fa-sparkles text-white text-3xl"></i>
+                                    <i class="fa-solid fa-microchip text-3xl text-white"></i>
+                                    <span class="text-white text-xl ml-2">AI</span>
+
                                 </div>
                                 <h3 class="text-xl font-bold mb-2">Smart Recommendations</h3>
                                 <p class="text-gray-600 text-sm">AI-powered system suggests recipes based on your
@@ -197,7 +199,7 @@
 
                             <div class="text-center p-6 rounded-2xl hover:bg-green-50 transition-all">
                                 <div
-                                    class="w-20 h-20 bg-gradient-to-br from-green-500 to-teal-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                                    class="w-20 h-20 bg-gradient-to-r from-orange-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
                                     <i class="fas fa-calendar-alt text-white text-3xl"></i>
                                 </div>
                                 <h3 class="text-xl font-bold mb-2">Meal Planning</h3>

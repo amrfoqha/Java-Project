@@ -151,7 +151,7 @@
 
                         </div>
 
-                        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+                        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 mb-16">
 
 
                             <section class="mb-8">
@@ -363,7 +363,7 @@
                                 </nav>
                             </div>
                         </main>
-                        <footer class="bg-gray-100 mt-12 py-6 text-center fixed bottom-0 w-full">
+                        <footer class="bg-gray-100  py-6 text-center fixed bottom-0 w-full">
                             <p class="text-gray-600">&copy; 2025 coockly. All rights reserved.</p>
                         </footer>
 
