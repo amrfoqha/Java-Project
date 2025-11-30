@@ -9,5 +9,4 @@ public class CooklyApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(CooklyApplication.class, args);
 	}
-
 }

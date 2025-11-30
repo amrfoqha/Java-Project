@@ -4,6 +4,7 @@ import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -36,12 +37,12 @@ public class Comment {
     @Max(value = 5, message = "Rate must be between 0 and 5")
     private int rate = 0;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     @com.fasterxml.jackson.annotation.JsonIgnore
     private User pubUser;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "recipe_id")
     @com.fasterxml.jackson.annotation.JsonIgnore
     private Recipe pubRecipe;

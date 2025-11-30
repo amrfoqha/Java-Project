@@ -81,6 +81,9 @@ public class RecipeController {
         model.addAttribute("isFavorited", isFavorited);
         }
         Recipe recipe = recipeService.getRecipeById(id);
+        if (recipe == null) {
+            return "redirect:/";
+        }
         model.addAttribute("recipe", recipe);
         model.addAttribute("comments", recipe.getComments());
         model.addAttribute("totalComments", recipe.getComments().size());
@@ -93,7 +96,10 @@ public class RecipeController {
                 @RequestParam String reviewText,
                 @RequestParam int rating
     ) {
-
+        Recipe recipe = recipeService.getRecipeById(recipeId);
+        if (recipe == null) {
+            return "redirect:/";
+        }
         User user = (User) httpSession.getAttribute("loggedInUser");
         Comment comment = new Comment(reviewText, rating, user, recipeService.getRecipeById(recipeId));
         commentService.createComment(comment);
