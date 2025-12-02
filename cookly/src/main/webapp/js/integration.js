@@ -25,7 +25,7 @@ const ingredients = [];
                                 }
 
                                 submitBtn.textContent = "Searching...";
-                                
+
                                 submitBtn.disabled = true;
 
                                 fetch("/api/recipes/match", {

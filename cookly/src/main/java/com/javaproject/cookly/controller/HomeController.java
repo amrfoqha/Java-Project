@@ -35,9 +35,12 @@ public class HomeController {
                        Model model) {
 
         int pageSize = 9;
-
+                        
         Page<Recipe> recipePage = recipeService.getRecipesByPage(page, pageSize);
 
+        if (recipePage.isEmpty()) {
+            return "redirect:/";
+        }
         model.addAttribute("recipes", recipePage.getContent());
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", recipePage.getTotalPages());

@@ -1,9 +1,10 @@
 package com.javaproject.cookly.model;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -24,7 +25,7 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "recipes")
 public class Recipe {
@@ -43,7 +44,7 @@ public class Recipe {
     private String description;
 
     @NotBlank(message = "Ingredients must not be blank")
-    @Column(nullable = false)
+    @Column(nullable = false,columnDefinition = "TEXT")
     @Lob
     @Size(min = 2, max = 2500, message = "Ingredients must be between 2 and 2500 characters long")
     private String ingredients;
@@ -54,7 +55,7 @@ public class Recipe {
     private String cuisine;
 
     @NotBlank(message = "Steps must not be blank")
-    @Column(nullable = false)
+    @Column(nullable = false,columnDefinition = "TEXT")
     @Lob
     @Size(min = 2, max = 2500, message = "Steps must be between 2 and 2500 characters long")
     private String steps;

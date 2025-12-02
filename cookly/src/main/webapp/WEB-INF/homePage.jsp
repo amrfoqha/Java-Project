@@ -358,7 +358,7 @@
                                             <div
                                                 class="flex items-center justify-between text-yellow-500 text-sm font-semibold mb-2 gap-1 w-1/5">
                                                 <span>&#9733; <span
-                                                        class="text-red-700">${recipe.getAverageRating()}</span></span>
+                                                        class="text-red-700">${recipe.averageRating}</span></span>
                                                 <span
                                                     class="text-gray-500 font-normal">(${recipe.comments.size()})</span>
                                             </div>
