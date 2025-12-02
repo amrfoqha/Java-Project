@@ -106,62 +106,51 @@ public class RecipeService {
 
         return matchedRecipes.stream()
                 .filter(recipe -> {
+                    if (recipe.getIngredients() == null) {
+                        return false;
+                    }
                     String recipeIngredients = recipe.getIngredients().toLowerCase();
                     return userIngredients.stream()
+                            .filter(ui -> ui != null)
                             .allMatch(ui -> recipeIngredients.contains(ui.toLowerCase()));
                 })
                 .collect(Collectors.toList());
     }
 
     public Recipe generateRecipeWithAI(List<String> userIngredients) throws Exception {
+        if (userIngredients == null || userIngredients.isEmpty()) {
+            throw new IllegalArgumentException("Ingredients cannot be empty for AI generation");
+        }
         String prompt =
-        "You are an expert chef AI. Based on the following user ingredients: " +
-        String.join(", ", userIngredients) + ". " +
-        "Generate a realistic and coherent recipe that strictly matches these rules:\n\n" +
-        "Do NOT invent new ingredients. Use the field 'title' to say 'No recipe possible', 'description' to explain briefly, " +
-        "and set all other fields to empty values or arrays. Example:\n" +
-        "{\n" +
-        "  \"title\": \"No recipe possible\",\n" +
-        "  \"description\": \"It is not possible to make a dish with the provided ingredients.\",\n" +
-        "  \"category\": \"\",\n" +
-        "  \"cuisine\": \"\",\n" +
-        "  \"cookingTime\": \"\",\n" +
-        "  \"calories\": 0,\n" +
-        "  \"ingredients\": [],\n" +
-        "  \"steps\": [],\n" +
-        "  \"image\": \"https://example.com/default-food-image.jpg\"\n" +
-        "}\n\n" +
+    "You are an expert chef AI. Based on the following user ingredients: " +
+    String.join(", ", userIngredients) + ". " +
+    "Generate a realistic and coherent recipes that uses ONLY these ingredients. " +
+    "Return JSON only, with these fields: " +
+    "title, description, category, cuisine, cookingTime, calories, ingredients, steps, image.\n\n" +
 
-        "1. Return JSON only. No explanation.\n" +
-        "2. JSON fields: title, description, category, cuisine, cookingTime, calories, ingredients, steps, image.\n\n" +
+    "category MUST be one of: [\"main dish\", \"salads\", \"dessert\", \"healthy food\", \"vegan\"].\n" +
+    "calories MUST be a number only.\n" +
+    "ingredients: return array of ingredient names only.\n" +
+    "steps: return array of clear short steps.\n" +
+    "cookingTime: short friendly time, e.g., '30 minutes'.\n" +
+    "image: return a realistic food image URL.\n\n" +
+    "image: return a valid image URL.\n\n" +
+    "image: dont return Unsplash or Pexels images.\n\n" +
 
-        "3. category MUST be one of the following only (exact spelling): " +
-        "[\"main dish\", \"salads\", \"dessert\", \"healthy food\", \"vegan\"].\n" +
+    "Example valid JSON:\n" +
+    "{\n" +
+    "  \"title\": \"Grilled Chicken\",\n" +
+    "  \"description\": \"A simple grilled chicken with garlic, salt, and pepper.\",\n" +
+    "  \"category\": \"main dish\",\n" +
+    "  \"cuisine\": \"American\",\n" +
+    "  \"cookingTime\": \"25 minutes\",\n" +
+    "  \"calories\": 350,\n" +
+    "  \"ingredients\": [\"Chicken breast\", \"Olive oil\", \"Garlic\", \"Salt\", \"Black pepper\"],\n" +
+    "  \"steps\": [\"Marinate the chicken with olive oil, garlic, salt, and pepper\", " +
+    "\"Heat a grill pan\", \"Cook the chicken until fully done\"],\n" +
+    "  \"image\": \"https://...\"\n" +
+    "}";
 
-        "4. calories MUST be a number only (example: 450) with no text.\n" +
-
-        "5. ingredients: return an array of short ingredient names ONLY, each item without a comma inside it.\n" +
-        "   (Example: \"Olive oil\", \"Chicken breast\", \"Garlic cloves\")\n" +
-
-        "6. steps: return an array of clean steps, each step must NOT contain a comma.\n" +
-        "   Write each step as a short clear instruction.\n" +
-
-        "7. cookingTime: return a short friendly time such as \"30 minutes\".\n" +
-
-        "8. image: return a realistic food image URL (Not Unsplash or Pexels).\n\n" +
-
-        "Return valid JSON like this example:\n" +
-        "{\n" +
-        "  \"title\": \"...\",\n" +
-        "  \"description\": \"...\",\n" +
-        "  \"category\": \"...\",\n" +
-        "  \"cuisine\": \"...\",\n" +
-        "  \"cookingTime\": \"...\",\n" +
-        "  \"calories\": 450,\n" +
-        "  \"ingredients\": [\"...\", \"...\"],\n" +
-        "  \"steps\": [\"...\", \"...\"],\n" +
-        "  \"image\": \"...\"\n" +
-        "}";
 
 
         ObjectNode body = mapper.createObjectNode();
