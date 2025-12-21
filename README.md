@@ -1,5 +1,5 @@
 # Smart Recipe Platform
-
+Cookly
 ## 📌 Overview  
 Smart Recipe Platform is a modern AI-powered web application built with Java + Spring Boot (backend) and HTML/TailwindCSS/JavaScript (frontend). The platform helps users discover what to cook based on available ingredients, share and explore recipes, and reduces food waste — all within a friendly community.
 
